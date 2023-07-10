@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import react from '@vitejs/plugin-react';
-import envCompatible from 'vite-plugin-env-compatible';
+//import envCompatible from 'vite-plugin-env-compatible';
 
 type ViteConfigInput = {
   mode: string;
@@ -14,7 +14,7 @@ export default (args: ViteConfigInput) => {
     args.mode === 'production' ? '[hash:base64:6]' : '[local]_[hash:base64:6]';
 
   return defineConfig({
-    plugins: [react(), tsconfigPaths(), envCompatible()],
+    plugins: [react(), tsconfigPaths()],
     build: {
       outDir: 'build',
       chunkSizeWarningLimit: 4000,
