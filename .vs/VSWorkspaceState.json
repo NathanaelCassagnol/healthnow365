@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\amplify\\backend"
+    "\\amplify\\backend",
+    "\\src"
   ],
-  "SelectedNode": "\\amplify",
+  "SelectedNode": "\\vite.config.ts",
   "PreviewInSolutionExplorer": false
 }
