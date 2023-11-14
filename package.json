@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@angular/cli": "^17.0.0",
     "@aws-amplify/ui-react": "^4.2.0",
     "@vitejs/plugin-react": "^4.0.2",
     "aws-amplify": "^5.0.5",
