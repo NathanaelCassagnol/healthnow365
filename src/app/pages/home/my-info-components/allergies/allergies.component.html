@@ -1,0 +1,24 @@
+<table class="striped-hover-table w-100 pad-cells mt">
+    <thead>
+        <tr>
+            <th>Allergen</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Date Recorded</th>
+            <th>Reactions</th>
+        </tr>
+    </thead>
+    <tbody>
+    @for(allergy of allergies; track allergy.id) {
+        <tr>
+            <th scope="row">{{allergy.code?.text | titlecase}}</th>
+            <td>{{allergy.category}}</td>
+            <td>{{allergy.clinicalStatus.text}}</td>
+            <td>{{allergy.recordedDate}}</td>
+            <td>
+                <button mat-raised-button type="button" color="primary">See {{allergy.reaction.length}} reactions</button>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

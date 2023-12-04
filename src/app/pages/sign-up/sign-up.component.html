@@ -1,0 +1,82 @@
+<h1>Sign Up</h1>
+
+<ng-container *ngIf="page === 0">
+    <p>Progress bar 1 of 4</p>
+    <h2>I am a...</h2>
+    <button mat-raised-button color="primary" type="button" (click)="buttonPatient()">Patient</button>
+    <br />
+    <button mat-raised-button color="primary" type="button" style="margin-top: 16px;" (click)="buttonDoctor()">Doctor</button>
+</ng-container>
+
+<ng-container *ngIf="page === 1">
+    <p>Progress bar 2 of 4</p>
+    <h2>Personal Information</h2>
+    
+    <mat-form-field>
+        <mat-label>First name</mat-label>
+        <input matInput required>
+    </mat-form-field>
+    <mat-form-field style="margin-left: 25px;">
+        <mat-label>Last name</mat-label>
+        <input matInput required>
+    </mat-form-field>
+    <br />
+
+    <mat-form-field>
+        <mat-label>Date of birth</mat-label>
+        <input matInput required>
+    </mat-form-field>
+    <br />
+
+    <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput required>
+    </mat-form-field>
+    <mat-form-field style="margin-left: 25px;">
+        <mat-label>Phone</mat-label>
+        <input matInput required>
+    </mat-form-field>
+    <br />
+
+    <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput required>
+    </mat-form-field>
+    <br />
+
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput required>
+    </mat-form-field>
+    <mat-form-field style="margin-left: 25px;">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput required>
+    </mat-form-field>
+    <br />
+
+    <button mat-raised-button color="primary" type="button" (click)="personalInfo()">Continue</button>
+</ng-container>
+
+<ng-container *ngIf="page === 2">
+    <p>Progress bar 3 of 4</p>
+    <h2>2 factor authentication (optional)</h2>
+    <p>Insert 2FA components</p>
+    
+    <button mat-raised-button color="primary" type="button" (click)="skip2fa()">Skip</button>
+</ng-container>
+
+<ng-container *ngIf="page === 3">
+    <p>Progress bar 4 of 4</p>
+    <h2>Connect to a Healthcare Provider (optional)</h2>
+    <p>Insert healthcare provider components</p>
+    
+    <button mat-raised-button color="primary" type="button" (click)="skipProvider()">Skip</button>
+</ng-container>
+
+
+<ng-container *ngIf="page === 4">
+    <h2>All done!</h2>
+    <p>Return to the landing page to log in</p>
+    
+    <button mat-raised-button color="primary" type="button" routerLink="/landing">Return</button>
+</ng-container>
