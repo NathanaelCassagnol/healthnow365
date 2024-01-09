@@ -5,8 +5,8 @@
 @include mat.core();
 @include mat.all-component-typographies();
 
-$primary: mat.define-palette(mat.$yellow-palette);
-$accent: mat.define-palette(mat.$orange-palette);
+$primary: mat.define-palette(mat.$light-green-palette);
+$accent: mat.define-palette(mat.$teal-palette);
 $warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object. A theme consists of configurations for individual

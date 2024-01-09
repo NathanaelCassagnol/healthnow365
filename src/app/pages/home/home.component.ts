@@ -8,7 +8,9 @@ import { MatExpansionModule } from '@angular/material/expansion'
 import { DatePipe } from '@angular/common';
 import { DemographicsComponent } from './my-info-components/demographics/demographics.component';
 import { AllergiesComponent } from './my-info-components/allergies/allergies.component';
-import { mockAllergyIntolerance1 } from '../../types/mocks/allergy-intolerance';
+import { mockAllergyIntolerance1 } from '../../types/mocks/AllergyIntolerance/allergy-intolerance-1';
+import { mockAllergyIntolerance2 } from '../../types/mocks/AllergyIntolerance/allergy-intolerance-2';
+import { mockAllergyIntolerance3 } from '../../types/mocks/AllergyIntolerance/allergy-intolerance-3';
 
 @Component({
   selector: 'app-home',
@@ -32,8 +34,8 @@ export class HomeComponent implements OnInit {
   dataSource: document[] = [];
   myAllergies = [
     mockAllergyIntolerance1,
-    mockAllergyIntolerance1,
-    mockAllergyIntolerance1,
+    mockAllergyIntolerance2,
+    mockAllergyIntolerance3,
   ]
 
   ngOnInit(): void {
