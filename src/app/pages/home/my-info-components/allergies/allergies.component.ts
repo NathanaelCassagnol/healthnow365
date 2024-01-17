@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
-import { AllergyIntolerance } from "../../../../types/fhir/allergy-intolerance.types";
+import { AllergyIntolerance } from "../../../../../fhir/R6/types/Resource/allergy-intolerance.types";
 import { MatButtonModule } from "@angular/material/button";
 import { CommonModule, TitleCasePipe } from "@angular/common";
 import { MatIconModule } from "@angular/material/icon";
