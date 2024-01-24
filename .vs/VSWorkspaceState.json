@@ -1,9 +1,14 @@
 {
   "ExpandedNodes": [
     "",
+    "\\.angular",
     "\\src",
-    "\\src\\dev"
+    "\\src\\app\\config",
+    "\\src\\app\\pages",
+    "\\src\\app\\pages\\about",
+    "\\src\\app\\services",
+    "\\src\\app\\types"
   ],
-  "SelectedNode": "\\src\\main.ts",
+  "SelectedNode": "\\.prettierignore",
   "PreviewInSolutionExplorer": false
 }

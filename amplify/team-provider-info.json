@@ -10,6 +10,11 @@
       "StackName": "amplify-viteamplifydemo-main-223556",
       "StackId": "arn:aws:cloudformation:us-east-1:492922426570:stack/amplify-viteamplifydemo-main-223556/f84bcbc0-1ea8-11ee-8baf-0adbb38677dd",
       "AmplifyAppId": "d108qy3n1hrzwd"
+    },
+    "categories": {
+      "auth": {
+        "healthnow3651fe0c539": {}
+      }
     }
   }
 }
