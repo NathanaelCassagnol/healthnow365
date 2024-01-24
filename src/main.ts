@@ -3,10 +3,8 @@ import { appConfig } from './app/config/app.config';
 import { AppComponent } from './app/config/app.component';
 
 import { Amplify } from 'aws-amplify';
-//import amplifyconfig from './amplifyconfiguration.json';
-//Amplify.configure(amplifyconfig);
-import awsExports from './aws-exports';
-Amplify.configure(awsExports);
+import amplifyconfig from './amplifyconfiguration.json';
+Amplify.configure(amplifyconfig);
 
 bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));
