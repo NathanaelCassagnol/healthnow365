@@ -3,7 +3,7 @@ import { Observation } from "../../../types/Resource/observation.types";
 // https://hl7.org/fhir/R4/observation-example-bmi.json.html
 // Simple BMI Example
 
-export const mockObservationVitals1: Observation = {
+export const mockObservationVitals9: Observation = {
     "resourceType": "Observation",
     "id": "bmi",
     "meta": {

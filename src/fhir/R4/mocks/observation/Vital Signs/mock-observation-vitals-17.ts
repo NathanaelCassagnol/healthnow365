@@ -2,7 +2,7 @@ import { Observation } from "../../../types/Resource/observation.types";
 
 // https://hl7.org/fhir/R4/observation-example-map-sitting.json.html
 
-export const mockObservationVitals1: Observation = {
+export const mockObservationVitals17: Observation = {
     "resourceType": "Observation",
     "id": "map-sitting",
     "text": {

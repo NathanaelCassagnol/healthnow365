@@ -3,7 +3,7 @@ import { Observation } from "../../../types/Resource/observation.types";
 // https://hl7.org/fhir/R4/observation-example-mbp.json.html
 // Simple Mean Arterial Blood Pressure Example
 
-export const mockObservationVitals1: Observation = {
+export const mockObservationVitals14: Observation = {
     "resourceType": "Observation",
     "id": "mbp",
     "text": {

@@ -3,7 +3,7 @@ import { Patient } from "../../types/Resource/patient.types";
 // https://hl7.org/fhir/R4/patient-genetics-example1.json.html
 // Additional Genetics Example
 
-export const mockPatient1: Patient = {
+export const mockPatient17: Patient = {
     "resourceType": "Patient",
     "id": "genetics-example1",
     "meta": {

@@ -3,7 +3,7 @@ import { Observation } from "../../../types/Resource/observation.types";
 // https://hl7.org/fhir/R4/observation-example-bloodpressure-cancel.json.html
 // Blood Pressure Measurement cancelled
 
-export const mockObservationVitals1: Observation = {
+export const mockObservationVitals16: Observation = {
     "resourceType": "Observation",
     "id": "blood-pressure-cancel",
     "meta": {

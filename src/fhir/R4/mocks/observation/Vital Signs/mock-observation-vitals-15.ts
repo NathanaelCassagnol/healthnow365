@@ -3,7 +3,7 @@ import { Observation } from "../../../types/Resource/observation.types";
 // https://hl7.org/fhir/R4/observation-example-vitals-panel.json.html
 // Simple Panel of Heart Rate, Repiratory Rate. Blood Pressure and Body Temperature
 
-export const mockObservationVitals1: Observation = {
+export const mockObservationVitals15: Observation = {
     "resourceType": "Observation",
     "id": "vitals-panel",
     "meta": {

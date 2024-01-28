@@ -1,9 +1,10 @@
+import { Bundle } from "../../types/Resource/bundle.types";
 import { Patient } from "../../types/Resource/patient.types";
 
 // https://hl7.org/fhir/R4/patient-examples-cypress-template.json.html
 // Example People from cypress project
 
-export const mockPatient1: Patient = {
+export const mockPatient7Bundle: Bundle = {
     "resourceType": "Bundle",
     "id": "b0a5e4277-83c4-4adb-87e2-e3efe3369b6f",
     "meta": {

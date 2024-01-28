@@ -1,9 +1,10 @@
+import { Bundle } from "../../types/Resource/bundle.types";
 import { Patient } from "../../types/Resource/patient.types";
 
 // https://hl7.org/fhir/R4/patient-examples-general.json.html
 // Stock people (defined by HL7 publishing)
 
-export const mockPatient1: Patient = {
+export const mockPatient6Bundle: Bundle = {
     "resourceType": "Bundle",
     "id": "b248b1b2-1686-4b94-9936-37d7a5f94b51",
     "meta": {

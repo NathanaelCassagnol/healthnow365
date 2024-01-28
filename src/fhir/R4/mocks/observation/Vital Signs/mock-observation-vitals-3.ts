@@ -3,7 +3,7 @@ import { Observation } from "../../../types/Resource/observation.types";
 // https://hl7.org/fhir/R4/observation-example-respiratory-rate.json.html
 // Simple Respiratory Rate Example
 
-export const mockObservationVitals1: Observation = {
+export const mockObservationVitals3: Observation = {
     "resourceType": "Observation",
     "id": "respiratory-rate",
     "meta": {

@@ -3,7 +3,7 @@ import { Patient } from "../../types/Resource/patient.types";
 // https://hl7.org/fhir/R4/patient-example-mom.json.html
 // Mother of Newborn Patient Example
 
-export const mockPatient1: Patient = {
+export const mockPatient20: Patient = {
     "resourceType": "Patient",
     "id": "mom",
     "meta": {

@@ -3,7 +3,7 @@ import { Observation } from "../../../types/Resource/observation.types";
 // https://hl7.org/fhir/R4/observation-example-bloodpressure-dar.json.html
 // Blood Pressure Measurement with an absent Diastolic measurement
 
-export const mockObservationVitals1: Observation = {
+export const mockObservationVitals13: Observation = {
     "resourceType": "Observation",
     "id": "blood-pressure-dar",
     "meta": {

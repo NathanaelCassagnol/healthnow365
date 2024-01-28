@@ -3,7 +3,7 @@ import { Patient } from "../../types/Resource/patient.types";
 // https://hl7.org/fhir/R4/patient-glossy-example.json.html
 // Example for glossy
 
-export const mockPatient1: Patient = {
+export const mockPatient15: Patient = {
     "resourceType": "Patient",
     "id": "glossy",
     "meta": {

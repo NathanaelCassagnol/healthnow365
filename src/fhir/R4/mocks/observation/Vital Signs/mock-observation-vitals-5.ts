@@ -3,7 +3,7 @@ import { Observation } from "../../../types/Resource/observation.types";
 // https://hl7.org/fhir/R4/observation-example-body-temperature.json.html
 // Simple Body Temperature Example
 
-export const mockObservationVitals1: Observation = {
+export const mockObservationVitals5: Observation = {
     "resourceType": "Observation",
     "id": "body-temperature",
     "meta": {

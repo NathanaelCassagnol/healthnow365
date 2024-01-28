@@ -6,8 +6,9 @@ import { Person } from "./person.types";
 import { Organization } from "./organization.types";
 import { Observation } from "./observation.types";
 import { Patient } from "./patient.types";
+import { Bundle } from "./bundle.types";
 
-export type FHIRResource = Medication | AllergyIntolerance | Substance | Person | Organization | Observation | Patient;
+export type FHIRResource = Medication | AllergyIntolerance | Substance | Person | Organization | Observation | Patient | Bundle;
 
 // https://hl7.org/fhir/R4/resource.html
 export type Resource = {} & {

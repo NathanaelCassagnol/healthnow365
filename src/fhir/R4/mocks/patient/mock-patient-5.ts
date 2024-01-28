@@ -3,7 +3,7 @@ import { Patient } from "../../types/Resource/patient.types";
 // https://hl7.org/fhir/R4/patient-example-d.json.html
 // Deceased patient (using boolean)
 
-export const mockPatient1: Patient = {
+export const mockPatient5: Patient = {
     "resourceType": "Patient",
     "id": "pat4",
     "text": {

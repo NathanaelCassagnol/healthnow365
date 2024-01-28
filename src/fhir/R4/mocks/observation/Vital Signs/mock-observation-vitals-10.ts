@@ -3,7 +3,7 @@ import { Observation } from "../../../types/Resource/observation.types";
 // https://hl7.org/fhir/R4/observation-example-bmi-using-related.json.html
 // BMI with links to Height and Weight
 
-export const mockObservationVitals1: Observation = {
+export const mockObservationVitals10: Observation = {
     "resourceType": "Observation",
     "id": "bmi-using-related",
     "text": {

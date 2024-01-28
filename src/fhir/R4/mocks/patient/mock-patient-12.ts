@@ -3,7 +3,7 @@ import { Patient } from "../../types/Resource/patient.types";
 // https://hl7.org/fhir/R4/patient-example-ihe-pcd.json.html
 // Example from IHE-PCD example
 
-export const mockPatient1: Patient = {
+export const mockPatient12: Patient = {
     "resourceType": "Patient",
     "id": "ihe-pcd",
     "text": {

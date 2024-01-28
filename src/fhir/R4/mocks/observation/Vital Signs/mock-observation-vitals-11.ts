@@ -3,7 +3,7 @@ import { Observation } from "../../../types/Resource/observation.types";
 // https://hl7.org/fhir/R4/observation-example-satO2.json.html
 // Oxygen Saturation by Pulse Oximetry Example (DeviceMetricObservation profile)
 
-export const mockObservationVitals1: Observation = {
+export const mockObservationVitals11: Observation = {
     "resourceType": "Observation",
     "id": "satO2",
     "meta": {

@@ -3,7 +3,7 @@ import { Observation } from "../../../types/Resource/observation.types";
 // https://hl7.org/fhir/R4/observation-example.json.html
 // Simple Weight Example
 
-export const mockObservationVitals1: Observation = {
+export const mockObservationVitals2: Observation = {
     "resourceType": "Observation",
     "id": "example",
     "text": {

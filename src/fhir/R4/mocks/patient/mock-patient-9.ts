@@ -3,7 +3,7 @@ import { Patient } from "../../types/Resource/patient.types";
 // https://hl7.org/fhir/R4/patient-example-xds.json.html
 // XDS Patient
 
-export const mockPatient1: Patient = {
+export const mockPatient9: Patient = {
     "resourceType": "Patient",
     "id": "xds",
     "text": {

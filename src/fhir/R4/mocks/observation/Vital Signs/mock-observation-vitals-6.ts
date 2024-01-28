@@ -3,7 +3,7 @@ import { Observation } from "../../../types/Resource/observation.types";
 // https://hl7.org/fhir/R4/observation-example-body-height.json.html
 // Simple Body Height Example
 
-export const mockObservationVitals1: Observation = {
+export const mockObservationVitals6: Observation = {
     "resourceType": "Observation",
     "id": "body-height",
     "meta": {

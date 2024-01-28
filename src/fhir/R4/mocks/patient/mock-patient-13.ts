@@ -3,7 +3,7 @@ import { Patient } from "../../types/Resource/patient.types";
 // https://hl7.org/fhir/R4/patient-example-f001-pieter.json.html
 // Real-world patient example (anonymized)
 
-export const mockPatient1: Patient = {
+export const mockPatient13: Patient = {
     "resourceType": "Patient",
     "id": "f001",
     "text": {

@@ -3,7 +3,7 @@ import { Patient } from "../../types/Resource/patient.types";
 // https://hl7.org/fhir/R4/patient-example-proband.json.html
 // Genetic Risk Assessment Person
 
-export const mockPatient1: Patient = {
+export const mockPatient16: Patient = {
     "resourceType": "Patient",
     "id": "proband",
     "text": {

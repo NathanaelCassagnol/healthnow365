@@ -3,7 +3,7 @@ import { Observation } from "../../../types/Resource/observation.types";
 // https://hl7.org/fhir/R4/observation-example-head-circumference.json.html
 // Simple Head Circumference Example
 
-export const mockObservationVitals1: Observation = {
+export const mockObservationVitals8: Observation = {
     "resourceType": "Observation",
     "id": "head-circumference",
     "meta": {
