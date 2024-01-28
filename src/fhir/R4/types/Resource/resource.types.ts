@@ -1,12 +1,13 @@
-import { AllergyIntolerance } from "./allergy-intolerance.types";
 import { Extension, Element, id, uri, code, Narrative, instant, canonical, Coding } from "../basic-types"
+import { AllergyIntolerance } from "./allergy-intolerance.types";
 import { Medication } from "./medication.types";
 import { Substance } from "./substance.types";
 import { Person } from "./person.types";
 import { Organization } from "./organization.types";
 import { Observation } from "./observation.types";
+import { Patient } from "./patient.types";
 
-export type FHIRResource = Medication | AllergyIntolerance | Substance | Person | Organization | Observation;
+export type FHIRResource = Medication | AllergyIntolerance | Substance | Person | Organization | Observation | Patient;
 
 // https://hl7.org/fhir/R4/resource.html
 export type Resource = {} & {
