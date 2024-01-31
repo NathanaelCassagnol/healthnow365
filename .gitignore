@@ -4,6 +4,7 @@
 /.vs
 /.vscode
 .cert
+.vs/
 
 # Compiled output
 /dist
@@ -67,3 +68,6 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
+/.vs/VSWorkspaceState.json
+/.vs/slnx.sqlite
+/.vs/healthnow365/v17/.wsuo
