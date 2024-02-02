@@ -1,4 +1,4 @@
-import { Meta } from "./_resource.types";
+import { Meta, extendablePrimitives } from "./_resource.types";
 
 // https://hl7.org/fhir/R4/datatypes.html
 
@@ -37,7 +37,7 @@ export type AllFHIRTypesCode = code; // https://hl7.org/fhir/R4/valueset-all-typ
 // Properties should have a "reqired" comment iff it is not nullable
 
 // #region Element
-export type Element = {} & {
+export type Element = extendablePrimitives & {
     id?: string,
     extension?: Extension[]
 }

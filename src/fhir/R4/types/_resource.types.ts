@@ -11,7 +11,7 @@ import { Bundle } from "./bundle.types";
 export type FHIRResource = Medication | AllergyIntolerance | Substance | Person | Organization | Observation | Patient | Bundle;
 
 // https://hl7.org/fhir/R4/resource.html
-export type Resource = {} & {
+export type Resource = extendablePrimitives & {
     id?: id,
     meta?: Meta,
     implicitRules?: uri,
@@ -31,3 +31,12 @@ export type Meta = Element & {
     security?: Coding[],
     tag?: Coding[]
 }
+
+// A resource can have extensions to primitive elements, e.g. Patient.gender can be extended with Patient._gender, which is an Extension array
+// Applied to Resource and Element so it reaches nested properties
+/* Examples:
+mock-patient-2._gender
+mock-patient-3.contact[0].name._family
+mock-patient-19._birthDate
+mock-observation-assessment-3.contained[0]._birthDate*/
+export type extendablePrimitives = {[key: `_${string}`]: {extension: Extension[]}};

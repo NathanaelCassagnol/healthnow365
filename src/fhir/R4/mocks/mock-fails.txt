@@ -1,24 +1,10 @@
 Mock Fails:
 
-mock-patient-2       Underscore property
-mock-patient-3       Underscore property
-mock-patient-6       Underscore property
-mock-patient-7       Unknown resource: Bundle
-mock-patient-11      Underscore property
-mock-patient-19      Underscore property
-mock-patient-21      Underscore property
-mock-patient-22      Underscore property
-mock-observation-assessment-3   Underscore property
-mock-observation-assessment-4   Underscore property
-mock-observation-assessment-5   Underscore property
-mock-observation-assessment-6   Underscore property
-mock-observation-assessment-7   Underscore property
 mock-bundle-1        Unknown resources: Composition, Practitioner, Encounter, MedicationRequst, MedicationStatement
-mock-bundle-2        Unknown resource: MessageHeader; Underscore property
-mock-bundle-3        Unknown resource: MessageHeader, OperationOutcome; Underscore property
+mock-bundle-2        Unknown resource: MessageHeader
+mock-bundle-3        Unknown resource: MessageHeader, OperationOutcome
 mock-bundle-4        Unknown resource: MedicationRequst
 mock-bundle-5        Unknown resource: Parameters
 mock-bundle-6        Unknown resource: OperationOutcome, Parameters
-mock-bundle-8        Underscore property
-mock-bundle-10       Unknown resource: Condition; Underscore property
+mock-bundle-10       Unknown resource: Condition
 mock-bundle-11       Unknown resource: OperationOutcome
