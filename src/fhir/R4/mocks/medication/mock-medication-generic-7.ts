@@ -1,4 +1,4 @@
-import { Medication } from "../../types/Resource/medication.types";
+import { Medication } from "../../types/medication.types";
 
 // https://hl7.org/fhir/R4/medicationexample0316.json.html
 // Generic Formulation - Fully populated example of a Medication - Chlorthalidone

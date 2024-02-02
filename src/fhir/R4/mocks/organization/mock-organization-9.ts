@@ -1,4 +1,4 @@
-import { Organization } from "../../types/Resource/organization.types";
+import { Organization } from "../../types/organization.types";
 
 // https://hl7.org/fhir/R4/organization-example-f203-bumc.json.html
 // Real-world organization example (Blijdorp MC)

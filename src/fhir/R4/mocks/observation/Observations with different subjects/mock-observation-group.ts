@@ -1,4 +1,4 @@
-import { Observation } from "../../../types/Resource/observation.types";
+import { Observation } from "../../../types/observation.types";
 
 // https://hl7.org/fhir/R4/observation-example-herd1.json.html
 // An example of a herd screening ELISA assay for Mycoplasmal Pneumonia in Pigs.

@@ -1,4 +1,4 @@
-import { Extension, Element, id, uri, code, Narrative, instant, canonical, Coding } from "../basic-types"
+import { Extension, Element, id, uri, code, Narrative, instant, canonical, Coding } from "./_basic-types"
 import { AllergyIntolerance } from "./allergy-intolerance.types";
 import { Medication } from "./medication.types";
 import { Substance } from "./substance.types";

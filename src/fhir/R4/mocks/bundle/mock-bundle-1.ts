@@ -1,4 +1,4 @@
-import { Bundle } from "../../types/Resource/bundle.types";
+import { Bundle } from "../../types/bundle.types";
 
 // https://hl7.org/fhir/R4/document-example-dischargesummary.json.html
 // Example of a discharge summary

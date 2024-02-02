@@ -1,4 +1,4 @@
-import { Bundle } from "../../types/Resource/bundle.types";
+import { Bundle } from "../../types/bundle.types";
 
 // https://hl7.org/fhir/R4/message-response-link.json.html
 // A response to a request to link two patients

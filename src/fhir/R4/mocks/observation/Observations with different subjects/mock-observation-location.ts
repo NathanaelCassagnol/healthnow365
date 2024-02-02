@@ -1,4 +1,4 @@
-import { Observation } from "../../../types/Resource/observation.types";
+import { Observation } from "../../../types/observation.types";
 
 // https://hl7.org/fhir/R4/observation-example-vp-oyster.json.html
 // Example of an Observations made about a location - an oyster farm

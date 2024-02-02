@@ -1,4 +1,4 @@
-import { Observation } from "../../../types/Resource/observation.types";
+import { Observation } from "../../../types/observation.types";
 
 // https://hl7.org/fhir/R4/observation-example-trachcare.json.html
 // An example of capturing whether the mother is trained to change her child's tracheostomy tube. In this example, the child is the patient of record and the mother is the focus.

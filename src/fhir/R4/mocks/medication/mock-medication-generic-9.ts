@@ -1,4 +1,4 @@
-import { Medication } from "../../types/Resource/medication.types";
+import { Medication } from "../../types/medication.types";
 
 // https://hl7.org/fhir/R4/medicationexample0320.json.html
 // Generic Formulation - Azithromycin 250mg oral capsule - includes a reference to a substance in the Ingredient element

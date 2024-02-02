@@ -1,4 +1,4 @@
-import { Patient } from "../../types/Resource/patient.types";
+import { Patient } from "../../types/patient.types";
 
 // https://hl7.org/fhir/R4/patient-example-newborn.json.html
 // Newborn Patient Example

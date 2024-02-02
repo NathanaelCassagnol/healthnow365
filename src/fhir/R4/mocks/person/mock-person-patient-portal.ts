@@ -1,4 +1,4 @@
-import { Person } from "../../types/Resource/person.types";
+import { Person } from "../../types/person.types";
 
 // https://hl7.org/fhir/R4/person-patient-portal.json.html
 // Patient Portal Example

@@ -1,4 +1,4 @@
-import { Bundle } from "../../types/Resource/bundle.types";
+import { Bundle } from "../../types/bundle.types";
 
 // https://hl7.org/fhir/R4/bundle-response-simplesummary.json.html
 // Response for Retrieve a patient’s conditions, medication statements and blood pressure readings since a given date

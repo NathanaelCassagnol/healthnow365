@@ -1,4 +1,4 @@
-import { AllergyIntolerance } from "../../types/Resource/allergy-intolerance.types";
+import { AllergyIntolerance } from "../../types/allergy-intolerance.types";
 
 // A typical Medication allergy from a clinical system
 // https://hl7.org/fhir/R4/allergyintolerance-medication.json.html

@@ -1,4 +1,4 @@
-import { AllergyIntolerance } from "../../types/Resource/allergy-intolerance.types";
+import { AllergyIntolerance } from "../../types/allergy-intolerance.types";
 
 // https://hl7.org/fhir/R4/allergyintolerance-nkda.json.html
 // No Known Drug Allergy

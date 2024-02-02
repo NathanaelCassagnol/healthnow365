@@ -1,5 +1,5 @@
-import { BackboneElement, Identifier, Signature, decimal, instant, unsignedInt, uri } from "../basic-types";
-import { FHIRResource, Resource } from "./resource.types";
+import { BackboneElement, Identifier, Signature, decimal, instant, unsignedInt, uri } from "./_basic-types";
+import { FHIRResource, Resource } from "./_resource.types";
 
 export type Bundle = Resource & {
     resourceType: "Bundle";

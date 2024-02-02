@@ -1,4 +1,4 @@
-import { Bundle } from "../../types/Resource/bundle.types";
+import { Bundle } from "../../types/bundle.types";
 
 // https://hl7.org/fhir/R4/bundle-response-medsallergies.json.html
 // Response for Retrieve a patients medications, allergies, problems and immunizations

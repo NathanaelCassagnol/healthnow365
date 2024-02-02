@@ -1,4 +1,4 @@
-import { Observation } from "../../../types/Resource/observation.types";
+import { Observation } from "../../../types/observation.types";
 
 // https://hl7.org/fhir/R4/observation-example-genetics-3.json.html
 // Genetics example 3

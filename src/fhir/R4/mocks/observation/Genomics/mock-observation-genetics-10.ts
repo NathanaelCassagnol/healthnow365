@@ -1,4 +1,4 @@
-import { Observation } from "../../../types/Resource/observation.types";
+import { Observation } from "../../../types/observation.types";
 
 // https://hl7.org/fhir/R4/observation-example-TPMT-diplotype.json.html
 // Example of a TPMT diplotype that link to two TPMT haplotype observations

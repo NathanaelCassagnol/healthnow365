@@ -1,4 +1,4 @@
-import { Medication } from "../../types/Resource/medication.types";
+import { Medication } from "../../types/medication.types";
 
 // https://hl7.org/fhir/R4/medicationexample0321.json.html
 // Generic Formulation - Oral Chemotherapy Example - Capecitabine – includes a reference to a substance in the Ingredient element

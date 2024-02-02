@@ -1,5 +1,5 @@
-import { Address, Attachment, BackboneElement, ContactPoint, HumanName, Identifier, Reference, date } from "../basic-types";
-import { DomainResource } from "./resource.types";
+import { Address, Attachment, BackboneElement, ContactPoint, HumanName, Identifier, Reference, date } from "./_basic-types";
+import { DomainResource } from "./_resource.types";
 
 export type MaritalStatusCodes = 'A'|'D'|'I'|'L'|'M'|'C'|'P'|'T'|'U'|'S'|'W'|'UNK';
 export const MaritalStatusDictionary = {

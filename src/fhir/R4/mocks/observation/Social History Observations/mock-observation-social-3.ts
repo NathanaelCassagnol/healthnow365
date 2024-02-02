@@ -1,4 +1,4 @@
-import { Observation } from "../../../types/Resource/observation.types";
+import { Observation } from "../../../types/observation.types";
 
 // https://hl7.org/fhir/R4/observation-example-clinical-gender.json.html
 // Example of a clinical gender observation. For a discussion on representing a patient's gender the Patient Resource.

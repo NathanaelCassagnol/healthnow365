@@ -1,4 +1,4 @@
-import { Medication } from "../../types/Resource/medication.types";
+import { Medication } from "../../types/medication.types";
 
 // https://hl7.org/fhir/R4/medicationexample0315.json.html
 // Generic Formulation - Mometasone Furoate 0.05mg/Actuat

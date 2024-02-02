@@ -1,4 +1,4 @@
-import { Meta } from "./Resource/resource.types";
+import { Meta } from "./_resource.types";
 
 // https://hl7.org/fhir/R4/datatypes.html
 

@@ -1,5 +1,5 @@
-import { Bundle } from "../../types/Resource/bundle.types";
-import { Patient } from "../../types/Resource/patient.types";
+import { Bundle } from "../../types/bundle.types";
+import { Patient } from "../../types/patient.types";
 
 // https://hl7.org/fhir/R4/patient-examples-general.json.html
 // Stock people (defined by HL7 publishing)

@@ -1,5 +1,5 @@
-import { Annotation, CodeableConcept, Identifier, Period, Quantity, Ratio, Range, Reference, SampledData, SimpleQuantity, Timing, dateTime, instant, integer, time, BackboneElement } from "../basic-types";
-import { DomainResource } from "./resource.types";
+import { Annotation, CodeableConcept, Identifier, Period, Quantity, Ratio, Range, Reference, SampledData, SimpleQuantity, Timing, dateTime, instant, integer, time, BackboneElement } from "./_basic-types";
+import { DomainResource } from "./_resource.types";
 
 // https://build.fhir.org/observation.html
 export type Observation = DomainResource & ObservationComponent & {

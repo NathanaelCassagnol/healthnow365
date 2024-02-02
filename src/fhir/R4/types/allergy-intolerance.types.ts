@@ -1,5 +1,5 @@
-import { Annotation, CodeableConcept, dateTime, Identifier, Period, Reference, Age, BackboneElement } from "../basic-types"
-import { DomainResource } from "./resource.types"
+import { Annotation, CodeableConcept, dateTime, Identifier, Period, Reference, Age, BackboneElement } from "./_basic-types"
+import { DomainResource } from "./_resource.types"
 
 // https://hl7.org/fhir/R4/allergyintolerance.html
 export type AllergyIntolerance = DomainResource & {

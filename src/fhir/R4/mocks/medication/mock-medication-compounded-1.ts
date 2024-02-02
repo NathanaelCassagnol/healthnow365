@@ -1,4 +1,4 @@
-import { Medication } from "../../types/Resource/medication.types";
+import { Medication } from "../../types/medication.types";
 
 // https://hl7.org/fhir/R4/medicationexample0317.json.html
 // Compounded Preparation - KCl in D5W Admixture - includes a reference to a substance in the ingredient element

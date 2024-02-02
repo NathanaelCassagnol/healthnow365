@@ -1,5 +1,5 @@
-import { Address, Attachment, BackboneElement, CodeableConcept, ContactPoint, HumanName, Identifier, Period, Reference, date, dateTime, integer } from "../basic-types";
-import { DomainResource } from "./resource.types";
+import { Address, Attachment, BackboneElement, CodeableConcept, ContactPoint, HumanName, Identifier, Period, Reference, date, dateTime, integer } from "./_basic-types";
+import { DomainResource } from "./_resource.types";
 
 export type Patient = DomainResource & {
     resourceType: "Patient";

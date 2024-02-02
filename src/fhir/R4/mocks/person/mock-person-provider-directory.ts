@@ -1,4 +1,4 @@
-import { Person } from "../../types/Resource/person.types";
+import { Person } from "../../types/person.types";
 
 // https://hl7.org/fhir/R4/person-provider-directory.json.html
 // Provider Directory Example

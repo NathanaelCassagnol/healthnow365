@@ -1,5 +1,5 @@
-import { BackboneElement, CodeableConcept, Identifier, Ratio, Reference, SimpleQuantity, dateTime } from "../basic-types";
-import { DomainResource } from "./resource.types";
+import { BackboneElement, CodeableConcept, Identifier, Ratio, Reference, SimpleQuantity, dateTime } from "./_basic-types";
+import { DomainResource } from "./_resource.types";
 
 // https://build.fhir.org/substance.html
 export type Substance = DomainResource & {

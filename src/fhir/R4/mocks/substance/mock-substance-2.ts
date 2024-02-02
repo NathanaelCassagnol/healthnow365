@@ -1,4 +1,4 @@
-import { Substance } from "../../types/Resource/substance.types";
+import { Substance } from "../../types/substance.types";
 
 // https://hl7.org/fhir/R4/substance-example-f201-dust.json.html
 // Dust Mite Example

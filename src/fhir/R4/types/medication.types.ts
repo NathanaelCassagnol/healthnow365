@@ -1,5 +1,5 @@
-import { BackboneElement, CodeableConcept, Identifier, Ratio, Reference, dateTime } from "../basic-types";
-import { DomainResource } from "./resource.types";
+import { BackboneElement, CodeableConcept, Identifier, Ratio, Reference, dateTime } from "./_basic-types";
+import { DomainResource } from "./_resource.types";
 
 export type Medication = DomainResource & {
     resourceType: "Medication",
