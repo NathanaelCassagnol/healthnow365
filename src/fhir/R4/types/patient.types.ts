@@ -22,17 +22,17 @@ export type Patient = DomainResource & {
         telecom?: ContactPoint[];
         address?: Address;
         gender?: 'male' | 'female' | 'other' | 'unknown';
-        organization?: Reference; // Reference(Organization)
+        organization?: Reference;
         period?: Period;
     })[];
     communication?: (BackboneElement & {
-        language: CodeableConcept; // required
+        language: CodeableConcept;
         preferred?: boolean;
     })[];
-    generalPractitioner?: Reference[]; // Reference(Organizaiton | Practitioner | PractitionerRole)
-    managingOrganization?: Reference; // Reference(Organization)
+    generalPractitioner?: Reference[];
+    managingOrganization?: Reference;
     link?: (BackboneElement & {
-        other: Reference; // required; Reference(Patient | RelatedPerson)
-        type: 'replaced-by' | 'replaces' | 'refer' | 'seealso'; // required
+        other: Reference;
+        type: 'replaced-by' | 'replaces' | 'refer' | 'seealso';
     })[];
 }

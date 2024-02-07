@@ -27,10 +27,10 @@ export type Person = DomainResource & {
     birthDate?: date,
     address?: Address[],
     photo?: Attachment,
-    managingOrganization?: Reference, // Reference(Organization)
+    managingOrganization?: Reference,
     active?: boolean,
     link?: (BackboneElement & {
-        target: Reference, // required; Reference(Patient | Practitioner | RelatedPerson | Person)
+        target: Reference,
         assurance?: "level1" | "level2" | "level3" | "level4"
     })[]
 }

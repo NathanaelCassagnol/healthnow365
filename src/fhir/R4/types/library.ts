@@ -1,0 +1,38 @@
+import { Identifier, CodeableConcept, dateTime, ContactDetail, markdown, UsageContext, date, Period, Contributor, RelatedArtifact, ParameterDefinition, DataRequirement, uri, Reference, Attachment } from "./_basic-types"
+import { DomainResource } from "./_resource.types"
+
+export type Library = DomainResource & {
+    resourceType: "Library",
+    url?: uri,
+    identifier?: Identifier[],
+    version?: string,
+    name?: string,
+    title?: string,
+    subtitle?: string,
+    status: "draft" | "active" | "retired" | "unknown",
+    experimental?: boolean,
+    type: CodeableConcept,
+    subjectCodeableConcept?: CodeableConcept,
+    subjectReference?: Reference,
+    date?: dateTime,
+    publisher?: string,
+    contact?: ContactDetail[],
+    description?: markdown,
+    useContext?: UsageContext[],
+    jurisdiction?: CodeableConcept[],
+    purpose?: markdown,
+    usage?: string,
+    copyright?: markdown,
+    approvalDate?: date,
+    lastReviewDate?: date,
+    effectivePeriod?: Period,
+    topic?: CodeableConcept[],
+    author?: ContactDetail[],
+    editor?: ContactDetail[],
+    reviewer?: ContactDetail[],
+    endorser?: ContactDetail[],
+    relatedArtifact?: RelatedArtifact[],
+    parameter?: ParameterDefinition[],
+    dataRequirement?: DataRequirement[],
+    content?: Attachment[]
+}

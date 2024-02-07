@@ -11,12 +11,12 @@ export type Organization = DomainResource & {
     alias?: string[];
     telecom?: ContactPoint[];
     address?: Address[];
-    partOf?: Reference; // Reference(Organization)
+    partOf?: Reference;
     contact?: (BackboneElement & {
         purpose?: CodeableConcept;
         name?: HumanName;
         telecom?: ContactPoint[];
         address?: Address;
     })[],
-    endpoint?: Reference[]; // Reference(Endpoint)
+    endpoint?: Reference[];
 }

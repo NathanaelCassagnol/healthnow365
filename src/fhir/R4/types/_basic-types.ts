@@ -21,6 +21,13 @@ export type unsignedInt = number;
 export type positiveInt = number;
 export type uuid = string;
 export type xhtml = string;
+
+export type anyBasicType = base64Binary | boolean | canonical | code | date | dateTime | decimal | id |
+instant | integer | markdown | oid | positiveInt | string | time | unsignedInt | uri | url | uuid |
+//FHIR-specific types
+Address | Age | Annotation | Attachment | CodeableConcept | Coding | ContactPoint | Count | Distance | Duration | HumanName | 
+Identifier | Money | Period | Quantity | Range | Ratio | Reference | SampledData | Signature | Timing | ContactDetail | 
+Contributor | DataRequirement | Expression | ParameterDefinition | RelatedArtifact | TriggerDefinition | UsageContext | Dosage | Meta
 // #endregion
 
 // #region Codes
@@ -278,7 +285,7 @@ export type DataRequirement = Element & {
     mustSupport?: string[],
     codeFilter?: (Element & {
         // + Rule: Either a path or a searchParam must be provided, but not both
-        oath?: string,
+        path?: string,
         searchParam?: string,
         valueSet?: canonical, // canonical (ValueSet)
         code?: Coding[]

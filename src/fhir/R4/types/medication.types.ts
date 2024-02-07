@@ -6,12 +6,12 @@ export type Medication = DomainResource & {
     identifier?: Identifier[],
     code?: CodeableConcept,
     status?: "active"|"inactive"|"entered-in-error",
-    manufacturer?: Reference, // Reference(Organization)
+    manufacturer?: Reference,
     form?: CodeableConcept,
     amount?: Ratio,
     ingredient?: (BackboneElement & {
         itemCodeableConcept?: CodeableConcept,
-        itemReference?: Reference, // Reference(Substance | Medication)
+        itemReference?: Reference,
         isActive?: boolean,
         strength?: Ratio,
     })[],

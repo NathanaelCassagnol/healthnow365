@@ -3,8 +3,8 @@ import { FHIRResource, Resource } from "./_resource.types";
 
 export type Bundle = Resource & {
     resourceType: "Bundle";
-    identifier?: Identifier; // Not an array in the specs
-    type: 'document' | 'message' | 'transaction' | 'transaction-response' | 'batch' | 'batch-response' | 'history' | 'searchset' | 'collection'; // required
+    identifier?: Identifier;
+    type: 'document' | 'message' | 'transaction' | 'transaction-response' | 'batch' | 'batch-response' | 'history' | 'searchset' | 'collection';
     timestamp?: instant;
     total?: unsignedInt;
     link?: BundleLink[];
@@ -17,15 +17,15 @@ export type Bundle = Resource & {
             score?: decimal;
         }
         request?: BackboneElement & {
-            method: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'; // required
-            url: uri; // required
+            method: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+            url: uri;
             ifNoneMatch?: string;
             ifModifiedSince?: instant;
             ifMatch?: string;
             ifNoneExist?: string;
         }
         response?: BackboneElement & {
-            status: string; // required
+            status: string;
             location?: uri;
             etag?: string;
             lastModified?: instant;
@@ -36,6 +36,6 @@ export type Bundle = Resource & {
 }
 
 type BundleLink = (BackboneElement & {
-    relation: string; // required
-    url: uri; // required
+    relation: string;
+    url: uri;
 });

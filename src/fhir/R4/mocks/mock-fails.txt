@@ -8,3 +8,10 @@ mock-bundle-5        Unknown resource: Parameters
 mock-bundle-6        Unknown resource: OperationOutcome, Parameters
 mock-bundle-10       Unknown resource: Condition
 mock-bundle-11       Unknown resource: OperationOutcome
+mock-healthcare-service-1       Unknown resource: Location
+mock-task-1
+mock-encounter-2
+mock-list-5
+mock-list-6
+mock-list-7
+mock-list-9

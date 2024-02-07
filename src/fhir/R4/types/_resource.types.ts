@@ -7,8 +7,11 @@ import { Organization } from "./organization.types";
 import { Observation } from "./observation.types";
 import { Patient } from "./patient.types";
 import { Bundle } from "./bundle.types";
+import { Practitioner } from "./practitioner";
+import { PractitionerRole } from "./practitioner-role";
+import { Endpoint } from "./endpoint";
 
-export type FHIRResource = Medication | AllergyIntolerance | Substance | Person | Organization | Observation | Patient | Bundle;
+export type FHIRResource = Medication | AllergyIntolerance | Substance | Person | Organization | Observation | Patient | Bundle | Practitioner | PractitionerRole | Endpoint;
 
 // https://hl7.org/fhir/R4/resource.html
 export type Resource = extendablePrimitives & {
