@@ -1,2 +1,8 @@
 element-definition
 structure-definition
+specimen
+questionaire-response
+procedure
+molecular-sequence
+media
+imaging-study
