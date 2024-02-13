@@ -1,166 +1,70 @@
 # this is an auto generated file. This will be overwritten
 
-subscription OnCreateBlog($filter: ModelSubscriptionBlogFilterInput) {
-  onCreateBlog(filter: $filter) {
+subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
+  onCreateUser(filter: $filter) {
     id
-    name
-    posts {
-      nextToken
-      __typename
-    }
+    first_name
+    last_name
+    username
+    email
+    phone_number
+    birth_date
+    address_line_one
+    address_line_two
+    address_city
+    address_state
+    address_country
+    address_zip_code
+    age
+    gender
     createdAt
     updatedAt
     __typename
   }
 }
 
-subscription OnUpdateBlog($filter: ModelSubscriptionBlogFilterInput) {
-  onUpdateBlog(filter: $filter) {
+subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
+  onUpdateUser(filter: $filter) {
     id
-    name
-    posts {
-      nextToken
-      __typename
-    }
+    first_name
+    last_name
+    username
+    email
+    phone_number
+    birth_date
+    address_line_one
+    address_line_two
+    address_city
+    address_state
+    address_country
+    address_zip_code
+    age
+    gender
     createdAt
     updatedAt
     __typename
   }
 }
 
-subscription OnDeleteBlog($filter: ModelSubscriptionBlogFilterInput) {
-  onDeleteBlog(filter: $filter) {
+subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
+  onDeleteUser(filter: $filter) {
     id
-    name
-    posts {
-      nextToken
-      __typename
-    }
+    first_name
+    last_name
+    username
+    email
+    phone_number
+    birth_date
+    address_line_one
+    address_line_two
+    address_city
+    address_state
+    address_country
+    address_zip_code
+    age
+    gender
     createdAt
     updatedAt
-    __typename
-  }
-}
-
-subscription OnCreatePost($filter: ModelSubscriptionPostFilterInput) {
-  onCreatePost(filter: $filter) {
-    id
-    title
-    blog {
-      id
-      name
-      createdAt
-      updatedAt
-      __typename
-    }
-    comments {
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    blogPostsId
-    __typename
-  }
-}
-
-subscription OnUpdatePost($filter: ModelSubscriptionPostFilterInput) {
-  onUpdatePost(filter: $filter) {
-    id
-    title
-    blog {
-      id
-      name
-      createdAt
-      updatedAt
-      __typename
-    }
-    comments {
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    blogPostsId
-    __typename
-  }
-}
-
-subscription OnDeletePost($filter: ModelSubscriptionPostFilterInput) {
-  onDeletePost(filter: $filter) {
-    id
-    title
-    blog {
-      id
-      name
-      createdAt
-      updatedAt
-      __typename
-    }
-    comments {
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    blogPostsId
-    __typename
-  }
-}
-
-subscription OnCreateComment($filter: ModelSubscriptionCommentFilterInput) {
-  onCreateComment(filter: $filter) {
-    id
-    post {
-      id
-      title
-      createdAt
-      updatedAt
-      blogPostsId
-      __typename
-    }
-    content
-    createdAt
-    updatedAt
-    postCommentsId
-    __typename
-  }
-}
-
-subscription OnUpdateComment($filter: ModelSubscriptionCommentFilterInput) {
-  onUpdateComment(filter: $filter) {
-    id
-    post {
-      id
-      title
-      createdAt
-      updatedAt
-      blogPostsId
-      __typename
-    }
-    content
-    createdAt
-    updatedAt
-    postCommentsId
-    __typename
-  }
-}
-
-subscription OnDeleteComment($filter: ModelSubscriptionCommentFilterInput) {
-  onDeleteComment(filter: $filter) {
-    id
-    post {
-      id
-      title
-      createdAt
-      updatedAt
-      blogPostsId
-      __typename
-    }
-    content
-    createdAt
-    updatedAt
-    postCommentsId
     __typename
   }
 }

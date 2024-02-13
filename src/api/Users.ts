@@ -1,6 +1,6 @@
 import { Auth, API, graphqlOperation } from 'aws-amplify';
 import { format, differenceInYears } from 'date-fns';
-
+import { CreateUser } from '';
 import { signUp, signOut } from 'aws-amplify/auth';
 
 type SignUpParameters = {
@@ -16,7 +16,15 @@ interface UserData {
   username: string;
   email: string;
   birth_date: Date;
-  // Add other optional fields here
+
+  address_line_one?: String;
+  address_line_two?: String;
+  address_city?: String;
+  address_state?: String;
+  address_country?: String;
+  address_zip_code?: String;
+  age?: Number;
+  gender?: String;
 }
 
 interface CreateUserResponse {
@@ -189,7 +197,7 @@ export async function CreateUser(user_data: UserData, profile_picture?: File[]):
         num_unread_notifications: Int
  */
 
-export async function CreateUser(user_data, profile_picture) {
+export async function CreateUserOld(user_data, profile_picture) {
   // Create User
   // TODO add IP Log
   // //console.log('Entered CreateUser', user_data);

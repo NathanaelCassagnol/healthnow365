@@ -1,193 +1,79 @@
 # this is an auto generated file. This will be overwritten
 
-mutation CreateBlog(
-  $input: CreateBlogInput!
-  $condition: ModelBlogConditionInput
+mutation CreateUser(
+  $input: CreateUserInput!
+  $condition: ModelUserConditionInput
 ) {
-  createBlog(input: $input, condition: $condition) {
+  createUser(input: $input, condition: $condition) {
     id
-    name
-    posts {
-      nextToken
-      __typename
-    }
+    first_name
+    last_name
+    username
+    email
+    phone_number
+    birth_date
+    address_line_one
+    address_line_two
+    address_city
+    address_state
+    address_country
+    address_zip_code
+    age
+    gender
     createdAt
     updatedAt
     __typename
   }
 }
 
-mutation UpdateBlog(
-  $input: UpdateBlogInput!
-  $condition: ModelBlogConditionInput
+mutation UpdateUser(
+  $input: UpdateUserInput!
+  $condition: ModelUserConditionInput
 ) {
-  updateBlog(input: $input, condition: $condition) {
+  updateUser(input: $input, condition: $condition) {
     id
-    name
-    posts {
-      nextToken
-      __typename
-    }
+    first_name
+    last_name
+    username
+    email
+    phone_number
+    birth_date
+    address_line_one
+    address_line_two
+    address_city
+    address_state
+    address_country
+    address_zip_code
+    age
+    gender
     createdAt
     updatedAt
     __typename
   }
 }
 
-mutation DeleteBlog(
-  $input: DeleteBlogInput!
-  $condition: ModelBlogConditionInput
+mutation DeleteUser(
+  $input: DeleteUserInput!
+  $condition: ModelUserConditionInput
 ) {
-  deleteBlog(input: $input, condition: $condition) {
+  deleteUser(input: $input, condition: $condition) {
     id
-    name
-    posts {
-      nextToken
-      __typename
-    }
+    first_name
+    last_name
+    username
+    email
+    phone_number
+    birth_date
+    address_line_one
+    address_line_two
+    address_city
+    address_state
+    address_country
+    address_zip_code
+    age
+    gender
     createdAt
     updatedAt
-    __typename
-  }
-}
-
-mutation CreatePost(
-  $input: CreatePostInput!
-  $condition: ModelPostConditionInput
-) {
-  createPost(input: $input, condition: $condition) {
-    id
-    title
-    blog {
-      id
-      name
-      createdAt
-      updatedAt
-      __typename
-    }
-    comments {
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    blogPostsId
-    __typename
-  }
-}
-
-mutation UpdatePost(
-  $input: UpdatePostInput!
-  $condition: ModelPostConditionInput
-) {
-  updatePost(input: $input, condition: $condition) {
-    id
-    title
-    blog {
-      id
-      name
-      createdAt
-      updatedAt
-      __typename
-    }
-    comments {
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    blogPostsId
-    __typename
-  }
-}
-
-mutation DeletePost(
-  $input: DeletePostInput!
-  $condition: ModelPostConditionInput
-) {
-  deletePost(input: $input, condition: $condition) {
-    id
-    title
-    blog {
-      id
-      name
-      createdAt
-      updatedAt
-      __typename
-    }
-    comments {
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    blogPostsId
-    __typename
-  }
-}
-
-mutation CreateComment(
-  $input: CreateCommentInput!
-  $condition: ModelCommentConditionInput
-) {
-  createComment(input: $input, condition: $condition) {
-    id
-    post {
-      id
-      title
-      createdAt
-      updatedAt
-      blogPostsId
-      __typename
-    }
-    content
-    createdAt
-    updatedAt
-    postCommentsId
-    __typename
-  }
-}
-
-mutation UpdateComment(
-  $input: UpdateCommentInput!
-  $condition: ModelCommentConditionInput
-) {
-  updateComment(input: $input, condition: $condition) {
-    id
-    post {
-      id
-      title
-      createdAt
-      updatedAt
-      blogPostsId
-      __typename
-    }
-    content
-    createdAt
-    updatedAt
-    postCommentsId
-    __typename
-  }
-}
-
-mutation DeleteComment(
-  $input: DeleteCommentInput!
-  $condition: ModelCommentConditionInput
-) {
-  deleteComment(input: $input, condition: $condition) {
-    id
-    post {
-      id
-      title
-      createdAt
-      updatedAt
-      blogPostsId
-      __typename
-    }
-    content
-    createdAt
-    updatedAt
-    postCommentsId
     __typename
   }
 }
