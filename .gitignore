@@ -47,6 +47,11 @@ testem.log
 .DS_Store
 Thumbs.db
 
+
+/.vs/VSWorkspaceState.json
+/.vs/slnx.sqlite
+/.vs/healthnow365/v17/.wsuo
+
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*
@@ -68,7 +73,3 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
-
-/.vs/VSWorkspaceState.json
-/.vs/slnx.sqlite
-/.vs/healthnow365/v17/.wsuo

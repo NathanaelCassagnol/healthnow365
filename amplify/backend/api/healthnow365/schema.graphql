@@ -1,0 +1,39 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+type User @model {
+	# Required Fields
+	id: ID!
+	first_name: String!
+	last_name: String!
+	username: String! @index(name: "byUsername", queryField: "userByUsername", sortKeyFields: ["id"])
+	email: AWSEmail!
+  phone_number: String!
+	birth_date: AWSDate!
+
+	# Optional Fields
+	address_line_one: String
+	address_line_two: String
+	address_city: String
+	address_state: String
+	address_country: String
+	address_zip_code: String
+	
+	age: Int
+  gender: String
+
+  # feilds we might use later
+	#profile_picture_URI: String
+	#lastLogin: AWSDateTime
+	#number_of_logins: Int
+	#is_banned: Boolean
+	#language: String
+	#font_size: String
+	#theme: String
+	#two_factor_authencation: Boolean @default(value: "false")
+	#phone_verified: Boolean
+
+	#created_at: automatically generated
+	#updated_at: automatically generated
+}
