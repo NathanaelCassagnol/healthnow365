@@ -1,7 +1,11 @@
-import { Auth, API, graphqlOperation } from 'aws-amplify';
+//import { Auth, API, graphqlOperation } from 'aws-amplify';
 import { format, differenceInYears } from 'date-fns';
-import { CreateUser } from '';
 import { signUp, signOut } from 'aws-amplify/auth';
+
+import { generateClient } from 'aws-amplify/api';
+import * as mutations from '../graphql/mutations';
+
+const client = generateClient();
 
 type SignUpParameters = {
   username: string;
@@ -102,7 +106,10 @@ export async function CreateUser(user_data: UserData, profile_picture?: File[]):
     }
 
     // Create user in API
-    await API.graphql(graphqlOperation(createUser, { input: temp_user_data }));
+    const newTodo = await client.graphql({
+      query: mutations.createTodo,
+      variables: { input: temp_user_data }
+    });
 
     return {
       successStatus: true,
