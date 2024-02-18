@@ -19,12 +19,13 @@ type User @model {
 	address_state: String
 	address_country: String
 	address_zip_code: String
-	
+
+  profile_picture_URI: String
 	age: Int
   gender: String
 
   # feilds we might use later
-	#profile_picture_URI: String
+	
 	#lastLogin: AWSDateTime
 	#number_of_logins: Int
 	#is_banned: Boolean

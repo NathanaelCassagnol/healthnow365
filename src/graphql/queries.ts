@@ -1,6 +1,14 @@
-# this is an auto generated file. This will be overwritten
+/* tslint:disable */
+/* eslint-disable */
+// this is an auto generated file. This will be overwritten
 
-query GetUser($id: ID!) {
+import * as APITypes from "../app/API.service";
+type GeneratedQuery<InputType, OutputType> = string & {
+  __generatedQueryInput: InputType;
+  __generatedQueryOutput: OutputType;
+};
+
+export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
   getUser(id: $id) {
     id
     first_name
@@ -15,6 +23,7 @@ query GetUser($id: ID!) {
     address_state
     address_country
     address_zip_code
+    profile_picture_URI
     age
     gender
     createdAt
@@ -22,8 +31,8 @@ query GetUser($id: ID!) {
     __typename
   }
 }
-
-query ListUsers(
+` as GeneratedQuery<APITypes.GetUserQueryVariables, APITypes.GetUserQuery>;
+export const listUsers = /* GraphQL */ `query ListUsers(
   $filter: ModelUserFilterInput
   $limit: Int
   $nextToken: String
@@ -43,6 +52,7 @@ query ListUsers(
       address_state
       address_country
       address_zip_code
+      profile_picture_URI
       age
       gender
       createdAt
@@ -53,8 +63,8 @@ query ListUsers(
     __typename
   }
 }
-
-query UserByUsername(
+` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>;
+export const userByUsername = /* GraphQL */ `query UserByUsername(
   $username: String!
   $id: ModelIDKeyConditionInput
   $sortDirection: ModelSortDirection
@@ -84,6 +94,7 @@ query UserByUsername(
       address_state
       address_country
       address_zip_code
+      profile_picture_URI
       age
       gender
       createdAt
@@ -94,3 +105,7 @@ query UserByUsername(
     __typename
   }
 }
+` as GeneratedQuery<
+  APITypes.UserByUsernameQueryVariables,
+  APITypes.UserByUsernameQuery
+>;

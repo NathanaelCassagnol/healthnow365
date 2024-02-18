@@ -1,6 +1,14 @@
-# this is an auto generated file. This will be overwritten
+/* tslint:disable */
+/* eslint-disable */
+// this is an auto generated file. This will be overwritten
 
-mutation CreateUser(
+import * as APITypes from "../app/API.service";
+type GeneratedMutation<InputType, OutputType> = string & {
+  __generatedMutationInput: InputType;
+  __generatedMutationOutput: OutputType;
+};
+
+export const createUser = /* GraphQL */ `mutation CreateUser(
   $input: CreateUserInput!
   $condition: ModelUserConditionInput
 ) {
@@ -18,6 +26,7 @@ mutation CreateUser(
     address_state
     address_country
     address_zip_code
+    profile_picture_URI
     age
     gender
     createdAt
@@ -25,8 +34,11 @@ mutation CreateUser(
     __typename
   }
 }
-
-mutation UpdateUser(
+` as GeneratedMutation<
+  APITypes.CreateUserMutationVariables,
+  APITypes.CreateUserMutation
+>;
+export const updateUser = /* GraphQL */ `mutation UpdateUser(
   $input: UpdateUserInput!
   $condition: ModelUserConditionInput
 ) {
@@ -44,6 +56,7 @@ mutation UpdateUser(
     address_state
     address_country
     address_zip_code
+    profile_picture_URI
     age
     gender
     createdAt
@@ -51,8 +64,11 @@ mutation UpdateUser(
     __typename
   }
 }
-
-mutation DeleteUser(
+` as GeneratedMutation<
+  APITypes.UpdateUserMutationVariables,
+  APITypes.UpdateUserMutation
+>;
+export const deleteUser = /* GraphQL */ `mutation DeleteUser(
   $input: DeleteUserInput!
   $condition: ModelUserConditionInput
 ) {
@@ -70,6 +86,7 @@ mutation DeleteUser(
     address_state
     address_country
     address_zip_code
+    profile_picture_URI
     age
     gender
     createdAt
@@ -77,3 +94,7 @@ mutation DeleteUser(
     __typename
   }
 }
+` as GeneratedMutation<
+  APITypes.DeleteUserMutationVariables,
+  APITypes.DeleteUserMutation
+>;

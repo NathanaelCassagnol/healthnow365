@@ -8,9 +8,9 @@ import { MatExpansionModule } from '@angular/material/expansion'
 import { DatePipe } from '@angular/common';
 import { DemographicsComponent } from './my-info-components/demographics/demographics.component';
 import { AllergiesComponent } from './my-info-components/allergies/allergies.component';
-import { mockAllergyIntolerance1 } from '../../../fhir/R6/mocks/AllergyIntolerance/allergy-intolerance-1';
-import { mockAllergyIntolerance2 } from '../../../fhir/R6/mocks/AllergyIntolerance/allergy-intolerance-2';
-import { mockAllergyIntolerance3 } from '../../../fhir/R6/mocks/AllergyIntolerance/allergy-intolerance-3';
+import { mockAllergyIntolerance1 } from 'fhir/R6/mocks/AllergyIntolerance/allergy-intolerance-1';
+import { mockAllergyIntolerance2 } from 'fhir/R6/mocks/AllergyIntolerance/allergy-intolerance-2';
+import { mockAllergyIntolerance3 } from 'fhir/R6/mocks/AllergyIntolerance/allergy-intolerance-3';
 
 @Component({
   selector: 'app-home',
