@@ -1,11 +1,11 @@
-import { Identifier, Coding, Reference, dateTime, unsignedInt, CodeableConcept, Annotation, BackboneElement } from "./_basic-types"
+import { Identifier, Coding, Reference, dateTime, unsignedInt, CodeableConcept, Annotation, BackboneElement, id } from "./_basic-types"
 import { DomainResource } from "./_resource.types"
 
 export type ImagingStudy = DomainResource & {
     resourceType: "ImagingStudy",
     identifier?: Identifier[],
     status: "registered" | "available" | "cancelled" | "entered-in-error" | "unknown",
-    modality: Coding[],
+    modality?: Coding[],
     subject: Reference,
     encounter?: Reference,
     started?: dateTime,
@@ -22,27 +22,26 @@ export type ImagingStudy = DomainResource & {
     reasonReference?: Reference[],
     note?: Annotation[],
     description?: string,
-    series?: Series[],
-}
-
-type Series = BackboneElement & {
-    uid: string,
-    number?: unsignedInt,
-    modality: Coding,
-    description?: string,
-    numberOfInstances?: unsignedInt,
-    endpoint?: Reference[],
-    bodySite?: Coding,
-    laterality?: Coding,
-    specimen?: Reference[],
-    started?: dateTime,
-    performer?: Reference,
-    instance?: Instance[],
-}
-
-type Instance = BackboneElement & {
-    uid: string,
-    sopClass: Coding,
-    number?: unsignedInt,
-    title?: string,
+    series?: (BackboneElement & {
+        uid: id,
+        number?: unsignedInt,
+        modality: Coding,
+        description?: string,
+        numberOfInstances?: unsignedInt,
+        endpoint?: Reference[],
+        bodySite?: Coding,
+        laterality?: Coding,
+        specimen?: Reference[],
+        started?: dateTime,
+        performer?: (BackboneElement & {
+            function?: CodeableConcept,
+            actor: Reference
+        })[],
+        instance?: (BackboneElement & {
+            uid: id,
+            sopClass: Coding,
+            number?: unsignedInt,
+            title?: string,
+        })[],
+    })[],
 }

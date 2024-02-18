@@ -1,10 +1,10 @@
-import { Age, Annotation, BackboneElement, CodeableConcept, Identifier, Period, Reference, dateTime, uri } from "./_basic-types";
+import { Age, Annotation, BackboneElement, CodeableConcept, Identifier, Period, Reference, canonical, dateTime, uri } from "./_basic-types";
 import { DomainResource } from "./_resource.types";
 
 export type Procedure = DomainResource & {
     resourceType: "Procedure",
     identifier?: Identifier[],
-    instantiatesCanonical?: Reference[],
+    instantiatesCanonical?: canonical[],
     instantiatesUri?: uri[],
     basedOn?: Reference[],
     partOf?: Reference[],
@@ -24,6 +24,7 @@ export type Procedure = DomainResource & {
     performer?: (BackboneElement & {
         function?: CodeableConcept,
         actor: Reference,
+        onBehalfOf?: Reference
     })[],
     location?: Reference,
     reasonCode?: CodeableConcept[],
@@ -35,4 +36,10 @@ export type Procedure = DomainResource & {
     complicationDetail?: Reference[],
     followUp?: CodeableConcept[],
     note?: Annotation[],
+    focalDevice?: (BackboneElement & {
+        action?: CodeableConcept,
+        manipulated: Reference
+    })[],
+    usedReference?: Reference[],
+    usedCode?: CodeableConcept[]
 }
