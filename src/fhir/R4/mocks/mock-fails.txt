@@ -20,3 +20,4 @@ mock-medication-request-3, 25
 mock-medication-administration-2
 mock-medication-dispense-12
 mock-service-request-6
+mock-guidance-response-1

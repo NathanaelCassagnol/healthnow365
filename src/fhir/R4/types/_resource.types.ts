@@ -57,6 +57,13 @@ import { NutritionOrder } from "./nutrition-order";
 import { VisionPrescription } from "./vision-prescription";
 import { RiskAssessment } from "./risk-assessment";
 import { RequestGroup } from "./request-group";
+import { Communication } from "./communication";
+import { CommunicationRequest } from "./communication-request";
+import { DeviceRequest } from "./device-request";
+import { DeviceUseStatement } from "./device-use-statement";
+import { GuidanceResponse } from "./guidance-response";
+import { SupplyRequest } from "./supply-request";
+import { SupplyDelivery } from "./supply-delivery";
 
 export type FHIRResource =
     // Foundation
@@ -72,7 +79,8 @@ export type FHIRResource =
     Observation | Media | DiagnosticReport | Specimen | BodyStructure | ImagingStudy | QuestionnaireResponse | MolecularSequence |
     MedicationRequest | MedicationAdministration | MedicationDispense | MedicationStatement | Medication | MedicationKnowledge |
     Immunization | ImmunizationEvaluation | ImmunizationRecommendation |
-    CarePlan | CareTeam | Goal | ServiceRequest | NutritionOrder | VisionPrescription | RiskAssessment | RequestGroup;
+    CarePlan | CareTeam | Goal | ServiceRequest | NutritionOrder | VisionPrescription | RiskAssessment | RequestGroup | 
+    Communication | CommunicationRequest | DeviceRequest | DeviceUseStatement | GuidanceResponse | SupplyRequest | SupplyDelivery;
 
 // https://hl7.org/fhir/R4/resource.html
 export type Resource = extendablePrimitives & {
