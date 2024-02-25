@@ -379,7 +379,7 @@ export type Dosage = BackboneElement & {
         rateRange?: Range,
         rateQuantity?: SimpleQuantity,
     })[],
-    maxDosePeriod?: Ratio,
+    maxDosePerPeriod?: Ratio,
     maxDosePerAdministration?: SimpleQuantity,
     maxDosePerLifetime?: SimpleQuantity
 }
