@@ -3,10 +3,8 @@ Mock Fails:
 mock-bundle-1        Unknown resources: Composition, Practitioner, Encounter, MedicationRequst, MedicationStatement
 mock-bundle-2        Unknown resource: MessageHeader
 mock-bundle-3        Unknown resource: MessageHeader, OperationOutcome
-mock-bundle-4        Unknown resource: MedicationRequst
 mock-bundle-5        Unknown resource: Parameters
 mock-bundle-6        Unknown resource: OperationOutcome, Parameters
-mock-bundle-10       Unknown resource: Condition
 mock-bundle-11       Unknown resource: OperationOutcome
 mock-healthcare-service-1       Unknown resource: Location
 mock-task-1
@@ -21,3 +19,4 @@ mock-specimen-2
 mock-medication-request-3, 25
 mock-medication-administration-2
 mock-medication-dispense-12
+mock-service-request-6

@@ -10,8 +10,69 @@ import { Bundle } from "./bundle.types";
 import { Practitioner } from "./practitioner";
 import { PractitionerRole } from "./practitioner-role";
 import { Endpoint } from "./endpoint";
+import { Condition } from "./condition";
+import { CareTeam } from "./care-team";
+import { Goal } from "./goal";
+import { Specimen } from "./specimen";
+import { RelatedPerson } from "./related-person";
+import { OrganizationAffiliation } from "./organization-affiliation";
+import { HealthcareService } from "./healthcare-service";
+import { BiologicallyDerivedProduct } from "./biologically-derived-product";
+import { Group } from "./group";
+import { DeviceMetric } from "./device-metric";
+import { Device } from "./device";
+import { Task } from "./task";
+import { Appointment } from "./appointment";
+import { AppointmentResponse } from "./appointment-response";
+import { Schedule } from "./schedule";
+import { Slot } from "./slot";
+import { VerificationResult } from "./verification-result";
+import { Encounter } from "./encounter";
+import { EpisodeOfCare } from "./episode-of-care";
+import { Flag } from "./flag";
+import { List } from "./list";
+import { Library } from "./library";
+import { AdverseEvent } from "./adverse-event";
+import { Procedure } from "./procedure";
+import { FamilyMemberHistory } from "./family-member-history";
+import { ClinicalImpression } from "./clinical-impression";
+import { DetectedIssue } from "./detected-issue";
+import { Media } from "./media";
+import { DiagnosticReport } from "./diagnostic-report";
+import { BodyStructure } from "./body-structure";
+import { ImagingStudy } from "./imaging-study";
+import { QuestionnaireResponse } from "./questionnaire-response";
+import { MolecularSequence } from "./molecular-sequence";
+import { MedicationRequest } from "./medication-request";
+import { MedicationAdministration } from "./medication-administration";
+import { MedicationDispense } from "./medication-dispense";
+import { MedicationStatement } from "./medication-statement";
+import { MedicationKnowledge } from "./medication-knowledge";
+import { Immunization } from "./immunization";
+import { ImmunizationEvaluation } from "./immunization-evaluation";
+import { ImmunizationRecommendation } from "./immunization-recommendation";
+import { CarePlan } from "./care-plan";
+import { ServiceRequest } from "./service-request";
+import { NutritionOrder } from "./nutrition-order";
+import { VisionPrescription } from "./vision-prescription";
+import { RiskAssessment } from "./risk-assessment";
+import { RequestGroup } from "./request-group";
 
-export type FHIRResource = Medication | AllergyIntolerance | Substance | Person | Organization | Observation | Patient | Bundle | Practitioner | PractitionerRole | Endpoint;
+export type FHIRResource =
+    // Foundation
+    Bundle | 
+    // Base
+    Patient | Practitioner | PractitionerRole | RelatedPerson | Person | Group |
+    Organization | OrganizationAffiliation | HealthcareService | Endpoint | Location |
+    Substance | BiologicallyDerivedProduct | Device | DeviceMetric |
+    Task | Appointment | AppointmentResponse | Schedule | Slot | VerificationResult |
+    Encounter | EpisodeOfCare | Flag | List | Library |
+    // Clinical
+    AllergyIntolerance | AdverseEvent | Condition | Procedure | FamilyMemberHistory | ClinicalImpression | DetectedIssue |
+    Observation | Media | DiagnosticReport | Specimen | BodyStructure | ImagingStudy | QuestionnaireResponse | MolecularSequence |
+    MedicationRequest | MedicationAdministration | MedicationDispense | MedicationStatement | Medication | MedicationKnowledge |
+    Immunization | ImmunizationEvaluation | ImmunizationRecommendation |
+    CarePlan | CareTeam | Goal | ServiceRequest | NutritionOrder | VisionPrescription | RiskAssessment | RequestGroup;
 
 // https://hl7.org/fhir/R4/resource.html
 export type Resource = extendablePrimitives & {
