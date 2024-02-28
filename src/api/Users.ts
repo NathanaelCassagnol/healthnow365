@@ -1,4 +1,3 @@
-//import { Auth, API, graphqlOperation } from 'aws-amplify';
 import { format, differenceInYears } from 'date-fns';
 import { signUp, signOut } from 'aws-amplify/auth';
 import { uploadData } from 'aws-amplify/storage';
