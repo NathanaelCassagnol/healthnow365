@@ -108,7 +108,7 @@ export async function CreateUser(user_data: CreateUserData): Promise<CreateUserR
 
     return {
       successStatus: true,
-      userID: temp_user_data.id,
+      userID: temp_user_data.id ?? undefined,
     };
 
   } catch (error) {
