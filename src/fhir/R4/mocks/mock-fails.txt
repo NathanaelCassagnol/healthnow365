@@ -25,3 +25,4 @@ mock-audit-event-9
 mock-composition-2
 mock-document-manifest-2
 mock-document-reference-1
+mock-message-header-3

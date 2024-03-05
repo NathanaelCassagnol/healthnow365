@@ -71,12 +71,19 @@ import { Composition } from "./composition";
 import { DocumentManifest } from "./document-manifest";
 import { DocumentReference } from "./document-reference";
 import { CatalogEntry } from "./catalog-entry";
+import { Basic } from "./basic";
+import { Binary } from "./binary";
+import { Linkage } from "./linkage";
+import { MessageHeader } from "./message-header";
+import { OperationOutcome } from "./operation-outcome";
+import { Parameters } from "./parameters";
+import { Subscription } from "./subscription";
 
 export type FHIRResource =
     // Foundation
     Provenance | AuditEvent | Consent |
     Composition | DocumentManifest | DocumentReference | CatalogEntry |
-    Bundle | 
+    Basic | Binary | Bundle | Linkage | MessageHeader | OperationOutcome | Parameters | Subscription |
     // Base
     Patient | Practitioner | PractitionerRole | RelatedPerson | Person | Group |
     Organization | OrganizationAffiliation | HealthcareService | Endpoint | Location |
