@@ -22,3 +22,6 @@ mock-medication-dispense-12
 mock-service-request-6
 mock-guidance-response-1
 mock-audit-event-9
+mock-composition-2
+mock-document-manifest-2
+mock-document-reference-1

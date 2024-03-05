@@ -64,9 +64,18 @@ import { DeviceUseStatement } from "./device-use-statement";
 import { GuidanceResponse } from "./guidance-response";
 import { SupplyRequest } from "./supply-request";
 import { SupplyDelivery } from "./supply-delivery";
+import { AuditEvent } from "./audit-event";
+import { Provenance } from "./provenance";
+import { Consent } from "./consent";
+import { Composition } from "./composition";
+import { DocumentManifest } from "./document-manifest";
+import { DocumentReference } from "./document-reference";
+import { CatalogEntry } from "./catalog-entry";
 
 export type FHIRResource =
     // Foundation
+    Provenance | AuditEvent | Consent |
+    Composition | DocumentManifest | DocumentReference | CatalogEntry |
     Bundle | 
     // Base
     Patient | Practitioner | PractitionerRole | RelatedPerson | Person | Group |
