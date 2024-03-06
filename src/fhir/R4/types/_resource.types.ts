@@ -78,9 +78,15 @@ import { MessageHeader } from "./message-header";
 import { OperationOutcome } from "./operation-outcome";
 import { Parameters } from "./parameters";
 import { Subscription } from "./subscription";
+import { CodeSystem } from "./CodeSystem";
+import { ValueSet } from "./value-set";
+import { NamingSystem } from "./naming-system";
+import { TerminologyCapabilities } from "./terminology-capabilities";
+import { ConceptMap } from "./concept-map";
 
 export type FHIRResource =
     // Foundation
+    CodeSystem | ValueSet | ConceptMap | NamingSystem | TerminologyCapabilities |
     Provenance | AuditEvent | Consent |
     Composition | DocumentManifest | DocumentReference | CatalogEntry |
     Basic | Binary | Bundle | Linkage | MessageHeader | OperationOutcome | Parameters | Subscription |

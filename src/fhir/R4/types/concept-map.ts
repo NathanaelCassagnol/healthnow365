@@ -1,0 +1,60 @@
+import { uri, Identifier, dateTime, ContactDetail, markdown, UsageContext, CodeableConcept, canonical, BackboneElement } from "./_basic-types";
+import { DomainResource } from "./_resource.types";
+
+export type ConceptMap = DomainResource & {
+    resourceType: "ConceptMap",
+    url?: uri,
+    identifier?: Identifier,
+    version?: string,
+    name?: string,
+    title?: string,
+    status: "draft" | "active" | "retired" | "unknown",
+    experimental?: boolean,
+    date?: dateTime,
+    publisher?: string,
+    contact?: ContactDetail[],
+    description?: markdown,
+    useContext?: UsageContext[],
+    jurisdiction?: CodeableConcept[],
+    purpose?: markdown,
+    copyright?: markdown,
+    sourceUri?: uri,
+    sourceCanonical?: canonical,
+    targetUri?: uri,
+    targetCanonical?: canonical,
+    group: (BackboneElement & {
+        source?: uri,
+        sourceVersion?: string,
+        target?: uri,
+        targetVersion?: string,
+        element: (BackboneElement & {
+            code?: string,
+            display?: string,
+            noMap?: boolean,
+            target?: (BackboneElement & {
+                code?: string,
+                display?: string,
+                equivalence: "relatedto" | "equivalent" | "equal" | "wider" | "subsumes" | "narrower" | "specializes" | "inexact" | "unmatched" | "disjoint",
+                comment?: string,
+                dependsOn?: (BackboneElement & {
+                    property: uri,
+                    system?: uri,
+                    value: string,
+                    display?: string,
+                })[],
+                product?: (BackboneElement & {
+                    property: uri,
+                    system?: uri,
+                    value: string,
+                    display?: string,
+                })[],
+            })[],
+        })[],
+        unmapped?: (BackboneElement & {
+            mode: "provided" | "fixed" | "other-map",
+            code?: string,
+            display?: string,
+            url?: canonical,
+        }),
+    })[],
+};
