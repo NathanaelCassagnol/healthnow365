@@ -1,4 +1,3 @@
-//import { Auth, API, graphqlOperation } from 'aws-amplify';
 import { format, differenceInYears } from 'date-fns';
 import { signUp, signOut } from 'aws-amplify/auth';
 import { uploadData } from 'aws-amplify/storage';
@@ -109,7 +108,7 @@ export async function CreateUser(user_data: CreateUserData): Promise<CreateUserR
 
     return {
       successStatus: true,
-      userID: temp_user_data.id ?? undefined,
+      userID: temp_user_data?.id,
     };
 
   } catch (error) {
