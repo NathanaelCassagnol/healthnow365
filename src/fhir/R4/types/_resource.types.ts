@@ -83,9 +83,20 @@ import { ValueSet } from "./value-set";
 import { NamingSystem } from "./naming-system";
 import { TerminologyCapabilities } from "./terminology-capabilities";
 import { ConceptMap } from "./concept-map";
+import { CapabilityStatement } from "./capability-statement";
+import { StructureDefinition } from "./structure-definition";
+import { ImplementationGuide } from "./implementation-guide";
+import { SearchParameter } from "./search-parameter";
+import { MessageDefinition } from "./message-definition";
+import { OperationDefinition } from "./operation-definition";
+import { CompartmentDefinition } from "./compartment-definition";
+import { StructureMap } from "./structure-map";
+import { GraphDefinition } from "./graph-definition";
+import { ExampleScenario } from "./example-scenario";
 
 export type FHIRResource =
     // Foundation
+    CapabilityStatement | StructureDefinition | ImplementationGuide | SearchParameter | MessageDefinition | OperationDefinition | CompartmentDefinition | StructureMap | GraphDefinition | ExampleScenario |
     CodeSystem | ValueSet | ConceptMap | NamingSystem | TerminologyCapabilities |
     Provenance | AuditEvent | Consent |
     Composition | DocumentManifest | DocumentReference | CatalogEntry |
