@@ -1,9 +1,9 @@
 import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
-import { AllergyIntolerance } from "../../../../../fhir/R6/types/Resource/allergy-intolerance.types";
 import { MatButtonModule } from "@angular/material/button";
 import { CommonModule, TitleCasePipe } from "@angular/common";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { AllergyIntolerance } from "fhir/R4/types/allergy-intolerance.types";
 
 @Component({
     selector: 'app-allergies',
@@ -28,7 +28,7 @@ export class AllergiesComponent implements OnChanges {
     setAllergyData() {
         this.loadedAllergyData = this.allergies.map((a, i) => {
             let allergenName = a.code?.coding?.at(0)?.display ?? "Unknown";
-            let category = (a.category??[]).reduce((a, b) => a+", "+b, "").slice(2);
+            let category = (a.category??[]).join(", ");
             let status = a.clinicalStatus?.coding?.at(0)?.display ?? "Unknown";
             let lastOccurrence = a.lastOccurrence ?? "Unknown";
             let reactionCount = a.reaction?.length ?? 0;
