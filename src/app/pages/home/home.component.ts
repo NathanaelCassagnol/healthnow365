@@ -11,6 +11,7 @@ import { AllergiesComponent } from './my-info-components/allergies/allergies.com
 import { mockAllergyIntolerance1 } from 'fhir/R4/mocks/allergy-intolerance/mock-allergy-intolerance-1';
 import { mockAllergyIntolerance2 } from 'fhir/R4/mocks/allergy-intolerance/mock-allergy-intolerance-2';
 import { mockAllergyIntolerance3 } from 'fhir/R4/mocks/allergy-intolerance/mock-allergy-intolerance-3';
+import { mockPatient3 } from 'fhir/R4/mocks/patient/mock-patient-3';
 
 @Component({
   selector: 'app-home',
@@ -37,6 +38,7 @@ export class HomeComponent implements OnInit {
     mockAllergyIntolerance2,
     mockAllergyIntolerance3,
   ]
+  myPerson = mockPatient3;
 
   ngOnInit(): void {
     for (let a = 0; a < 18; a++)

@@ -1,16 +1,18 @@
-<div class="flex-col h-100">
+<!-- <div class="flex-col h-100">
   <mat-tab-group class="mt">
-    <mat-tab label="My Information">
+    <mat-tab label="My Information"> -->
 
       <div class="pt">
-        <mat-accordion class="mt">
-          <mat-expansion-panel>
+        <mat-accordion class="mt" >
+          <mat-expansion-panel expanded>
             <mat-expansion-panel-header>
               <mat-panel-title>
                 Demographics
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-demographics/>
+
+            <app-demographics [person]="myPerson"/>
+
           </mat-expansion-panel>
           <mat-expansion-panel>
             <mat-expansion-panel-header>
@@ -18,7 +20,9 @@
                 Allergies
               </mat-panel-title>
             </mat-expansion-panel-header>
+
             <app-allergies [allergies]="myAllergies"/>
+
           </mat-expansion-panel>
           <mat-expansion-panel>
             <mat-expansion-panel-header>
@@ -34,7 +38,7 @@
           </mat-expansion-panel>
         </mat-accordion>
       </div>
-    </mat-tab>
+    <!-- </mat-tab>
     <mat-tab label="Documents">
       <br />
       <div style="display: flex; justify-content: center">
@@ -99,4 +103,4 @@
       </div>
     </mat-tab>
   </mat-tab-group>
-</div>
+</div> -->
