@@ -93,6 +93,7 @@ import { CompartmentDefinition } from "./compartment-definition";
 import { StructureMap } from "./structure-map";
 import { GraphDefinition } from "./graph-definition";
 import { ExampleScenario } from "./example-scenario";
+import { Location } from "./location";
 
 export type FHIRResource =
     // Foundation

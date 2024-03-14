@@ -1,4 +1,4 @@
-import { BackboneElement, CodeableConcept, ContactDetail, UsageContext, base64Binary, canonical, code, dateTime, markdown, uri, url } from "./_basic-types";
+import { BackboneElement, CodeableConcept, Coding, ContactDetail, Reference, UsageContext, base64Binary, canonical, code, dateTime, markdown, unsignedInt, uri, url } from "./_basic-types";
 import { DomainResource } from "./_resource.types";
 
 export type CapabilityStatement = DomainResource & {
@@ -16,6 +16,7 @@ export type CapabilityStatement = DomainResource & {
     useContext?: UsageContext[],
     jurisdiction?: CodeableConcept[],
     purpose?: markdown,
+    copyright?: markdown,
     kind: "instance" | "capability" | "requirements",
     instantiates?: canonical[],
     imports?: canonical[],
@@ -27,8 +28,9 @@ export type CapabilityStatement = DomainResource & {
     implementation?: (BackboneElement & {
         description: string,
         url?: url,
+        custodian?: Reference,
     }),
-    fhirVersion: string,
+    fhirVersion: code,
     format: code[],
     patchFormat?: code[],
     implementationGuide?: canonical[],
@@ -39,12 +41,8 @@ export type CapabilityStatement = DomainResource & {
             cors?: boolean,
             service?: CodeableConcept[],
             description?: markdown,
-            certificate?: (BackboneElement & {
-                type?: string,
-                blob?: base64Binary,
-            })[],
         }),
-        resource: (BackboneElement & {
+        resource?: (BackboneElement & {
             type: code,
             profile?: canonical,
             supportedProfile?: canonical[],
@@ -63,33 +61,45 @@ export type CapabilityStatement = DomainResource & {
             referencePolicy?: ("literal" | "logical" | "resolves" | "enforced" | "local")[],
             searchInclude?: string[],
             searchRevInclude?: string[],
-            searchParam?: (BackboneElement & {
-                name: string,
-                definition?: uri,
-                type: "number" | "date" | "string" | "token" | "reference" | "composite" | "quantity" | "uri" | "special",
-                documentation?: string,
-            })[],
-            operation?: (BackboneElement & {
-                name: string,
-                definition: canonical,
-                documentation?: markdown,
-            })[],
+            searchParam?: CapabilityStatementSearchParam[],
+            operation?: CapabilityStatementOperation[],
         })[],
         interaction?: (BackboneElement & {
             code: "transaction" | "batch" | "search-system" | "history-system",
             documentation?: markdown,
         })[],
-        searchParam?: (BackboneElement & {
-            name: string,
-            definition?: uri,
-            type: "number" | "date" | "string" | "token" | "reference" | "composite" | "quantity" | "uri" | "special",
-            documentation?: string,
-        })[],
-        operation?: (BackboneElement & {
-            name: string,
-            definition: canonical,
-            documentation?: markdown,
-        })[],
+        searchParam?: CapabilityStatementSearchParam[],
+        operation?: CapabilityStatementOperation[],
         compartment?: canonical[],
     })[],
+    messaging?: (BackboneElement & {
+        endpoint?: (BackboneElement & {
+            protocol: Coding,
+            address: url,
+        })[],
+        reliableCache?: unsignedInt,
+        documentation?: markdown,
+        supportedMessage?: (BackboneElement & {
+            mode: "sender" | "receiver",
+            definition: canonical,
+        })[],
+    })[],
+    document?: (BackboneElement & {
+        mode: "producer" | "consumer",
+        documentation?: markdown,
+        profile: canonical,
+    })[],
 };
+
+type CapabilityStatementSearchParam = BackboneElement & {
+    name: string,
+    definition?: canonical,
+    type: "number" | "date" | "string" | "token" | "reference" | "composite" | "quantity" | "uri" | "special",
+    documentation?: markdown,
+}
+
+type CapabilityStatementOperation = BackboneElement & {
+    name: string,
+    definition: canonical,
+    documentation?: markdown,
+}
