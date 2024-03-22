@@ -1,0 +1,27 @@
+:host {
+  max-height: inherit;
+}
+th {
+  text-align: left;
+}
+
+.th-clickable {
+  transition: background-color 0.3s;
+}
+
+.th-clickable:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.arrow {
+  transition: opacity 0.3s, rotate 0.3s;
+}
+.arrow-hidden {
+  opacity: 0;
+}
+th:hover .arrow-hidden {
+  opacity: 0.3;
+}
+.arrow-desc {
+  rotate: 180deg;
+}

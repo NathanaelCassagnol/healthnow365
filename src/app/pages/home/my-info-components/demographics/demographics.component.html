@@ -9,11 +9,11 @@
         <p>Name: {{person.name | HumanNameText}}</p>
     }
     @if (person.gender) {
-        <p>Gender: {{person.gender}}</p>
+        <p>Gender: {{person.gender | titlecase}}</p>
     }
     @if (person.birthDate) {
         <p>Birthdate: {{person.birthDate}}</p>
-        <p>Age: (write code to calculate age)</p>
+        <p>Age: {{person.birthDate | DateToAgePipe}}</p>
     }
     @if (person.resourceType === "Patient" && person.maritalStatus) {
         <p>Marital status: {{person.maritalStatus}}</p>

@@ -4,6 +4,7 @@ import { CommonModule, TitleCasePipe } from "@angular/common";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { AllergyIntolerance } from "fhir/R4/types/allergy-intolerance.types";
+import { MagicTableBodyDirective, MagicTableComponent } from "app/shared/magic-table/magic-table.component";
 
 @Component({
     selector: 'app-allergies',
@@ -16,6 +17,8 @@ import { AllergyIntolerance } from "fhir/R4/types/allergy-intolerance.types";
         MatIconModule,
         CommonModule,
         MatTooltipModule,
+        MagicTableComponent,
+        MagicTableBodyDirective,
     ],
 })
 export class AllergiesComponent implements OnChanges {
@@ -35,17 +38,26 @@ export class AllergiesComponent implements OnChanges {
             let criticality = a.criticality ?? "Unknown";
             let notes = (a.note??[]).map(n => n.text).filter(n => n.length > 0);
             return {
+                id: i,
                 allergenName,
                 category,
                 status,
                 lastOccurrence,
                 reactionCount,
                 criticality,
-                id: i,
                 notes,
             }
         })
     }
+    tableData = {
+        allergenName: {
+            title: "Allergen",
+        },
+        reactionCount: {
+            title: "Reactions",
+        },
+    }
+    columns = ["allergenName", "category", "criticality", "status", "lastOccurrence", "reactionCount", "notes"];
 }
 
 type loadedAllergyType = {
