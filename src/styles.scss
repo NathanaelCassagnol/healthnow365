@@ -1,145 +1,98 @@
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
-@use 'sass:map';
+// #region Theme Setup
 @use '@angular/material' as mat;
+@use 'sass:map';
 @include mat.core();
-@include mat.all-component-typographies();
 
-$primary: mat.define-palette(mat.$light-green-palette);
-$accent: mat.define-palette(mat.$teal-palette);
-$warn: mat.define-palette(mat.$red-palette);
-
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$my-theme: mat.define-light-theme(
+$site-primary: mat.define-palette(mat.$light-green-palette);
+$site-accent: mat.define-palette(mat.$orange-palette, A200, A100, A400);
+$site-warn: mat.define-palette(mat.$red-palette);
+$light-theme: mat.define-light-theme(
   (
     color: (
-      primary: $primary,
-      accent: $accent,
-      warn: $warn,
+      primary: $site-primary,
+      accent: $site-accent,
+      warn: $site-warn,
     ),
   )
 );
-$my-dark-theme: mat.define-dark-theme(
+$dark-theme: mat.define-light-theme(
   (
     color: (
-      primary: $primary,
-      accent: $accent,
-      warn: $warn,
+      primary: $site-primary,
+      accent: $site-accent,
+      warn: $site-warn,
     ),
   )
 );
-
-@include mat.all-component-bases($my-theme);
-
-@include mat.core-theme($my-theme);
-@include mat.expansion-theme($my-theme);
-@include mat.autocomplete-theme($my-theme);
-@include mat.button-theme($my-theme);
-@include mat.fab-theme($my-theme);
-@include mat.icon-button-theme($my-theme);
-@include mat.checkbox-theme($my-theme);
-@include mat.datepicker-theme($my-theme);
-@include mat.dialog-theme($my-theme);
-@include mat.divider-theme($my-theme);
-@include mat.form-field-theme($my-theme);
-@include mat.icon-theme($my-theme);
-@include mat.input-theme($my-theme);
-@include mat.radio-theme($my-theme);
-@include mat.select-theme($my-theme);
-@include mat.snack-bar-theme($my-theme);
-@include mat.progress-bar-theme($my-theme);
-@include mat.table-theme($my-theme);
-@include mat.tooltip-theme($my-theme);
-@include mat.toolbar-theme($my-theme);
-
-// Custom components
 
 $dark-background: #303030;
 $dark-surface: rgb(66, 66, 66);
+// TODO: Only import themes you're using
+@include mat.all-component-themes($light-theme);
+
 .my-dark-theme {
-  @include mat.core-color($my-dark-theme);
-  @include mat.expansion-color($my-dark-theme);
-  @include mat.autocomplete-color($my-dark-theme);
-  @include mat.button-color($my-dark-theme);
-  @include mat.fab-color($my-dark-theme);
-  @include mat.icon-button-color($my-dark-theme);
-  @include mat.checkbox-color($my-dark-theme);
-  @include mat.datepicker-color($my-dark-theme);
-  @include mat.dialog-color($my-dark-theme);
-  @include mat.divider-color($my-dark-theme);
-  @include mat.form-field-color($my-dark-theme);
-  @include mat.icon-color($my-dark-theme);
-  @include mat.input-color($my-dark-theme);
-  @include mat.radio-color($my-dark-theme);
-  @include mat.select-color($my-dark-theme);
-  @include mat.snack-bar-color($my-dark-theme);
-  @include mat.progress-bar-color($my-dark-theme);
-  @include mat.option-color($my-dark-theme);
-  @include mat.table-color($my-dark-theme);
-  @include mat.tooltip-color($my-dark-theme);
-  @include mat.toolbar-color($my-dark-theme);
-
-  // Custom components
-  background-color: $dark-background;
-  color: white;
+  @include mat.all-component-themes($dark-theme);
 }
+// #endregion
 
+// #region Basic page stuff
+html,
 body {
-  min-height: 100vh;
   margin: 0;
+  width: 100%;
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+app-root {
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-// Define a mixin to help generate color/palette theme classes
-@mixin palette-mixin($base-set, $color-name) {
-  $steps: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900;
+* {
+  box-sizing: border-box;
+}
+// #endregion
 
-  @each $lev in $steps {
-    .bg-#{$color-name}-#{$lev} {
+// #region Color Palette Classes
+@mixin palette-mixin($base-set, $color-name) {
+  $steps: (
+    '-50': 50,
+    '-100': 100,
+    '-200': 200,
+    '-300': 300,
+    '-400': 400,
+    '-500': 500,
+    '-600': 600,
+    '-700': 700,
+    '-800': 800,
+    '-900': 900,
+    '': 500,
+  );
+
+  @each $lev-selector, $lev in $steps {
+    .bg-#{$color-name}#{$lev-selector} {
       background-color: mat.get-color-from-palette($base-set, $lev) !important;
     }
-
-    .color-#{$color-name}-#{$lev} {
+    .color-#{$color-name}#{$lev-selector} {
       color: mat.get-color-from-palette($base-set, $lev) !important;
     }
-
-    .border-#{$color-name}-#{$lev} {
+    .border-#{$color-name}#{$lev-selector} {
       border-color: mat.get-color-from-palette($base-set, $lev) !important;
     }
   }
 }
 
 // Craft the primary and warn set of colors
-@include palette-mixin($primary, 'primary');
-@include palette-mixin($warn, 'warn');
-@include palette-mixin($accent, 'accent');
+@include palette-mixin($site-primary, 'primary');
+@include palette-mixin($site-accent, 'accent');
+@include palette-mixin($site-warn, 'warn');
+// #endregion
 
-[hidden],
-.hidden {
-  display: none !important;
-}
-
-/* Print Styling */
-@media screen {
-  .only-print {
-    display: none !important;
-  }
-}
-
-@media print {
-  .no-print,
-  .mat-mdc-raised-button {
-    display: none !important;
-  }
-
-  .only-print {
-    display: block !important;
-  }
-}
-
-/*#region Margin/Padding Helpers*/
+// #region Margin/Padding Helpers
 @mixin spacing-helper() {
   $sizes: (
     '-0': 0,
@@ -177,26 +130,14 @@ body {
   }
 }
 @include spacing-helper();
-/*#endregion*/
+// #endregion
 
-.dense-1 {
-  @include mat.all-component-densities(-1);
-}
-.dense-2 {
-  @include mat.all-component-densities(-2);
-}
-.dense-3 {
-  @include mat.all-component-densities(-3);
-}
-mat-form-field.width-unset .mat-mdc-form-field-infix {
-  width: unset !important;
-}
-
-//#region Philip's table styles
+// #region Philip's table styles
 //table.striped-hover-table highlights table rows on hover, and provides a zebra stripe pattern
 //Use .override-odd or .override-even on <tr> to force the style
 //Use <thead>, <tbody>, and <tfoot> and everything should format automatically
 //Otherwise you can use .header-row, .body-row, and .footer-row on <tr>'s
+
 .striped-hover-table {
   border-collapse: collapse;
   * {
@@ -210,149 +151,145 @@ mat-form-field.width-unset .mat-mdc-form-field-infix {
       padding-bottom: 8px;
     }
   }
-  tbody tr:nth-child(odd):not(.override-even):not(.red-row):not(.highlight-row),
-  tr.body-row:nth-child(odd):not(.override-even):not(.red-row):not(.highlight-row),
-  tr.override-odd {
-    background-color: white !important;
+  tr > :first-child {
+    padding-left: 16px;
   }
-  tbody tr:nth-child(odd):not(.override-even):not(.red-row):not(.highlight-row):hover,
-  tr.body-row:nth-child(odd):not(.override-even):not(.red-row):not(.highlight-row):hover,
-  tr.override-odd:hover {
-    background-color: rgb(240, 240, 240) !important;
-  }
-  tr {
+  tr,
+  caption {
     transition: background-color 0.25s;
   }
   caption {
     text-align: left;
-    font-size: 1.2em;
+    font-size: 1.25rem;
     padding: 8px 0 0 16px;
   }
 }
-.striped-hover-table:not(.table-accent) {
+@mixin generate-striped-hover-table($color-1, $color-2, $base, $odd-color, $shademap) {
   .header-row,
-  thead tr {
-    @extend .bg-primary-200;
-  }
+  thead tr,
   caption {
-    @extend .bg-primary-200;
+    // Header / Caption
+    background-color: mix($color-1, $base, map.get($shademap, 'header')) !important;
   }
+
   tbody tr:nth-child(even):not(.override-odd):not(.highlight-row):not(.red-row),
   tr.body-row:nth-child(even):not(.override-odd):not(.highlight-row):not(.red-row),
   tr.override-even {
-    background-color: mat.get-color-from-palette($primary, 50) !important;
+    // Even (standard)
+    background-color: mix($color-1, $base, map.get($shademap, 'even-s')) !important;
   }
   tbody tr:nth-child(even):not(.override-odd):not(.red-row):not(.highlight-row):hover,
   tr.body-row:nth-child(even):not(.override-odd):not(.red-row):not(.highlight-row):hover,
   tr.override-even:hover {
-    background-color: mat.get-color-from-palette($primary, 100) !important;
+    // Even (hover)
+    background-color: mix($color-1, $base, map.get($shademap, 'even-h')) !important;
+  }
+  tbody tr:nth-child(odd):not(.override-even):not(.red-row):not(.highlight-row),
+  tr.body-row:nth-child(odd):not(.override-even):not(.red-row):not(.highlight-row),
+  tr.override-odd {
+    // Odd (standard)
+    background-color: mix($odd-color, $base, map.get($shademap, 'odd-s')) !important;
+  }
+  tbody tr:nth-child(odd):not(.override-even):not(.red-row):not(.highlight-row):hover,
+  tr.body-row:nth-child(odd):not(.override-even):not(.red-row):not(.highlight-row):hover,
+  tr.override-odd:hover {
+    // Odd (hover)
+    background-color: mix($odd-color, $base, map.get($shademap, 'odd-h')) !important;
   }
   .highlight-row:nth-child(even) {
-    background-color: mat.get-color-from-palette($accent, 200) !important;
+    background-color: mix($color-2, $base, map.get($shademap, 'highlight-es')) !important;
   }
   .highlight-row:nth-child(even):hover {
-    background-color: mat.get-color-from-palette($accent, 300) !important;
+    background-color: mix($color-2, $base, map.get($shademap, 'highlight-eh')) !important;
+  }
+  .highlight-row:nth-child(odd) {
+    background-color: mix($color-2, $base, map.get($shademap, 'highlight-os')) !important;
+  }
+  .highlight-row:nth-child(odd):hover {
+    background-color: mix($color-2, $base, map.get($shademap, 'highlight-oh')) !important;
   }
   .footer-row,
-  .highlight-row:nth-child(odd),
   tfoot tr {
-    background-color: mat.get-color-from-palette($accent, 100) !important;
+    background-color: mix($color-2, $base, map.get($shademap, 'footer-s')) !important;
   }
   .footer-row:hover,
-  .highlight-row:nth-child(odd),
   tfoot tr:hover {
-    background-color: mat.get-color-from-palette($accent, 200) !important;
+    background-color: mix($color-2, $base, map.get($shademap, 'footer-h')) !important;
   }
+}
+$light-shademap: (
+  'header': 100%,
+  'even-s': 20%,
+  'even-h': 40%,
+  'odd-s': 0%,
+  'odd-h': 10%,
+  'highlight-es': 55%,
+  'highlight-eh': 70%,
+  'highlight-os': 20%,
+  'highlight-oh': 35%,
+  'footer-s': 70%,
+  'footer-h': 90%,
+);
+$dark-shademap: (
+  'header': 70%,
+  'even-s': 20%,
+  'even-h': 40%,
+  'odd-s': 0%,
+  'odd-h': 10%,
+  'highlight-es': 55%,
+  'highlight-eh': 70%,
+  'highlight-os': 20%,
+  'highlight-oh': 35%,
+  'footer-s': 70%,
+  'footer-h': 90%,
+);
+.striped-hover-table:not(.table-accent) {
+  @include generate-striped-hover-table(
+    // Main colors
+    mat.get-color-from-palette($site-primary, 300),
+    mat.get-color-from-palette($site-accent, 300),
+    // Base colors
+    white,
+    black,
+    $light-shademap
+  );
 }
 .striped-hover-table.table-accent {
-  .header-row,
-  thead tr {
-    @extend .bg-accent-500;
+  @include generate-striped-hover-table(
+    // Main colors
+    mat.get-color-from-palette($site-accent, 300),
+    mat.get-color-from-palette($site-primary, 300),
+    // Base colors
+    white,
+    black,
+    $light-shademap
+  );
+}
+.my-dark-theme {
+  .striped-hover-table:not(.table-accent) {
+    @include generate-striped-hover-table(
+      // Main colors
+      mat.get-color-from-palette($site-primary, 300),
+      mat.get-color-from-palette($site-accent, 300),
+      // Base colors
+      $dark-surface,
+      white,
+      $dark-shademap
+    );
   }
-  caption {
-    @extend .bg-accent-500;
-  }
-  tbody tr:nth-child(even):not(.override-odd):not(.highlight-row):not(.red-row),
-  tr.body-row:nth-child(even):not(.override-odd):not(.highlight-row):not(.red-row),
-  tr.override-even {
-    background-color: mat.get-color-from-palette($accent, 100) !important;
-  }
-  tbody tr:nth-child(even):not(.override-odd):not(.red-row):not(.highlight-row):hover,
-  tr.body-row:nth-child(even):not(.override-odd):not(.red-row):not(.highlight-row):hover,
-  tr.override-even:hover {
-    background-color: mat.get-color-from-palette($accent, 200) !important;
-  }
-  .highlight-row:nth-child(even) {
-    background-color: mat.get-color-from-palette($primary, 200) !important;
-  }
-  .highlight-row:nth-child(even):hover {
-    background-color: mat.get-color-from-palette($primary, 300) !important;
-  }
-  .footer-row,
-  .highlight-row:nth-child(odd),
-  tfoot tr {
-    background-color: mat.get-color-from-palette($primary, 100) !important;
-  }
-  .footer-row:hover,
-  .highlight-row:nth-child(odd):hover,
-  tfoot tr:hover {
-    background-color: mat.get-color-from-palette($primary, 200) !important;
+  .striped-hover-table.table-accent {
+    @include generate-striped-hover-table(
+      // Main colors
+      mat.get-color-from-palette($site-accent, 300),
+      mat.get-color-from-palette($site-primary, 300),
+      // Base colors
+      $dark-surface,
+      white,
+      $dark-shademap
+    );
   }
 }
-.my-dark-theme .striped-hover-table:not(.table-accent) {
-  .header-row,
-  thead tr,
-  caption {
-    background-color: mix(mat.get-color-from-palette($primary, 500), $dark-surface, 40%) !important;
-  }
-  tbody tr:nth-child(even):not(.override-odd):not(.red-row),
-  tr.body-row:nth-child(even):not(.override-odd):not(.red-row),
-  tr.override-even {
-    background-color: mix(mat.get-color-from-palette($primary, 900), $dark-surface, 20%) !important;
-  }
-  tbody tr:nth-child(even):not(.override-odd):not(.red-row):hover,
-  tr.body-row:nth-child(even):not(.override-odd):not(.red-row):hover,
-  tr.override-even:hover {
-    background-color: mix(mat.get-color-from-palette($primary, 800), $dark-surface, 30%) !important;
-  }
-  tbody tr:nth-child(odd):not(.override-even):not(.red-row),
-  tr.body-row:nth-child(odd):not(.override-even):not(.red-row),
-  tr.override-odd {
-    background-color: rgb(66, 66, 66) !important;
-  }
-  tbody tr:nth-child(odd):not(.override-even):not(.red-row):hover,
-  tr.body-row:nth-child(odd):not(.override-even):not(.red-row):hover,
-  tr.override-odd:hover {
-    background-color: rgb(76, 76, 76) !important;
-  }
-}
-.my-dark-theme .striped-hover-table.table-accent {
-  .header-row,
-  thead tr,
-  caption {
-    background-color: mix(mat.get-color-from-palette($accent, 500), $dark-surface, 40%) !important;
-  }
-  tbody tr:nth-child(even):not(.override-odd):not(.red-row),
-  tr.body-row:nth-child(even):not(.override-odd):not(.red-row),
-  tr.override-even {
-    background-color: mix(mat.get-color-from-palette($accent, 900), $dark-surface, 20%) !important;
-  }
-  tbody tr:nth-child(even):not(.override-odd):not(.red-row):hover,
-  tr.body-row:nth-child(even):not(.override-odd):not(.red-row):hover,
-  tr.override-even:hover {
-    background-color: mix(mat.get-color-from-palette($accent, 800), $dark-surface, 30%) !important;
-  }
-  tbody tr:nth-child(odd):not(.override-even):not(.red-row),
-  tr.body-row:nth-child(odd):not(.override-even):not(.red-row),
-  tr.override-odd {
-    background-color: rgb(66, 66, 66) !important;
-  }
-  tbody tr:nth-child(odd):not(.override-even):not(.red-row):hover,
-  tr.body-row:nth-child(odd):not(.override-even):not(.red-row):hover,
-  tr.override-odd:hover {
-    background-color: rgb(76, 76, 76) !important;
-  }
-}
+
 .pad-cells td,
 .pad-cells th {
   padding: 0.5rem;
@@ -373,10 +310,38 @@ mat-form-field.width-unset .mat-mdc-form-field-infix {
 //Give the table .breakable-table, then optionally .one-col or .two-col
 //Give table .show-prefix to start cells with their data-cell attribute
 //Ensure you always include <thead>, <tbody>, and <tfoot> as applicable
-.breakable-table {
+table.table-scrollable {
+  display: flex;
+  flex-direction: column;
+  tr {
+    display: flex;
+    flex-direction: row;
+  }
+
+  max-height: inherit;
+  tbody {
+    flex: 1 1 auto;
+    overflow-y: scroll;
+  }
+  tr {
+    width: 100%;
+  }
+}
+
+table.table-scrollable:not(.breakable-table),
+table.table-scrollable.breakable-table:not(.one-col):not(.two-col) {
+  thead > tr > th:last-child {
+    margin-right: 17px;
+  }
+  tfoot > tr > td:last-child {
+    margin-right: 17px;
+  }
+}
+.table-basic {
   border-collapse: collapse;
+  box-sizing: border-box;
   * {
-    box-sizing: content-box;
+    box-sizing: border-box;
     padding: 0;
   }
   .header-row,
@@ -400,20 +365,22 @@ mat-form-field.width-unset .mat-mdc-form-field-infix {
     > :first-child {
       padding-left: 16px;
     }
-    > :last-child {
-      padding-right: 16px;
-    }
+    // > :last-child {
+    //   padding-right: 16px;
+    // }
   }
   caption {
-    @extend .bg-primary-200;
     text-align: left;
-    font-size: 1.2em;
+    font-size: 1.25rem;
     padding: 8px 0 0 16px;
   }
   mat-form-field {
     box-sizing: border-box;
     max-width: 100%;
   }
+}
+.breakable-table {
+  @extend .table-basic;
 }
 
 @media print {
@@ -491,56 +458,17 @@ mat-form-field.width-unset .mat-mdc-form-field-infix {
 .red-row {
   background-color: rgb(255, 206, 206) !important;
 }
+.striped-hover-table .red-row:hover {
+  background-color: rgb(255, 177, 177) !important;
+}
 .my-dark-theme {
   .red-row {
     background-color: rgb(109, 72, 72) !important;
   }
 }
-//#endregion
+// #endregion
 
-.w-100 {
-  width: 100%;
-}
-.h-100 {
-  height: 100%;
-}
-.hmin-full {
-  min-height: 100vh;
-}
-.flex {
-  display: flex;
-}
-.flex-row {
-  display: flex;
-  flex-direction: row;
-}
-.flex-col {
-  display: flex;
-  flex-direction: column;
-}
-.wrap {
-  flex-wrap: wrap;
-}
-.gap-h {
-  gap: 0.5rem 0.5rem;
-}
-.gap-1 {
-  gap: 1rem 1rem;
-}
-.justify-even {
-  justify-content: space-evenly;
-}
-.justify-between {
-  justify-content: space-between;
-}
-.align-center {
-  align-content: center;
-  align-items: center;
-}
-.bold {
-  font-weight: bold;
-}
-
+// #region Bordered Buttons
 // Make button focus more visible, helps with accessibility
 // Focus is used, instead of just focus-visible, for browser compatability
 // (IE and some others don't support focus-visible)
@@ -560,11 +488,13 @@ button.focus-border:not(:focus) {
     @extend .focus-border;
   }
 }
+// #endregion
 
 // #region Text size responsivity
 //Allow user to change font size with browser settings
 //Text
 p,
+li,
 label,
 span,
 th,
@@ -603,24 +533,24 @@ td {
 }
 
 //Buttons
-.mat-mdc-button-base:not(.mdc-fab) {
+.mdc-button {
   height: unset !important;
   padding: 0.5rem 1rem !important;
 }
-.dense-1 .mat-mdc-button-base:not(.mdc-fab),
-.dense-1.mat-mdc-button-base:not(.mdc-fab) {
+.dense-1 .mdc-button,
+.dense-1.mdc-button {
   padding: 0.4rem 0.75rem !important;
 }
-.dense-2 .mat-mdc-button-base:not(.mdc-fab),
-.dense-2.mat-mdc-button-base:not(.mdc-fab) {
+.dense-2 .mdc-button,
+.dense-2.mdc-button {
   padding: 0.25rem 0.5rem !important;
 }
-.dense-3 .mat-mdc-button-base:not(.mdc-fab),
-.dense-3.mat-mdc-button-base:not(.mdc-fab) {
+.dense-3 .mdc-button,
+.dense-3.mdc-button {
   padding: 0.1rem 0.25rem !important;
 }
-.dense-4 .mat-mdc-button-base:not(.mdc-fab),
-.dense-4.mat-mdc-button-base:not(.mdc-fab) {
+.dense-4 .mdc-button,
+.dense-4.mdc-button {
   padding: 0 0 !important;
 }
 
@@ -661,6 +591,10 @@ mat-form-field input {
   font-size: 1rem !important;
 }
 
+mat-form-field .mat-mdc-select-arrow-wrapper {
+  height: max-content;
+}
+
 .mdc-floating-label {
   transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1), color 150ms cubic-bezier(0.4, 0, 0.2, 1),
     top 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -678,10 +612,118 @@ mat-form-field input {
 .dense-3 .mdc-floating-label:not(.mdc-floating-label--float-above) {
   top: 1.375rem !important;
 }
+
+// Radio buttons - Not sure if this actually works
+.mdc-radio__background {
+  top: calc(22px - max(1em, 22px));
+}
+.mdc-floating-label {
+  top: calc(1rem + 10px) !important;
+}
+
 // #endregion
 
-.calc-input-field {
-  @extend .dense-3;
-  @extend .width-unset;
-  min-width: 80px !important;
+// #region Print Styling
+@media screen {
+  .only-print {
+    display: none;
+  }
 }
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+// #endregion
+
+// #region Utilities
+
+.dense-1 {
+  @include mat.all-component-densities(-1);
+}
+.dense-2 {
+  @include mat.all-component-densities(-2);
+}
+.dense-3 {
+  @include mat.all-component-densities(-3);
+}
+mat-form-field.width-unset .mat-mdc-form-field-infix {
+  width: unset !important;
+}
+
+.w-100 {
+  width: 100%;
+}
+.w-max {
+  width: max-content;
+}
+.w-min {
+  width: min-content;
+}
+.h-100 {
+  height: 100%;
+}
+.h-max {
+  height: max-content;
+}
+.h-min {
+  height: min-content;
+}
+.flex {
+  display: flex !important;
+}
+.flex-row {
+  display: flex !important;
+  flex-direction: row;
+}
+.flex-col {
+  display: flex !important;
+  flex-direction: column;
+}
+.inline {
+  display: inline;
+}
+.flex-1 {
+  flex: 1 0 0;
+}
+.wrap {
+  flex-wrap: wrap;
+}
+.gap-h {
+  gap: 0.5rem 0.5rem;
+}
+.gap-1 {
+  gap: 1rem 1rem;
+}
+.justify-even {
+  justify-content: space-evenly;
+}
+.justify-around {
+  justify-content: space-around;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-center {
+  justify-content: center;
+}
+.align-center {
+  align-content: center;
+  align-items: center;
+}
+.bold {
+  font-weight: bold !important;
+}
+.cant-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+// #endregion

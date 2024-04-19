@@ -1,0 +1,9 @@
+<mat-checkbox (click)="toggleCheckbox()" [checked]="showNonRelevant()">Show non-relevant data</mat-checkbox>
+<mat-tab-group dynamicHeight>
+    @for(obs of dataMap; track obs.name) {
+        <mat-tab [label]="obs.name" [disabled]="obs.data().length === 0">
+            <app-magic-table [data]="obs.data()" [columnData]="columnData" [columns]="columns" paginate footer="row-counts">
+            </app-magic-table>
+        </mat-tab>
+    }
+</mat-tab-group>

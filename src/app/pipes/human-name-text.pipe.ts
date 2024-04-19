@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from "@angular/core";
 import { HumanName } from "fhir/R4/types/_basic-types";
+import { humanNameToString } from "fhir/R4/utilities/validators-tostring.util";
 
 @Pipe({
    name: "HumanNameText",
@@ -13,21 +14,11 @@ export class HumanNameTextPipe implements PipeTransform {
             let validPeriod = (n: HumanName) => true;
             let validNames = input.filter(n => notOld(n) && validPeriod(n));
             // Return it
-            if (validNames.length > 0) return this.getNameText(validNames[0]);
-            return this.getNameText(input[0]);
+            if (validNames.length > 0) return humanNameToString(validNames[0]);
+            return humanNameToString(input[0]);
         }
         else {
-            return this.getNameText(input);
+            return humanNameToString(input);
         }
-    }
-
-    getNameText(name: HumanName) {
-        if (name.text) return name.text;
-        let constructedName = [];
-        if (name.prefix && name.prefix.length > 0) constructedName.push(...name.prefix);
-        if (name.given && name.given.length > 0) constructedName.push(name.given[0]);
-        if (name.family) constructedName.push(name.family);
-        if (name.suffix && name.suffix.length > 0) constructedName.push(...name.suffix);
-        return constructedName.join(" ");
     }
 }

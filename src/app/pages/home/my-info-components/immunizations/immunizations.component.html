@@ -1,0 +1,20 @@
+
+<h3>Immunizations Taken</h3>
+<app-magic-table [columns]="takenColumns" [data]="takenData()" [columnData]="takenColData" paginate footer="row-counts">
+    <ng-template MagicTableBody="reactionCount" let-row>
+        @if (row.reactionCount > 0) {
+            <button mat-raised-button color="primary" type="button">
+                See {{row.reactionCount}} Reactions
+            </button>
+        }
+    </ng-template>
+    <ng-template MagicTableBody="notes" let-row>
+        @for(n of row.notes; track n; let i = $index) {
+            <div [matTooltip]="n" style="border: 2px solid black; border-radius: 4px; padding: 4px; width: max-content;">{{i+1}}</div>
+        }
+    </ng-template>
+</app-magic-table>
+<hr />
+
+<h3>Immunizations Recommended</h3>
+<app-magic-table [columns]="recommendedColumns" [data]="recommendedData()" [columnData]="recommendedColData" paginate footer="row-counts"></app-magic-table>

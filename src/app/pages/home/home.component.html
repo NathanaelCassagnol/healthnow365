@@ -36,6 +36,35 @@
               <li>XYZ, 5mg, once a week, since mm/dd/yyyy</li>
             </ul>
           </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Observations
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-observations [observations]="myObservations"></app-observations>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Immunizations (Vaccinations)
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-immunizations></app-immunizations>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Medications
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-medications></app-medications>
+          </mat-expansion-panel>
+
+
         </mat-accordion>
       </div>
     <!-- </mat-tab>

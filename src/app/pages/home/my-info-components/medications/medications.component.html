@@ -1,0 +1,17 @@
+
+
+<h3>Medication Dispenses</h3>
+<p>This includes perscriptions</p>
+<app-magic-table [columns]="dispenseColumns" [data]="dispenseData()" [columnData]="dispenseColData" paginate footer="row-counts">
+    <ng-template MagicTableBody="notes" let-row>
+        @for(n of row.notes; track n; let i = $index) {
+            <div [matTooltip]="n" style="border: 2px solid black; border-radius: 4px; padding: 4px; width: max-content;">{{i+1}}</div>
+        }
+    </ng-template>
+</app-magic-table>
+
+<hr />
+
+<h3>Medication Administrations</h3>
+<p>This includes medications administered by a doctor</p>
+<app-magic-table [columns]="administerColumns" [data]="administerData()" [columnData]="administerColData" paginate footer="row-counts"></app-magic-table>

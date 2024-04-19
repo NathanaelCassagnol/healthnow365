@@ -1,4 +1,4 @@
-<div id="thisTable" style="max-height: inherit;">
+<div id="thisTable">
     <!-- #region Filtering -->
     @if (filterColumns.length > 0) {
     <mat-chip-set>
@@ -13,42 +13,49 @@
         }
     </mat-chip-set>
     @if (isAddingFilter) {
-    <div class="flex-row gap-h mb-h wrap align-center">
+    <div class="flex-row gap-h mb-q wrap align-center">
         <span>Add filter:</span>
         <mat-form-field class="dense-3" appearance="outline" subscriptSizing="dynamic">
-            <mat-select [(ngModel)]="addFilter.column" placeholder="Column to filter"
-                (ngModelChange)="reloadFilteredData()">
+            <mat-label>Column to Filter</mat-label>
+            <mat-select [(ngModel)]="addFilter.column" (ngModelChange)="onFilterColumnChange()">
                 <mat-option *ngFor="let col of filterColumns" [value]="col">{{colData[col].title}}</mat-option>
             </mat-select>
         </mat-form-field>
-        @if(addFilter.column !== '') {
+        @if (addFilter.column !== '') {
+        @if ((colData[addFilter.column].filterOn?.length??0) > 1) {
         <mat-form-field class="dense-3" appearance="outline" subscriptSizing="dynamic">
-            <mat-select [(ngModel)]="addFilter.operation" placeholder="Operation"
-                (ngModelChange)="reloadFilteredData()">
+            <mat-label>Operation</mat-label>
+            <mat-select [(ngModel)]="addFilter.operation" (ngModelChange)="onOperationChange()">
                 <mat-option *ngFor="let op of colData[addFilter.column].filterOn" [value]="op">
                     {{op | CamelTitlePipe | lowercase}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
         }
+        @else if ((colData[addFilter.column].filterOn?.length??0) === 1) {
+        <span>{{colData[addFilter.column]!.filterOn![0]}}</span>
+        }
+        }
         @if(addFilter.operation !== '') {
         @if (addFilter.operation === 'matches') {
         <mat-form-field class="dense-3" appearance="outline" subscriptSizing="dynamic">
-            <mat-select [(ngModel)]="addFilter.value" placeholder="Value" (ngModelChange)="reloadFilteredData()">
+            <mat-label>Value</mat-label>
+            <mat-select [(ngModel)]="addFilter.value" (ngModelChange)="reloadFilteredData()">
                 @for (o of columnMatches[addFilter.column]; track o) {
                 <mat-option [value]="o">{{o}}</mat-option>
                 }
             </mat-select>
         </mat-form-field>
         }
-        @else if (addFilter.operation !== 'exists') {
+        @else if (!needsNoValue(addFilter.operation)) {
         <mat-form-field class="dense-3" appearance="outline" subscriptSizing="dynamic">
-            <input matInput [(ngModel)]="addFilter.value" placeholder="Value" (ngModelChange)="reloadFilteredData()" />
+            <mat-label>Value</mat-label>
+            <input matInput [(ngModel)]="addFilter.value" (ngModelChange)="reloadFilteredData()" />
         </mat-form-field>
         }
         }
-        @if (addFilter.column !== '' && addFilter.operation !== '' && (addFilter.value !== '' || addFilter.operation ===
-        'exists')) {
+        @if (addFilter.column !== '' && addFilter.operation !== '' && (addFilter.value !== '' ||
+        needsNoValue(addFilter.operation))) {
         <button mat-raised-button color="primary" (click)="btnConfirmAddFilter()">Add Filter</button>
         }
         <button mat-raised-button color="warn" (click)="btnCancelAddFilter()">Cancel</button>
@@ -56,7 +63,16 @@
     }
     }
     <!-- #endregion -->
-    <table [class]="baseClasses + breakClasses + inputClasses">
+    <!-- #region Searching -->
+    @if (searchable) {
+    <mat-form-field subscriptSizing="dynamic" class="dense-3 mb-q" appearance="outline">
+        <mat-label>Search</mat-label>
+        <input matInput [(ngModel)]="searchString" (ngModelChange)="reloadFilteredData()">
+        <mat-icon matSuffix style="height: 19px">search</mat-icon>
+    </mat-form-field>
+    }
+    <!-- #endregion -->
+    <table [class]="baseClasses + breakClasses + inputClasses" style="border: 1px solid black;">
         @if(title !== '') {
         <caption>{{title}}</caption>
         }
@@ -64,10 +80,14 @@
             <tr>
                 @for(col of columns; track col) {
                 @if(colData[col].sortAs) {
-                <th [style.flex]="flex[col]" class="th-clickable"
-                    (click)="btnSortHeader(col)">
+                <th [style.flex]="flex[col]" class="dark-hover" (click)="btnSortHeader(col)">
                     <div class="flex-row gap-h align-center">
-                        <span>{{colData[col].title}}</span>
+                        @if(headerMap[col]) {
+                        <ng-container *ngTemplateOutlet="headerMap[col]"></ng-container>
+                        }
+                        @else {
+                        <span class="cant-select">{{colData[col].title}}</span>
+                        }
                         <mat-icon [class.arrow-hidden]="(sortBy!==col)" [class.arrow]="true"
                             [class.arrow-desc]="(sortBy === col && sortDir === 'desc')">
                             arrow_upward
@@ -76,7 +96,14 @@
                 </th>
                 }
                 @else {
-                <th [style.flex]="flex[col]"> {{colData[col].title}} </th>
+                <th [style.flex]="flex[col]">
+                    @if(headerMap[col]) {
+                    <ng-container *ngTemplateOutlet="headerMap[col]"></ng-container>
+                    }
+                    @else {
+                    <span class="cant-select"> {{colData[col].title}} </span>
+                    }
+                </th>
                 }
                 }
             </tr>
@@ -84,7 +111,7 @@
         <tbody>
             @if (sortedData.length === 0) {
             <tr>
-                <td class="w-100" style="text-align: center">
+                <td class="w-100" colspan="100%" style="text-align: center">
                     @if (data.length === 0) {
                     <p class="m-0">This table has no data to render.</p>
                     }
@@ -94,30 +121,84 @@
                 </td>
             </tr>
             }
-            @for(row of sortedData; track row.id) {
+            @for(row of paginatedData; track row) {
             <tr>
                 @for(col of columns; track col) {
-                @if(bodyChildrenMap[col]) {
+                @if(bodyMap[col]) {
                 <td [attr.data-cell]="colData[col].title" [style.flex]="flex[col]">
-                    <ng-container *ngTemplateOutlet="bodyChildrenMap[col]"></ng-container>
+                    <ng-container *ngTemplateOutlet="bodyMap[col]; context: {$implicit: row}"></ng-container>
+                </td>
+                }
+                @else if (colData[col].display === 'check-ex') {
+                <td [attr.data-cell]="colData[col].title" [style.flex]="flex[col]">
+                    <ng-container *ngTemplateOutlet="cellCheckEx; context: {$implicit: row}"></ng-container>
                 </td>
                 }
                 @else {
                 <td [attr.data-cell]="colData[col].title" [style.flex]="flex[col]">
-                    {{row[col]}} </td>
+                    @if (isArray(row[col])) {
+                    @for (r of row[col]; track r; let last=$last) {
+                    <span>{{r}}</span>
+                    @if (!last) {
+                    <hr class="m-0" />
+                    }
+                    }
+                    }
+                    @else {
+                    <span>{{row[col]}}</span>
+                    }
+                </td>
                 }
                 }
             </tr>
             }
         </tbody>
-        @if (hasFooter) {
+        @if (footerType === 'row-counts') {
+        <tfoot>
+            <tr>
+                <td colspan="100%" [style.padding]="'2px 2px 2px 16px'">
+                    <span>{{ {first: firstItemViewed, last: lastItemViewed, modCount: filteredData.length, totalCount:
+                        data().length} | FooterTotalPipe }} </span>
+                </td>
+            </tr>
+        </tfoot>
+        }
+        @else if (footerType === 'custom') {
         <tfoot>
             <tr>
                 @for(col of columns; track col) {
-                <td [attr.data-cell]="colData[col].title" [style.flex]="flex[col]"> {{colData[col].title}} </td>
+                @if(footerMap[col]) {
+                <td [attr.data-cell]="colData[col].title" [style.flex]="flex[col]">
+                    <ng-container *ngTemplateOutlet="footerMap[col]"></ng-container>
+                </td>
+                }
+                @else {
+                <td [style.flex]="flex[col]"></td>
+                }
                 }
             </tr>
         </tfoot>
         }
     </table>
+    @if (paginate) {
+    <mat-paginator class="dense-3 ml-a" [length]="sortedData.length" [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 25, 50]" aria-label="Select page" style="width: max-content; border: 1px solid black; border-top-width: 0px;"
+        (page)="onPageChange($event)">
+    </mat-paginator>
+    }
 </div>
+
+<ng-template #cellCheckEx let-row>
+    @if (row.photosAllowed) {
+    <div class="flex-row align-center">
+        <mat-icon [style.color]="'green'">check</mat-icon>
+        <span>Yes</span>
+    </div>
+    }
+    @else {
+    <div class="flex-row align-center">
+        <mat-icon [style.color]="'red'">close</mat-icon>
+        <span>No</span>
+    </div>
+    }
+</ng-template>

@@ -1,15 +1,12 @@
-:host {
-  max-height: inherit;
-}
 th {
   text-align: left;
 }
 
-.th-clickable {
+.dark-hover {
   transition: background-color 0.3s;
 }
 
-.th-clickable:hover {
+.dark-hover:hover {
   background-color: rgba(0, 0, 0, 0.15);
 }
 
@@ -24,4 +21,7 @@ th:hover .arrow-hidden {
 }
 .arrow-desc {
   rotate: 180deg;
+}
+::ng-deep mat-paginator.hide-label .mat-mdc-paginator-range-label {
+  display: none;
 }

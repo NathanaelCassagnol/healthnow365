@@ -12,6 +12,10 @@ import { mockAllergyIntolerance1 } from 'fhir/R4/mocks/allergy-intolerance/mock-
 import { mockAllergyIntolerance2 } from 'fhir/R4/mocks/allergy-intolerance/mock-allergy-intolerance-2';
 import { mockAllergyIntolerance3 } from 'fhir/R4/mocks/allergy-intolerance/mock-allergy-intolerance-3';
 import { mockPatient3 } from 'fhir/R4/mocks/patient/mock-patient-3';
+import { allObservations } from 'fhir/R4/mocks/observation/all-observations';
+import { ObservationsComponent } from './my-info-components/observations/observations.component';
+import { ImmunizationsComponent } from './my-info-components/immunizations/immunizations.component';
+import { MedicationsComponent } from './my-info-components/medications/medications.component';
 
 @Component({
   selector: 'app-home',
@@ -28,32 +32,19 @@ import { mockPatient3 } from 'fhir/R4/mocks/patient/mock-patient-3';
 
     DemographicsComponent,
     AllergiesComponent,
+    ObservationsComponent,
+    ImmunizationsComponent,
+    MedicationsComponent
   ],
 })
-export class HomeComponent implements OnInit {
-  displayedColumns = ['name', 'type', 'date', 'level'];
-  dataSource: document[] = [];
+export class HomeComponent {
+  myPerson = mockPatient3;
   myAllergies = [
     mockAllergyIntolerance1,
     mockAllergyIntolerance2,
     mockAllergyIntolerance3,
-  ]
-  myPerson = mockPatient3;
+  ];
+  
+  myObservations = allObservations;
 
-  ngOnInit(): void {
-    for (let a = 0; a < 18; a++)
-      this.dataSource.push({
-        name: 'Blood analysis test results',
-        type: 'lab result',
-        date: new Date(2018, 7, 12, 15, 31, 22),
-        level: 'private',
-      });
-  }
-}
-
-interface document {
-  name: string;
-  date: Date;
-  type?: string;
-  level: 'private' | 'my_doctors' | 'all_doctors';
 }
