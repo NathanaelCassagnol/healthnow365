@@ -1,4 +1,4 @@
-import { Identifier, canonical, uri, CodeableConcept, Reference, dateTime, Period, date, Age, Annotation, BackboneElement } from "./_basic-types"
+import { Identifier, canonical, uri, CodeableConcept, Reference, dateTime, Period, date, Age, Annotation, BackboneElement, Range } from "./_basic-types"
 import { DomainResource } from "./_resource.types"
 
 export type FamilyMemberHistory = DomainResource & {

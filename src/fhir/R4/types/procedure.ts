@@ -1,4 +1,4 @@
-import { Age, Annotation, BackboneElement, CodeableConcept, Identifier, Period, Reference, canonical, dateTime, uri } from "./_basic-types";
+import { Age, Range, Annotation, BackboneElement, CodeableConcept, Identifier, Period, Reference, canonical, dateTime, uri } from "./_basic-types";
 import { DomainResource } from "./_resource.types";
 
 export type Procedure = DomainResource & {

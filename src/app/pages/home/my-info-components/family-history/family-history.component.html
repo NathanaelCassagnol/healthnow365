@@ -1,0 +1,21 @@
+
+
+<h3>Family History</h3>
+<app-magic-table [columns]="columns" [data]="data()" [columnData]="colData" paginate footer="row-counts">
+    <ng-template MagicTableBody="notes" let-row>
+        @for(n of row.notes; track n; let i = $index) {
+            <div [matTooltip]="n" style="border: 2px solid black; border-radius: 4px; padding: 4px; width: max-content;">{{i+1}}</div>
+        }
+    </ng-template>
+    <ng-template MagicTableBody="condition" let-row>
+        @for (c of row.condition; track c; let last = $last) {
+            <span>
+                {{c.code}}
+                <mat-icon [matTooltip]="getTooltip(c)">info</mat-icon>
+            </span>
+            @if (!last) {
+                <hr class="m-0">
+            }
+        }
+    </ng-template>
+</app-magic-table>

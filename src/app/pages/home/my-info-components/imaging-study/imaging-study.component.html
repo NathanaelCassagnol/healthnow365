@@ -1,0 +1,15 @@
+
+
+<h3>Imaging Studies</h3>
+<app-magic-table [columns]="columns" [data]="data()" [columnData]="colData" paginate footer="row-counts">
+    <ng-template MagicTableBody="notes" let-row>
+        @for(n of row.notes; track n; let i = $index) {
+            <div [matTooltip]="n" style="border: 2px solid black; border-radius: 4px; padding: 4px; width: max-content;">{{i+1}}</div>
+        }
+    </ng-template>
+    <ng-template MagicTableBody="series" let-row>
+        @if (row.series?.length) {
+            <button mat-raised-button color="primary" type="button">See {{row.series.length}} Series</button>
+        }
+    </ng-template>
+</app-magic-table>

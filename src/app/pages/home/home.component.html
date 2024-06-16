@@ -20,21 +20,7 @@
                 Allergies
               </mat-panel-title>
             </mat-expansion-panel-header>
-
             <app-allergies [allergies]="myAllergies"/>
-
-          </mat-expansion-panel>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Medications
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <ul>
-              <li>ABC, 10mg, twice a day, since mm/dd/yyyy</li>
-              <li>DEF, 20mg, once a week, since mm/dd/yyyy</li>
-              <li>XYZ, 5mg, once a week, since mm/dd/yyyy</li>
-            </ul>
           </mat-expansion-panel>
 
           <mat-expansion-panel>
@@ -62,6 +48,69 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <app-medications></app-medications>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Family History
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-family-history></app-family-history>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Imaging
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-imaging-study></app-imaging-study>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Issues
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-detected-issue></app-detected-issue>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Procedures
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-procedure></app-procedure>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Conditions
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-condition></app-condition>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Adverse Events
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-adverse-event></app-adverse-event>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Diagnostic Reports
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-diagnostic-report></app-diagnostic-report>
           </mat-expansion-panel>
 
 

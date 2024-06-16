@@ -1,4 +1,4 @@
-import { Identifier, CodeableConcept, Reference, dateTime, Age, Period, BackboneElement, Annotation } from "./_basic-types";
+import { Identifier, Range, CodeableConcept, Reference, dateTime, Age, Period, BackboneElement, Annotation } from "./_basic-types";
 import { DomainResource } from "./_resource.types";
 
 export type Condition = DomainResource & {

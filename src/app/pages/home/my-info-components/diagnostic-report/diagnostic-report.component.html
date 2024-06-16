@@ -1,0 +1,10 @@
+
+
+<h3>Diagnostic Reports</h3>
+<app-magic-table [columns]="columns" [data]="data()" [columnData]="colData" paginate footer="row-counts">
+    <ng-template MagicTableBody="notes" let-row>
+        @for(n of row.notes; track n; let i = $index) {
+            <div [matTooltip]="n" style="border: 2px solid black; border-radius: 4px; padding: 4px; width: max-content;">{{i+1}}</div>
+        }
+    </ng-template>
+</app-magic-table>

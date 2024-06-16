@@ -399,26 +399,36 @@ export function quantityToString(q: Quantity | SimpleQuantity | Age | Distance |
     return [q.comparator, q.value, q.unit].filter(x => x != undefined).join(" ");
 }
 
-export function annotationToString(a: Annotation) {
+export function annotationToString(a?: Annotation | Annotation[]) {
     // Currently only writes author if it is a string, may add author reference in the future
-    let ret = '';
-    if(a.authorString || a.time) {
-        ret += '[';
-        if (a.authorString) ret += a.authorString;
-        if (a.authorString && a.time) ret += ' ';
-        if (a.time) ret += dateTimeToString(a.time);
-        ret += '] ';
+    if (!a) return '';
+
+    const anMap = (an: Annotation) => {
+        let ret = '';
+        if(an.authorString || an.time) {
+            ret += '[';
+            if (an.authorString) ret += an.authorString;
+            if (an.authorString && an.time) ret += ' ';
+            if (an.time) ret += dateTimeToString(an.time);
+            ret += '] ';
+        }
+        ret += an.text;
+        return ret;
     }
-    ret += a.text;
-    return ret;
+
+    if (Array.isArray(a)) return a.map(anMap);
+    return anMap(a);
 }
 
 export function attachmentToString(a: Attachment) {
     return a.title ?? 'Unnamed Attachment';
 }
 
-export function codeableConceptToString(c: CodeableConcept) {
-    return c.text ?? c.coding?.[0]?.display ?? '';
+export function codeableConceptToString(c?: CodeableConcept | CodeableConcept[]) {
+    if (!c) return '';
+    let ccMap = (cc: CodeableConcept) => cc.text ?? cc.coding?.[0]?.display ?? '';
+    if (Array.isArray(c)) return c.map(ccMap);
+    return ccMap(c);
 }
 
 export function codingToString(c: Coding) {
@@ -532,7 +542,8 @@ export function isTime(d: string) {
 export function isInstant(d: string) {
     return /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))$/.test(d);
 }
-export function dateTimeToString(dt: date | dateTime | time) {
+export function dateTimeToString(dt?: date | dateTime | time) {
+    if (!dt) return '';
     if (!isAnyDateTime(dt)) return 'Invalid Time';
 
     if (dt.length === 4) return dt;

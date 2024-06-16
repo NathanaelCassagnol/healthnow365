@@ -16,6 +16,13 @@ import { allObservations } from 'fhir/R4/mocks/observation/all-observations';
 import { ObservationsComponent } from './my-info-components/observations/observations.component';
 import { ImmunizationsComponent } from './my-info-components/immunizations/immunizations.component';
 import { MedicationsComponent } from './my-info-components/medications/medications.component';
+import { FamilyHistoryComponent } from './my-info-components/family-history/family-history.component';
+import { ImagingStudyComponent } from './my-info-components/imaging-study/imaging-study.component';
+import { DetectedIssueComponent } from './my-info-components/detected-issue/detected-issue.component';
+import { ProcedureComponent } from './my-info-components/procedure/procedure.component';
+import { ConditionComponent } from './my-info-components/condition/condition.component';
+import { AdverseEventComponent } from './my-info-components/adverse-event/adverse-event.component';
+import { DiagnosticReportComponent } from './my-info-components/diagnostic-report/diagnostic-report.component';
 
 @Component({
   selector: 'app-home',
@@ -34,7 +41,14 @@ import { MedicationsComponent } from './my-info-components/medications/medicatio
     AllergiesComponent,
     ObservationsComponent,
     ImmunizationsComponent,
-    MedicationsComponent
+    MedicationsComponent,
+    FamilyHistoryComponent,
+    ImagingStudyComponent,
+    DetectedIssueComponent,
+    ProcedureComponent,
+    ConditionComponent,
+    AdverseEventComponent,
+    DiagnosticReportComponent,
   ],
 })
 export class HomeComponent {
