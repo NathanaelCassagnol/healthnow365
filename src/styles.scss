@@ -3,7 +3,7 @@
 @use 'sass:map';
 @include mat.core();
 
-$site-primary: mat.m2-define-palette(mat.$m2-light-green-palette);
+$site-primary: mat.m2-define-palette(mat.$m2-light-blue-palette);
 $site-accent: mat.m2-define-palette(mat.$m2-orange-palette, A200, A100, A400);
 $site-warn: mat.m2-define-palette(mat.$m2-red-palette);
 $light-theme: mat.m2-define-light-theme(
@@ -22,18 +22,74 @@ $dark-theme: mat.m2-define-dark-theme(
       accent: $site-accent,
       warn: $site-warn,
     ),
-    typography: config.$my-app-typography, // 👈 Added
   )
-
 );
 
-$dark-background: #303030;
-$dark-surface: rgb(66, 66, 66);
 // TODO: Only import themes you're using
 @include mat.all-component-themes($light-theme);
 
 .my-dark-theme {
-  @include mat.all-component-themes($dark-theme);
+  @include mat.all-component-colors($dark-theme);
+}
+
+// #endregion
+
+// #region Dark mode
+$dark-background: #202020;
+$dark-surface: rgb(66, 66, 66);
+
+.base-color {
+  background-color: #f6f6f6;
+}
+.surface-color {
+  background-color: white;
+}
+.surface-color-2 {
+  background-color: rgb(231, 231, 231);
+}
+.surface-border {
+  border-color: lightgrey;
+}
+.my-dark-theme {
+  @include mat.all-component-colors($dark-theme);
+  .base-color {
+    background-color: $dark-background;
+  }
+  .surface-color {
+    background-color: $dark-surface;
+  }
+  .surface-color-2 {
+    background-color: rgb(92, 92, 92);
+  }
+  .surface-border {
+    border-color: rgb(63, 63, 63);
+  }
+  color: white;
+  hr {
+    border-color: $dark-background;
+    border-bottom-style: solid;
+  }
+  mat-dialog-container {
+    background-color: $dark-surface;
+    color: white;
+  }
+  quill-editor {
+    svg {
+      filter: invert(1);
+    }
+    span {
+      color: white;
+    }
+    span .ql-picker-item {
+      color: black;
+    }
+  }
+}
+
+.ql-container {
+  background-color: white;
+  color: black;
+  caret-color: black;
 }
 // #endregion
 
@@ -77,13 +133,15 @@ app-root {
 
   @each $lev-selector, $lev in $steps {
     .bg-#{$color-name}#{$lev-selector} {
-      background-color: mat.get-color-from-palette($base-set, $lev) !important;
+      background-color: mat.m2-get-color-from-palette($base-set, $lev) !important;
     }
     .color-#{$color-name}#{$lev-selector} {
-      color: mat.get-color-from-palette($base-set, $lev) !important;
+      color: mat.m2-get-color-from-palette($base-set, $lev) !important;
     }
     .border-#{$color-name}#{$lev-selector} {
-      border-color: mat.get-color-from-palette($base-set, $lev) !important;
+      border-color: mat.m2-get-color-from-palette($base-set, $lev) !important;
+      border-width: 1px;
+      border-style: solid;
     }
   }
 }
@@ -167,33 +225,26 @@ app-root {
   }
 }
 @mixin generate-striped-hover-table($color-1, $color-2, $base, $odd-color, $shademap) {
-  .header-row,
-  thead tr,
-  caption {
-    // Header / Caption
-    background-color: mix($color-1, $base, map.get($shademap, 'header')) !important;
-  }
-
-  tbody tr:nth-child(even):not(.override-odd):not(.highlight-row):not(.red-row),
-  tr.body-row:nth-child(even):not(.override-odd):not(.highlight-row):not(.red-row),
+  tbody tr:nth-child(even):not(.override-odd):not(.highlight-row):not(.red-row):not(.group-row),
+  tr.body-row:nth-child(even):not(.override-odd):not(.highlight-row):not(.red-row):not(.group-row),
   tr.override-even {
     // Even (standard)
     background-color: mix($color-1, $base, map.get($shademap, 'even-s')) !important;
   }
-  tbody tr:nth-child(even):not(.override-odd):not(.red-row):not(.highlight-row):hover,
-  tr.body-row:nth-child(even):not(.override-odd):not(.red-row):not(.highlight-row):hover,
+  tbody tr:nth-child(even):not(.override-odd):not(.red-row):not(.highlight-row):not(.group-row):hover,
+  tr.body-row:nth-child(even):not(.override-odd):not(.red-row):not(.highlight-row):not(.group-row):hover,
   tr.override-even:hover {
     // Even (hover)
     background-color: mix($color-1, $base, map.get($shademap, 'even-h')) !important;
   }
-  tbody tr:nth-child(odd):not(.override-even):not(.red-row):not(.highlight-row),
-  tr.body-row:nth-child(odd):not(.override-even):not(.red-row):not(.highlight-row),
+  tbody tr:nth-child(odd):not(.override-even):not(.red-row):not(.highlight-row):not(.group-row),
+  tr.body-row:nth-child(odd):not(.override-even):not(.red-row):not(.highlight-row):not(.group-row),
   tr.override-odd {
     // Odd (standard)
     background-color: mix($odd-color, $base, map.get($shademap, 'odd-s')) !important;
   }
-  tbody tr:nth-child(odd):not(.override-even):not(.red-row):not(.highlight-row):hover,
-  tr.body-row:nth-child(odd):not(.override-even):not(.red-row):not(.highlight-row):hover,
+  tbody tr:nth-child(odd):not(.override-even):not(.red-row):not(.highlight-row):not(.group-row):hover,
+  tr.body-row:nth-child(odd):not(.override-even):not(.red-row):not(.highlight-row):not(.group-row):hover,
   tr.override-odd:hover {
     // Odd (hover)
     background-color: mix($odd-color, $base, map.get($shademap, 'odd-h')) !important;
@@ -218,38 +269,59 @@ app-root {
   tfoot tr:hover {
     background-color: mix($color-2, $base, map.get($shademap, 'footer-h')) !important;
   }
+  .group-row {
+    background-color: mix($color-1, $base, map.get($shademap, 'group')) !important;
+  }
+  .header-row,
+  thead tr,
+  caption {
+    // Header / Caption
+    $col: mix($color-1, $base, map.get($shademap, 'header'));
+    background-color: $col !important;
+
+    th {
+      border-top: 1px solid $col;
+      border-bottom: 1px solid $col;
+      border-left: 1px solid $col;
+    }
+    th:last-child {
+      border-right: 1px solid $col;
+    }
+  }
 }
 $light-shademap: (
   'header': 100%,
+  'group': 70%,
   'even-s': 20%,
   'even-h': 40%,
   'odd-s': 0%,
   'odd-h': 10%,
-  'highlight-es': 55%,
-  'highlight-eh': 70%,
-  'highlight-os': 20%,
-  'highlight-oh': 35%,
+  'highlight-es': 45%,
+  'highlight-eh': 60%,
+  'highlight-os': 35%,
+  'highlight-oh': 50%,
   'footer-s': 70%,
   'footer-h': 90%,
 );
 $dark-shademap: (
   'header': 70%,
+  'group': 60%,
   'even-s': 20%,
   'even-h': 40%,
   'odd-s': 0%,
   'odd-h': 10%,
-  'highlight-es': 55%,
-  'highlight-eh': 70%,
-  'highlight-os': 20%,
-  'highlight-oh': 35%,
+  'highlight-es': 45%,
+  'highlight-eh': 60%,
+  'highlight-os': 35%,
+  'highlight-oh': 50%,
   'footer-s': 70%,
   'footer-h': 90%,
 );
 .striped-hover-table:not(.table-accent) {
   @include generate-striped-hover-table(
     // Main colors
-    mat.get-color-from-palette($site-primary, 300),
-    mat.get-color-from-palette($site-accent, 300),
+    mat.m2-get-color-from-palette($site-primary, 300),
+    mat.m2-get-color-from-palette($site-accent, 300),
     // Base colors
     white,
     black,
@@ -259,8 +331,8 @@ $dark-shademap: (
 .striped-hover-table.table-accent {
   @include generate-striped-hover-table(
     // Main colors
-    mat.get-color-from-palette($site-accent, 300),
-    mat.get-color-from-palette($site-primary, 300),
+    mat.m2-get-color-from-palette($site-accent, 300),
+    mat.m2-get-color-from-palette($site-primary, 300),
     // Base colors
     white,
     black,
@@ -271,8 +343,8 @@ $dark-shademap: (
   .striped-hover-table:not(.table-accent) {
     @include generate-striped-hover-table(
       // Main colors
-      mat.get-color-from-palette($site-primary, 300),
-      mat.get-color-from-palette($site-accent, 300),
+      mat.m2-get-color-from-palette($site-primary, 300),
+      mat.m2-get-color-from-palette($site-accent, 300),
       // Base colors
       $dark-surface,
       white,
@@ -282,8 +354,8 @@ $dark-shademap: (
   .striped-hover-table.table-accent {
     @include generate-striped-hover-table(
       // Main colors
-      mat.get-color-from-palette($site-accent, 300),
-      mat.get-color-from-palette($site-primary, 300),
+      mat.m2-get-color-from-palette($site-accent, 300),
+      mat.m2-get-color-from-palette($site-primary, 300),
       // Base colors
       $dark-surface,
       white,
@@ -495,43 +567,47 @@ button.focus-border:not(:focus) {
 // #region Text size responsivity
 //Allow user to change font size with browser settings
 //Text
-p,
-li,
-label,
-span,
-th,
-td {
-  font-size: 1rem !important;
-}
-h1 {
-  font-size: 2rem !important;
-}
-h2 {
-  font-size: 1.5rem !important;
-}
-h3 {
-  font-size: 1.17rem !important;
-}
-h4 {
-  font-size: 1rem !important;
-}
-h5 {
-  font-size: 0.83rem !important;
-}
-h6 {
-  font-size: 0.67rem !important;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-span,
-th,
-td {
-  line-height: 1.2 !important;
+// :not([class^='ql-'])
+// p,
+// li,
+// label,
+// span:not(.ql-editor),
+// th,
+// td {
+//   font-size: 1rem !important;
+// }
+// h1 {
+//   font-size: 2rem !important;
+// }
+// h2 {
+//   font-size: 1.5rem !important;
+// }
+// h3 {
+//   font-size: 1.17rem !important;
+// }
+// h4 {
+//   font-size: 1rem !important;
+// }
+// h5 {
+//   font-size: 0.83rem !important;
+// }
+// h6 {
+//   font-size: 0.67rem !important;
+// }
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6,
+// p,
+// span,
+// th,
+// td {
+//   line-height: 1.2 !important;
+// }
+.mat-button-toggle-group span {
+  line-height: 3rem !important;
 }
 
 //Buttons
@@ -625,20 +701,6 @@ mat-form-field .mat-mdc-select-arrow-wrapper {
 
 // #endregion
 
-// #region Print Styling
-@media screen {
-  .only-print {
-    display: none;
-  }
-}
-
-@media print {
-  .no-print {
-    display: none !important;
-  }
-}
-// #endregion
-
 // #region Utilities
 
 .dense-1 {
@@ -714,6 +776,10 @@ mat-form-field.width-unset .mat-mdc-form-field-infix {
   align-content: center;
   align-items: center;
 }
+.align-start {
+  align-content: start;
+  align-items: start;
+}
 .bold {
   font-weight: bold !important;
 }
@@ -728,4 +794,72 @@ mat-form-field.width-unset .mat-mdc-form-field-infix {
 .tabular-nums {
   font-variant-numeric: tabular-nums;
 }
+.centered {
+  text-align: center;
+}
 // #endregion
+
+// #region Print Styling
+@media screen {
+  .only-print {
+    display: none;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+// #endregion
+
+.dialog {
+  padding: 1rem;
+  min-width: 650px;
+  max-width: 100%;
+  width: 80vw;
+  > :first-child {
+    margin-top: 0;
+  }
+  max-height: 90vh;
+  overflow: auto;
+
+  .bottom-buttons {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: end;
+    gap: 1rem 1rem;
+    margin-top: 1rem;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.round-panel {
+  @extend .border-primary;
+  border-radius: 8px;
+  border-width: 2px;
+  padding: 1rem;
+}
+
+.dark-hover {
+  transition: background-color 0.3s;
+}
+
+.dark-hover:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.mat-calendar-body-label {
+  padding-top: 11px !important;
+  padding-bottom: 11px !important;
+}
+
+.mat-button-toggle-group.constant-spacing .mat-button-toggle:not(.mat-button-toggle-checked) span {
+  padding-left: 27px;
+  padding-right: 27px;
+}
