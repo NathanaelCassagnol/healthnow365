@@ -3,10 +3,10 @@ import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
-import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
-import amplifyconfig from 'amplifyconfiguration.json';
 
-Amplify.configure(amplifyconfig);
+import outputs from '../../../amplify_outputs.json';
+
+Amplify.configure(outputs);
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,6 @@ Amplify.configure(amplifyconfig);
     MatToolbarModule,
     MatIconModule,
     RouterModule,
-    AmplifyAuthenticatorModule,
   ]
 })
 export class AppComponent {

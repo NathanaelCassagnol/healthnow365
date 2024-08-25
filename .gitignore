@@ -1,11 +1,5 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-#VS settings
-/.vs
-/.vscode
-.cert
-.vs/
-
 # Compiled output
 /dist
 /tmp
@@ -34,6 +28,9 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
+# Visual Studio
+.vs/*
+
 # Miscellaneous
 /.angular/cache
 .sass-cache/
@@ -47,29 +44,7 @@ testem.log
 .DS_Store
 Thumbs.db
 
-
-/.vs/VSWorkspaceState.json
-/.vs/slnx.sqlite
-/.vs/healthnow365/v17/.wsuo
-
-#amplify-do-not-edit-begin
-amplify/\#current-cloud-backend
-amplify/.config/local-*
-amplify/logs
-amplify/mock-data
-amplify/mock-api-resources
-amplify/backend/amplify-meta.json
-amplify/backend/.temp
-build/
-dist/
-node_modules/
-aws-exports.js
-awsconfiguration.json
-amplifyconfiguration.json
-amplifyconfiguration.dart
-amplify-build-config.json
-amplify-gradle-config.json
-amplifytools.xcconfig
-.secret-*
-**.sample
-#amplify-do-not-edit-end
+# amplify
+.amplify
+amplify_outputs*
+amplifyconfiguration*
