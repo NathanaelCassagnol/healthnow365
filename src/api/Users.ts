@@ -1,8 +1,8 @@
 import { format, differenceInYears } from 'date-fns';
 import { signUp, signOut } from 'aws-amplify/auth';
-import { uploadData } from 'aws-amplify/storage';
+//import { uploadData } from 'aws-amplify/storage';
 import { generateClient } from 'aws-amplify/api';
-import { CreateUserInput } from 'app/API.service';
+import { CreateUserInput } from '../API';
 import { createUser } from 'graphql/mutations';
 
 const client = generateClient();
@@ -80,25 +80,25 @@ export async function CreateUser(user_data: CreateUserData): Promise<CreateUserR
     temp_user_data.id = userId;
 
     // Add profile picture to S3
-    if (user_data.profile_picture) {
-      let uri, extension;
+    //if (user_data.profile_picture) {
+    //  let uri, extension;
 
-      extension = user_data.profile_picture.type.substring(6);
-      uri = `${self.crypto.randomUUID()}.${extension}`;
+    //  extension = user_data.profile_picture.type.substring(6);
+    //  uri = `${self.crypto.randomUUID()}.${extension}`;
 
-      const result = await uploadData({
-        key: uri,
-        data: user_data.profile_picture,
-        options: {
-          accessLevel: 'guest', // defaults to `guest` but can be 'private' | 'protected' | 'guest'
-          contentType: user_data.profile_picture.type,
-          metadata: { name: encodeURI(user_data.profile_picture.name) },
-          // onProgress // Optional progress callback.
-        }
-      }).result;
+    //  const result = await uploadData({
+    //    key: uri,
+    //    data: user_data.profile_picture,
+    //    options: {
+    //      accessLevel: 'guest', // defaults to `guest` but can be 'private' | 'protected' | 'guest'
+    //      contentType: user_data.profile_picture.type,
+    //      metadata: { name: encodeURI(user_data.profile_picture.name) },
+    //      // onProgress // Optional progress callback.
+    //    }
+    //  }).result;
 
-      temp_user_data.profile_picture_URI = uri;
-    }
+    //  temp_user_data.profile_picture_URI = uri;
+    //}
 
     // Add user data to GraphQL
     const newUser = await client.graphql({
