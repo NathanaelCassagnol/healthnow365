@@ -24,7 +24,7 @@ export interface CreateUserData {
   address_zip_code?: string;
   gender?: string;
 }
-interface CreateUserResponse {
+export interface CreateUserResponse {
   successStatus: boolean;
   userID?: string;
 }

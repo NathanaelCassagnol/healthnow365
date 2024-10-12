@@ -1,2 +1,5 @@
-<input matInput [(ngModel)]="inputText" (ngModelChange)="inputChange($event, input)" [id]="id" [name]="name"
-    [classList]="class" [style]="style" #input [maxLength]="14" [required]="required()" digitOnly>
+<mat-form-field [classList]="FormFieldClass" [style]="FormFieldStyle">
+    <mat-label>{{label}}</mat-label>
+    <input matInput [(ngModel)]="inputText" (ngModelChange)="inputChange($event, input)" [id]="id" [name]="name"
+        [classList]="InputClass" [style]="InputStyle" #input [maxLength]="14" [required]="required()" digitOnly>
+</mat-form-field>

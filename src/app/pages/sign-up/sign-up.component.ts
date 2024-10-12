@@ -1,12 +1,15 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
-import { CreateUserData } from 'api/Users';
+import { CreateUserData, CreateUserResponse } from 'api/Users';
 import { PhoneInput } from "../../shared/component-library/phone-input/phone-input.component";
+import { DateInput } from 'app/shared/component-library/date-input/date-input.component';
+import { AuthService } from 'app/services/auth.service';
+import { PasswordInput } from 'app/shared/component-library/password-input/password-input.component';
 
 @Component({
   selector: 'app-sign-up',
@@ -19,7 +22,10 @@ import { PhoneInput } from "../../shared/component-library/phone-input/phone-inp
     MatInputModule,
     MatFormFieldModule,
     FormsModule,
-    PhoneInput
+    PhoneInput,
+    DateInput,
+    MatProgressBarModule,
+    PasswordInput,
 ],
 })
 export class SignUpComponent {
@@ -34,6 +40,7 @@ export class SignUpComponent {
     phone_number: ""
   };
   confirmPassword = "";
+  createStatus?: CreateUserResponse;
 
   buttonPatient() {
     this.page = 1;
@@ -51,7 +58,13 @@ export class SignUpComponent {
     this.submitSignup();
   }
 
-  private submitSignup() {
+  previousPage() {
+    this.page --;
+  }
+
+  private auth = inject(AuthService);
+  private async submitSignup() {
+    var val = await this.auth.CreateUser(this.mySignupInfo);
     this.page = 4;
   }
 }

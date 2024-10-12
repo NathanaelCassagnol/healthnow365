@@ -1,15 +1,16 @@
-import { Component, computed, forwardRef, HostBinding, input, Input, OnInit } from '@angular/core';
+import { Component, computed, forwardRef, HostBinding, input, Input, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { PhonePipe } from '../../pipes/phone.pipe';
-import { DigitOnlyModule } from 'app/shared/validators/digit-only/digit-only.module';
+import { DigitOnlyModule } from '../../validators/digit-only/digit-only.module';
 
 @Component({
   selector: 'phone-input',
   templateUrl: './phone-input.component.html',
   styleUrl: './phone-input.component.scss',
   standalone: true,
-  imports: [FormsModule, MatInputModule, PhonePipe, DigitOnlyModule],
+  imports: [MatFormFieldModule, FormsModule, MatInputModule, PhonePipe, DigitOnlyModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -19,8 +20,11 @@ import { DigitOnlyModule } from 'app/shared/validators/digit-only/digit-only.mod
   ],
 })
 export class PhoneInput implements ControlValueAccessor, OnInit {
-  @Input() class = '';
-  @Input() style = '';
+  @Input() label = '';
+  @Input() FormFieldClass = '';
+  @Input() FormFieldStyle = '';
+  @Input() InputClass = '';
+  @Input() InputStyle = '';
   @Input() name = '';
   required_input = input<boolean | '' | undefined>(undefined, { alias: 'required' });
   required = computed(() => this.required_input() !== undefined && this.required_input() !== false);
