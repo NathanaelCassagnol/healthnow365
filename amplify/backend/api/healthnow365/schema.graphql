@@ -5,7 +5,6 @@ input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONL
 type User @model {
 	# Required Fields
 	id: ID!
-  test: String
 	first_name: String!
 	last_name: String!
 	username: String! @index(name: "byUsername", queryField: "userByUsername", sortKeyFields: ["id"])
@@ -38,5 +37,3 @@ type User @model {
 	#created_at: automatically generated
 	#updated_at: automatically generated
 }
-
-#force update
