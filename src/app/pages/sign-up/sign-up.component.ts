@@ -10,6 +10,7 @@ import { PhoneInput } from "../../shared/component-library/phone-input/phone-inp
 import { DateInput } from 'app/shared/component-library/date-input/date-input.component';
 import { AuthService } from 'app/services/auth.service';
 import { PasswordInput } from 'app/shared/component-library/password-input/password-input.component';
+import { SplashService } from 'app/shared/services/splash.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -63,8 +64,17 @@ export class SignUpComponent {
   }
 
   private auth = inject(AuthService);
+  private splash = inject(SplashService);
   private async submitSignup() {
-    var val = await this.auth.CreateUser(this.mySignupInfo);
+    try {
+      this.createStatus = await this.auth.CreateUser(this.mySignupInfo);
+      if (this.createStatus.successStatus) this.splash.success("Account submitted");
+      else this.splash.error("An error was encountered while trying to create an account");
+    }
+    catch (e: any) {
+      this.splash.error(e);
+      this.createStatus = {successStatus: false};
+    }
     this.page = 4;
   }
 }
