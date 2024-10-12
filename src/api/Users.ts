@@ -6,7 +6,7 @@ import { CreateUserInput } from '../API';
 import { createUser } from 'graphql/mutations';
 
 const client = generateClient();
-interface CreateUserData {
+export interface CreateUserData {
   first_name: string;
   last_name: string;
   username: string;

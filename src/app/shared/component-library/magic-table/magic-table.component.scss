@@ -1,13 +1,6 @@
 th {
   text-align: left;
-}
-
-.dark-hover {
-  transition: background-color 0.3s;
-}
-
-.dark-hover:hover {
-  background-color: rgba(0, 0, 0, 0.15);
+  // box-sizing: content-box; // Is this important?
 }
 
 .arrow {
@@ -24,4 +17,16 @@ th:hover .arrow-hidden {
 }
 ::ng-deep mat-paginator.hide-label .mat-mdc-paginator-range-label {
   display: none;
+}
+
+table.has-search {
+  th.search-focus {
+    border: 1px solid black !important;
+  }
+}
+
+iframe {
+  position: absolute;
+  top: -10000px;
+  left: -10000px;
 }

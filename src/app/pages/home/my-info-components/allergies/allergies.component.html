@@ -1,4 +1,4 @@
-<app-magic-table [data]="allergiesTransform()" [columnData]="tableData" [columns]="columns" paginate footer="row-counts">
+<magic-table [data]="allergiesTransform()" [columnData]="tableData" [columns]="columns" paginate footer="row-counts">
     <ng-template MagicTableBody="notes" let-row>
         @for(n of row.notes; track n; let i = $index) {
             <div [matTooltip]="n" style="border: 2px solid black; border-radius: 4px; padding: 4px; width: max-content;">{{i+1}}</div>
@@ -9,4 +9,4 @@
             <button mat-raised-button type="button" color="primary">See {{row.reactionCount}} Reactions</button>
         }
     </ng-template>
-</app-magic-table>
+</magic-table>

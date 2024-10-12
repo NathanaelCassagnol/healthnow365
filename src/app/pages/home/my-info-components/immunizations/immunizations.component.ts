@@ -1,7 +1,7 @@
 import { Component, computed, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
-import { MagicTableBodyDirective, MagicTableColumnData, MagicTableComponent } from "app/shared/magic-table/magic-table.component";
+import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
 import { mockImmunizationRecommendation1 } from "fhir/R4/mocks/immunization-recommendation/mock-immunization-recommendation-1";
 import { mockImmunizationRecommendation2 } from "fhir/R4/mocks/immunization-recommendation/mock-immunization-recommendation-2";
 import { mockImmunization1 } from "fhir/R4/mocks/immunization/mock-immunization-1";
@@ -16,7 +16,7 @@ import { annotationToString, codeableConceptToString, dateTimeToString } from "f
     styleUrl: './immunizations.component.scss',
     templateUrl: './immunizations.component.html',
     standalone: true,
-    imports: [MagicTableComponent, MagicTableBodyDirective, MatButtonModule, MatTooltipModule],
+    imports: [MagicTableModule, MatButtonModule, MatTooltipModule],
 })
 export class ImmunizationsComponent {
     myImmunizations = signal([
@@ -45,13 +45,13 @@ export class ImmunizationsComponent {
     })
     takenColData: MagicTableColumnData = {
         name: {
-            applySearch: true,
-            filterOn: ['includes', 'startsWith'],
-            sortAs: 'text',
+            search: true,
+            filter: ['includes', 'startsWith'],
+            sort: 'text',
         },
         status: {
-            filterOn: ['matches'],
-            sortAs: 'text',
+            filter: ['matches'],
+            sort: 'text',
         },
         occurrence: {
             // Filter on before, after
@@ -62,8 +62,8 @@ export class ImmunizationsComponent {
             // Sort as FHIR datetime
         },
         reason: {
-            applySearch: true,
-            filterOn: ['includes'],
+            search: true,
+            filter: ['includes'],
         },
         reactionCount: {
             title: "Reactions",
@@ -85,13 +85,13 @@ export class ImmunizationsComponent {
     }))).flat());
     recommendedColData: MagicTableColumnData = {
         names: {
-            applySearch: true,
-            sortAs: 'text',
-            filterOn: ['includes', 'startsWith'],
+            search: true,
+            sort: 'text',
+            filter: ['includes', 'startsWith'],
         },
         description: {
-            applySearch: true,
-            filterOn: ['includes', 'startsWith'],
+            search: true,
+            filter: ['includes', 'startsWith'],
         }
     }
 

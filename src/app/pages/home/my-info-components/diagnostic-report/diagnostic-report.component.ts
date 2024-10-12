@@ -1,7 +1,7 @@
 import { Component, computed, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
-import { MagicTableBodyDirective, MagicTableColumnData, MagicTableComponent } from "app/shared/magic-table/magic-table.component";
+import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
 import { mockDiagnosticReport1Bundle } from "fhir/R4/mocks/diagnostic-report/mock-diagnostic-report-1";
 import { mockDiagnosticReport10Bundle } from "fhir/R4/mocks/diagnostic-report/mock-diagnostic-report-10";
 import { mockDiagnosticReport11 } from "fhir/R4/mocks/diagnostic-report/mock-diagnostic-report-11";
@@ -29,7 +29,7 @@ import { codeableConceptToString, dateTimeToString, periodToString } from "fhir/
     styleUrl: './diagnostic-report.component.scss',
     templateUrl: './diagnostic-report.component.html',
     standalone: true,
-    imports: [MagicTableComponent, MagicTableBodyDirective, MatButtonModule, MatTooltipModule],
+    imports: [MagicTableModule, MatButtonModule, MatTooltipModule],
 })
 export class DiagnosticReportComponent {
     myAdverseEvents = signal([

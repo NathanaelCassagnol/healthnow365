@@ -1,7 +1,7 @@
 import { Component, computed, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
-import { MagicTableBodyDirective, MagicTableColumnData, MagicTableComponent } from "app/shared/magic-table/magic-table.component";
+import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
 import { mockDetectedIssue1 } from "fhir/R4/mocks/detected-issue/mock-detected-issue-1";
 import { mockDetectedIssue2 } from "fhir/R4/mocks/detected-issue/mock-detected-issue-2";
 import { codeableConceptToString, dateTimeToString, periodToString } from "fhir/R4/utilities/validators-tostring.util";
@@ -13,7 +13,7 @@ import { codeableConceptToString, dateTimeToString, periodToString } from "fhir/
     styleUrl: './detected-issue.component.scss',
     templateUrl: './detected-issue.component.html',
     standalone: true,
-    imports: [MagicTableComponent, MagicTableBodyDirective, MatButtonModule, MatTooltipModule],
+    imports: [MagicTableModule, MatButtonModule, MatTooltipModule],
 })
 export class DetectedIssueComponent {
     myIssues = signal([mockDetectedIssue1, mockDetectedIssue2]);

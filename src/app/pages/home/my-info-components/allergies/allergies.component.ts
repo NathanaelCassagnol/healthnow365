@@ -4,7 +4,7 @@ import { CommonModule, TitleCasePipe } from "@angular/common";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { AllergyIntolerance } from "fhir/R4/types/allergy-intolerance.types";
-import { MagicTableBodyDirective, MagicTableColumnData, MagicTableComponent } from "app/shared/magic-table/magic-table.component";
+import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
 
 @Component({
     selector: 'app-allergies',
@@ -17,8 +17,7 @@ import { MagicTableBodyDirective, MagicTableColumnData, MagicTableComponent } fr
         MatIconModule,
         CommonModule,
         MatTooltipModule,
-        MagicTableComponent,
-        MagicTableBodyDirective,
+        MagicTableModule
     ],
 })
 export class AllergiesComponent {
@@ -37,29 +36,29 @@ export class AllergiesComponent {
     tableData: MagicTableColumnData = {
         allergenName: {
             title: "Allergen",
-            applySearch: true,
-            sortAs: 'text',
-            filterOn: ['includes', 'startsWith'],
+            search: true,
+            sort: 'text',
+            filter: ['includes', 'startsWith'],
         },
         reactionCount: {
             title: "Reactions",
-            sortAs: 'number',
-            filterOn: ['exists'],
+            sort: 'number',
+            filter: ['exists'],
         },
         criticality: {
-            sortAs: ["low", "high", "unable-to-assess", "unknown"],
-            filterOn: ["matches"],
+            sort: ["low", "high", "unable-to-assess", "unknown"],
+            filter: ["matches"],
         },
         category: {
-            sortAs: 'text',
-            filterOn: ["matches"],
+            sort: 'text',
+            filter: ["matches"],
         },
         lastOccurrence: {
-            sortAs: 'text',
+            sort: 'text',
         },
         status: {
-            sortAs: 'text',
-            filterOn: ["matches"],
+            sort: 'text',
+            filter: ["matches"],
         }
     }
     columns = ["allergenName", "category", "criticality", "status", "lastOccurrence", "reactionCount", "notes"];
