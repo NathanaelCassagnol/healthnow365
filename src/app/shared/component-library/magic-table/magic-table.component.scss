@@ -30,3 +30,22 @@ iframe {
   top: -10000px;
   left: -10000px;
 }
+
+.table-outline {
+  border: 1px solid black;
+  thead tr th {
+    border-top: 1px solid black;
+
+    &:first-child {
+      border-left: 1px solid black;
+    }
+    &:last-child {
+      border-right: 1px solid black;
+    }
+  }
+
+}
+  mat-paginator {
+    border: 1px solid black;
+    border-top: none;
+  }

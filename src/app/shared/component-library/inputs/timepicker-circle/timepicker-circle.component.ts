@@ -9,9 +9,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatInputModule } from '@angular/material/input';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { fadeTransition } from '../../transitions';
+import { fadeTransition } from '../../../transitions';
 import { trigger } from '@angular/animations';
-import { TimeValidatorModule } from '../../validators/time/time.validator';
+import { TimeValidatorModule } from '../../../validators/time/time.validator';
 
 @Component({
   selector: 'timepicker-circle',

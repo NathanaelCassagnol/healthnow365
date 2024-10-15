@@ -6,10 +6,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { CreateUserData, CreateUserResponse } from 'api/Users';
-import { PhoneInput } from "../../shared/component-library/phone-input/phone-input.component";
-import { DateInput } from 'app/shared/component-library/date-input/date-input.component';
+import { PhoneInput } from "../../shared/component-library/inputs/phone-input/phone-input.component";
+import { DateInput } from 'app/shared/component-library/inputs/date-input/date-input.component';
 import { AuthService } from 'app/services/auth.service';
-import { PasswordInput } from 'app/shared/component-library/password-input/password-input.component';
+import { PasswordInput } from 'app/shared/component-library/inputs/password-input/password-input.component';
 import { SplashService } from 'app/shared/services/splash.service';
 
 @Component({

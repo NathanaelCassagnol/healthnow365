@@ -55,7 +55,7 @@ export class MagicTableComponent implements OnInit {
   data = input<MagicTableData[]>([]);
   columns = signal<string[]>([]);
   // Classes
-  baseClasses = 'striped-hover-table w-100 pad-cells mat-elevation-z10 ';
+  baseClasses = 'striped-hover-table w-100 pad-cells table-outline ';
   inputClasses = computed(
     () => (this.scrollable() ? 'table-scrollable ' : '') + (this.breakable() ? 'breakable-table ' : '')
   );

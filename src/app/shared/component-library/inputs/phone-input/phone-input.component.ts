@@ -2,8 +2,8 @@ import { Component, computed, forwardRef, HostBinding, input, Input, OnInit, Vie
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { PhonePipe } from '../../pipes/phone.pipe';
-import { DigitOnlyModule } from '../../validators/digit-only/digit-only.module';
+import { PhonePipe } from '../../../pipes/phone.pipe';
+import { DigitOnlyModule } from '../../../validators/digit-only/digit-only.module';
 
 @Component({
   selector: 'phone-input',

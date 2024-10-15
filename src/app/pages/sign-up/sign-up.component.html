@@ -1,8 +1,8 @@
 <h1 class="mt-0">Sign Up</h1>
 
 @if (page < 4) {
-    <p>Page {{page+1}} of 4</p>
-    <mat-progress-bar mode="determinate" [value]="(page+1)/5*100" />
+    <p style="text-align: center;">Page {{page+1}} of 4</p>
+    <mat-progress-bar mode="determinate" [value]="(page+1)/4*100" />
 }
 
 @if (page === 0) {

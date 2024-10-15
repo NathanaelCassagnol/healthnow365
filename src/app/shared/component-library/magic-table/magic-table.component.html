@@ -326,7 +326,7 @@
         }
     </table>
     @if (paginate()) {
-    <mat-paginator class="dense-3 ml-a mat-elevation-z4 no-print wrap" [length]="sortedData().length"
+    <mat-paginator class="dense-3 ml-a no-print wrap" [length]="sortedData().length"
         [pageSize]="pageSize()" [pageSizeOptions]="[5, 10, 25, 50]" aria-label="Select page"
         style="max-width: max-content" (page)="onPageChange($event)" [disabled]="editing()">
     </mat-paginator>
