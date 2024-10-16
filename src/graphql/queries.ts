@@ -11,7 +11,6 @@ type GeneratedQuery<InputType, OutputType> = string & {
 export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
   getUser(id: $id) {
     id
-    test
     first_name
     last_name
     username
@@ -40,7 +39,6 @@ export const listUsers = /* GraphQL */ `query ListUsers(
   listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      test
       first_name
       last_name
       username
@@ -82,7 +80,6 @@ export const userByUsername = /* GraphQL */ `query UserByUsername(
   ) {
     items {
       id
-      test
       first_name
       last_name
       username

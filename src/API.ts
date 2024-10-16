@@ -4,7 +4,6 @@
 
 export type CreateUserInput = {
   id?: string | null,
-  test?: string | null,
   first_name: string,
   last_name: string,
   username: string,
@@ -22,7 +21,6 @@ export type CreateUserInput = {
 };
 
 export type ModelUserConditionInput = {
-  test?: ModelStringInput | null,
   first_name?: ModelStringInput | null,
   last_name?: ModelStringInput | null,
   username?: ModelStringInput | null,
@@ -99,7 +97,6 @@ export type ModelIntInput = {
 export type User = {
   __typename: "User",
   id: string,
-  test?: string | null,
   first_name: string,
   last_name: string,
   username: string,
@@ -120,7 +117,6 @@ export type User = {
 
 export type UpdateUserInput = {
   id: string,
-  test?: string | null,
   first_name?: string | null,
   last_name?: string | null,
   username?: string | null,
@@ -143,7 +139,6 @@ export type DeleteUserInput = {
 
 export type ModelUserFilterInput = {
   id?: ModelIDInput | null,
-  test?: ModelStringInput | null,
   first_name?: ModelStringInput | null,
   last_name?: ModelStringInput | null,
   username?: ModelStringInput | null,
@@ -205,7 +200,6 @@ export enum ModelSortDirection {
 
 export type ModelSubscriptionUserFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  test?: ModelSubscriptionStringInput | null,
   first_name?: ModelSubscriptionStringInput | null,
   last_name?: ModelSubscriptionStringInput | null,
   username?: ModelSubscriptionStringInput | null,
@@ -277,7 +271,6 @@ export type CreateUserMutation = {
   createUser?:  {
     __typename: "User",
     id: string,
-    test?: string | null,
     first_name: string,
     last_name: string,
     username: string,
@@ -306,7 +299,6 @@ export type UpdateUserMutation = {
   updateUser?:  {
     __typename: "User",
     id: string,
-    test?: string | null,
     first_name: string,
     last_name: string,
     username: string,
@@ -335,7 +327,6 @@ export type DeleteUserMutation = {
   deleteUser?:  {
     __typename: "User",
     id: string,
-    test?: string | null,
     first_name: string,
     last_name: string,
     username: string,
@@ -363,7 +354,6 @@ export type GetUserQuery = {
   getUser?:  {
     __typename: "User",
     id: string,
-    test?: string | null,
     first_name: string,
     last_name: string,
     username: string,
@@ -395,7 +385,6 @@ export type ListUsersQuery = {
     items:  Array< {
       __typename: "User",
       id: string,
-      test?: string | null,
       first_name: string,
       last_name: string,
       username: string,
@@ -432,7 +421,6 @@ export type UserByUsernameQuery = {
     items:  Array< {
       __typename: "User",
       id: string,
-      test?: string | null,
       first_name: string,
       last_name: string,
       username: string,
@@ -462,7 +450,6 @@ export type OnCreateUserSubscription = {
   onCreateUser?:  {
     __typename: "User",
     id: string,
-    test?: string | null,
     first_name: string,
     last_name: string,
     username: string,
@@ -490,7 +477,6 @@ export type OnUpdateUserSubscription = {
   onUpdateUser?:  {
     __typename: "User",
     id: string,
-    test?: string | null,
     first_name: string,
     last_name: string,
     username: string,
@@ -518,7 +504,6 @@ export type OnDeleteUserSubscription = {
   onDeleteUser?:  {
     __typename: "User",
     id: string,
-    test?: string | null,
     first_name: string,
     last_name: string,
     username: string,
