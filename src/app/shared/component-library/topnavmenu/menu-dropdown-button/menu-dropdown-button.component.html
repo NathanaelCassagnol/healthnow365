@@ -1,0 +1,23 @@
+@if(item) {
+<div [matTooltip]="getTooltip(item.Tooltip)">
+    <button type="button" mat-stroked-button disableRipple class="bg-primary-300" [matMenuTriggerFor]="menu"
+        #trigger="matMenuTrigger" [disabled]="!!item.Disabled && (item.Disabled == true || item.Disabled() == true)">
+        <div class="flex-row align-center">
+            <mat-icon>{{item.MenuIcon}}</mat-icon>
+            <span>{{item.MenuText}}</span>
+            <mat-icon [@iconspinner]="trigger.menuOpen"> arrow_drop_down </mat-icon>
+        </div>
+    </button>
+</div>
+<mat-menu #menu="matMenu">
+    @for(subitem of item.Submenus; track subitem) {
+    <div [matTooltip]="getTooltip(subitem.Tooltip)">
+        <button mat-menu-item (click)="HandleItemClick.emit(subitem)"
+            [disabled]="!!subitem.Disabled && (subitem.Disabled == true || subitem.Disabled() == true)">
+            <mat-icon>{{subitem.MenuIcon}}</mat-icon>
+            <span>{{subitem.MenuText}}</span>
+        </button>
+    </div>
+    }
+</mat-menu>
+}

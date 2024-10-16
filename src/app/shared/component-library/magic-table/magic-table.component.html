@@ -1,0 +1,363 @@
+<!-- The table has to be in a template so it can be printed -->
+<ng-container *ngTemplateOutlet="thisTable"></ng-container>
+<ng-template #thisTable>
+    @if (printTitle != '' && isPrinting()) {
+    <h2 class="only-print mb-h">{{printTitle}}</h2>
+    }
+    <!-- #region Filtering -->
+    @if (filterColumns().length > 0) {
+    <mat-chip-set>
+        @for(f of filters(); track f) {
+        <mat-chip (removed)="btnRemoveFilter(f)" [disabled]="editing()">
+            {{colData()[f.column].title}} {{f.operation | CamelTitlePipe | lowercase}} {{f.value | StringifyDate}}
+            <button matChipRemove><mat-icon>cancel</mat-icon></button>
+        </mat-chip>
+        }
+        @if (!isAddingFilter()) {
+        <mat-chip (click)="btnAddFilter()" [disabled]="editing()" class="no-print">+ Add Filter</mat-chip>
+        }
+    </mat-chip-set>
+    @if (isAddingFilter() && !editing()) {
+    <div class="flex-row gap-h mb-q wrap align-center no-print">
+        <span>Add filter:</span>
+        <mat-form-field class="dense-3" appearance="outline" subscriptSizing="dynamic">
+            <mat-label>Column to Filter</mat-label>
+            <mat-select [(ngModel)]="addFilter().column" (ngModelChange)="onFilterColumnChange()">
+                <mat-option *ngFor="let col of filterColumns()" [value]="col">{{colData()[col].title}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        @if (addFilter().column !== '') {
+        @if (isArray(colData()[addFilter().column].filter) && (colData()[addFilter().column].filter?.length??0) > 1) {
+        <mat-form-field class="dense-3" appearance="outline" subscriptSizing="dynamic">
+            <mat-label>Operation</mat-label>
+            <mat-select [(ngModel)]="addFilter().operation" (ngModelChange)="onOperationChange()">
+                <mat-option *ngFor="let op of colData()[addFilter().column].filter | ArraySingles" [value]="op">
+                    {{op | CamelTitlePipe | lowercase}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        }
+        @else if ((colData()[addFilter().column].filter | ArraySingles).length === 1) {
+        <span>{{(colData()[addFilter().column]!.filter | ArraySingles)[0] | CamelTitlePipe | lowercase}}</span>
+        }
+        }
+        @if(addFilter().operation !== '') {
+        @if (addFilter().operation === 'matches') {
+        <mat-form-field class="dense-3" appearance="outline" subscriptSizing="dynamic">
+            <mat-label>Value</mat-label>
+            <mat-select [(ngModel)]="addFilter().value" (ngModelChange)="onFilterValueChange($event)">
+                @for (o of columnMatches()[addFilter().column]; track o) {
+                <mat-option [value]="o">{{o}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        }
+        @else if (addFilter().operation === 'onDate' || addFilter().operation === 'before' || addFilter().operation ===
+        'after'){
+        <mat-form-field class="dense-3" appearance="outline" subscriptSizing="dynamic">
+            <mat-label>Value</mat-label>
+            <input matInput [(ngModel)]="addFilter().value" (ngModelChange)="onFilterValueChange($event)"
+                [matDatepicker]="picker" (focus)="picker.open()" />
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        }
+        @else if (!needsNoValue(addFilter().operation)) {
+        <mat-form-field class="dense-3" appearance="outline" subscriptSizing="dynamic">
+            <mat-label>Value</mat-label>
+            <input matInput [(ngModel)]="addFilter().value" (ngModelChange)="onFilterValueChange($event)" />
+        </mat-form-field>
+        }
+        }
+        @if (addFilter().column !== '' && addFilter().operation !== '' && (addFilter().value !== '' ||
+        needsNoValue(addFilter().operation))) {
+        <button mat-raised-button color="primary" (click)="btnConfirmAddFilter()">Add Filter</button>
+        }
+        <button mat-raised-button color="warn" (click)="btnCancelAddFilter()">Cancel</button>
+    </div>
+    }
+    }
+    <!-- #endregion -->
+    <!-- #region Searching, Columns row, Printing -->
+    @if(searchable() || possibleColumns()?.length || printable()) {
+    <div class="flex-row gap-h mb-q align-center no-print wrap">
+        @if (searchable()) {
+        <mat-form-field subscriptSizing="dynamic" class="dense-3" appearance="outline">
+            <mat-label>Search</mat-label>
+            <input matInput [(ngModel)]="searchString" (focusin)="searchIsFocused.set(true);"
+                (focusout)="searchIsFocused.set(false);" [disabled]="editing()">
+            <mat-icon matSuffix style="height: 19px">search</mat-icon>
+        </mat-form-field>
+        }
+        @if (possibleColumns()?.length) {
+        <mat-form-field subscriptSizing="dynamic" class="dense-3" appearance="outline">
+            <mat-label>Columns</mat-label>
+            <mat-select [(ngModel)]="columns" multiple [disabled]="editing()">
+                @for(col of possibleColumns(); track col) {
+                <mat-option [value]="col">{{colData()[col].title}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        }
+        @if (printable()) {
+        <button mat-mini-fab color="primary" type="button" [disabled]="editing()"
+            (click)="printTable(printIframe, thisTable)">
+            <mat-icon>print</mat-icon>
+        </button>
+        }
+    </div>
+    }
+    <!-- We need to print out what we're searching for without rendering a text input -->
+    @if (isPrinting() && searchable() && searchString() != '') {
+    <span class="only-print">Search: {{searchString()}}</span><br />
+    }
+    <!-- #endregion -->
+    <table [class]="baseClasses + breakClasses + inputClasses()" [class.has-search]="searchable()">
+        @if(title() !== '' && (showTitle() == true || (showTitle() == 'break' && size != 'lg'))) {
+        <caption>{{title()}}</caption>
+        }
+        <thead>
+            <tr>
+                @if(selectable() || editable()) {
+                <th class="no-print edit-cell" style="flex: 0 1 80px">
+                    <div class="flex-row align-center">
+                        @if (editable()) {
+                        <button mat-mini-fab color="primary" type="button" disabled><mat-icon>edit</mat-icon></button>
+                        }
+                        @if (selectable() && !editing()) {
+                        <mat-checkbox [checked]="all_filtered_selected" [indeterminate]="some_filtered_selected"
+                            (click)="headerCheckboxClick()"></mat-checkbox>
+                        }
+                    </div>
+                </th>
+                }
+                @for(col of columns(); track col) {
+                @if(colData()[col].sort && !editing()) {
+                <th [style.flex]="flex[col]" class="dark-hover" (click)="btnSortHeader(col)"
+                    [class.search-focus]="searchIsFocused() && colData()[col].search">
+                    <div class="flex-row gap-h align-center">
+                        @if(headerMap[col]) {
+                        <ng-container *ngTemplateOutlet="headerMap[col]"></ng-container>
+                        }
+                        @else {
+                        <span class="cant-select">{{colData()[col].title}}</span>
+                        }
+                        <mat-icon [class.arrow-hidden]="(sortBy()!==col)" [class.arrow]="true"
+                            [class.arrow-desc]="(sortBy() === col && sortDir() === 'desc')">
+                            arrow_upward
+                        </mat-icon>
+                    </div>
+                </th>
+                }
+                @else {
+                <th [style.flex]="flex[col]" [class.search-focus]="searchIsFocused() && colData()[col].search">
+                    @if(headerMap[col]) {
+                    <ng-container *ngTemplateOutlet="headerMap[col]"></ng-container>
+                    }
+                    @else {
+                    <span class="cant-select"> {{colData()[col].title}} </span>
+                    }
+                </th>
+                }
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @if (sortedData().length === 0 || loading()) {
+            <tr>
+                <td class="w-100 no-before" colspan="100%" style="text-align: center">
+                    @if (error()) {
+                    <p class="m-0">An error occurred while retrieving the data.</p>
+                    }
+                    @else if (loading()) {
+                    <p class="m-0">Loading data...</p>
+                    }
+                    @else if (data().length === 0) {
+                    <p class="m-0">This table has no data to render.</p>
+                    }
+                    @else {
+                    <p class="m-0">No data matches the criteria. Try removing one or more filters.</p>
+                    }
+                </td>
+            </tr>
+            }
+            @else {
+            @for(row of paginatedData(); track row; let i = $index) {
+            <!-- If we're grouping, and either it's the first entry or the grouping col is different-->
+            @if (group() && (i === 0 || row[group()!] != paginatedData()[i-1][group()!])) {
+            <tr class="group-row">
+                <td colspan="100%" class="no-before">
+                    <div class="flex-row align-center gap-h">
+                        @if (groupVisibility()) {
+                        <button mat-mini-fab type="button" color="accent" class="no-print" [disabled]="editing()"
+                            (click)="toggleGroupVisibility(row[group()!])"><mat-icon>visibility_off</mat-icon></button>
+                        }
+                        <span>{{groupText ?
+                            groupText(row[group()!], groupCounts()[row[group()!]], groupRows()[row[group()!]]) :
+                            row[group()!] + ' (' + groupCounts()[row[group()!]] + ')'}}</span>
+                    </div>
+                </td>
+            </tr>
+            }
+            <tr (click)="rowClick.emit(row)"
+                [class.highlight-row]="(highlight_row && highlight_row(row)) || highlight_edit(i)">
+                @if(selectable() || editable()) {
+                <!-- Edit button, select checkbox -->
+                <!-- (Stop propagation so it doesn't activate clickable rows) -->
+                <td (click)="$event.stopPropagation()" class="no-print no-before edit-cell" style="flex: 0 1 80px">
+                    <div class="flex-row align-center">
+                        @if (editable()) {
+                        @if (edit_sorted_index() === firstItemViewed() + i) {
+                        <div class="flex-col gap-h dense-1" style="width: max-content">
+                            <button mat-raised-button color="accent" (click)="saveEdit()">Save</button>
+                            @if (deletable()) {
+                            <button mat-raised-button color="warn" (click)="deleteRow()">Delete</button>
+                            }
+                            <button mat-raised-button color="warn" (click)="cancelEdit()">Cancel</button>
+                        </div>
+                        }
+                        @else {
+                        <button mat-mini-fab color="primary" type="button" (click)="startEdit(i)"
+                            [disabled]="editing()"><mat-icon>edit</mat-icon></button>
+                        }
+                        }
+                        @if (selectable() && !editing()) {
+                        <mat-checkbox [checked]="row.checked" (click)="checkboxClick(row)"></mat-checkbox>
+                        }
+                    </div>
+                </td>
+                }
+                @for(col of columns(); track col) {
+                @if (edit_sorted_index() === firstItemViewed() + i && (colData()[col].edit || editMap[col])) {
+                <td [style.flex]="flex[col]" class="no-before">
+                    @if(editMap[col]) {
+                    <ng-container *ngTemplateOutlet="editMap[col]; context: {$implicit: edit_row_copy}"></ng-container>
+                    }
+                    @else if (colData()[col].edit === 'boolean') {
+                    <mat-checkbox [(ngModel)]="edit_row_copy[col]">{{colData()[col].title}}</mat-checkbox>
+                    }
+                    @else if (colData()[col].edit === 'date') {
+                    <mat-form-field subscriptSizing="dynamic" [style.width]="colData()[col].editWidth ?? '200px'">
+                        <mat-label>{{colData()[col].title}}</mat-label>
+                        <input matInput [(ngModel)]="edit_row_copy[col]" [matDatepicker]="editPicker"
+                            (focus)="editPicker.open()">
+                        <mat-datepicker-toggle matIconSuffix [for]="editPicker" />
+                        <mat-datepicker #editPicker />
+                    </mat-form-field>
+                    }
+                    @else {
+                    <mat-form-field subscriptSizing="dynamic" [style.width]="colData()[col].editWidth ?? '200px'">
+                        <mat-label>{{colData()[col].title}}</mat-label>
+                        @if(isArray(colData()[col].edit)) {
+                        <mat-select [(ngModel)]="edit_row_copy[col]">
+                            @for(option of colData()[col].edit; track option) {
+                            @if (isValNamePair(option)) {
+                            <mat-option [value]="option.value">{{option.name}}</mat-option>
+                            }
+                            @else {
+                            <mat-option [value]="option">{{option}}</mat-option>
+                            }
+                            }
+                        </mat-select>
+                        }
+                        @else {
+                        <input matInput [(ngModel)]="edit_row_copy[col]">
+                        }
+                    </mat-form-field>
+                    }
+                </td>
+                }
+                @else {
+                <td [attr.data-cell]="colData()[col].title" [style.flex]="flex[col]"
+                    [class.dark-hover]="colData()[col].cellClick"
+                    (click)="colData()[col].cellClick && colData()[col].cellClick!(row)">
+                    @if(bodyMap[col]) {
+                    <ng-container *ngTemplateOutlet="bodyMap[col]; context: {$implicit: row}"></ng-container>
+                    }
+                    @else if (colData()[col].display === 'check-ex') {
+                    <ng-container *ngTemplateOutlet="cellCheckEx; context: {$implicit: row[col]}"></ng-container>
+                    }
+                    @else {
+                    @if (isArray(row[col] | SplitOnNewline)) {
+                    @for (r of (row[col] | SplitOnNewline); track r; let last=$last) {
+                    <span>{{r | DisplayAsPipe:colData()[col].display}}</span>
+                    @if (!last) {
+                    <hr class="m-0" />
+                    }
+                    }
+                    }
+                    @else {
+                    <span>{{row[col] | DisplayAsPipe:colData()[col].display}}</span>
+                    }
+                    }
+                </td>
+                }
+                }
+            </tr>
+            }
+            }
+        </tbody>
+        @if (footerType() === 'row-counts') {
+        <tfoot>
+            <tr>
+                <td colspan="100%" [style.padding]="'2px 2px 2px 16px'" class="no-before">
+                    <span>{{ {first: firstItemViewed(), last: lastItemViewed(), modCount: filteredData().length,
+                        totalCount: data().length, selectedCount: select_count, addons: footer_addons()} |
+                        FooterTotalPipe }} </span>
+                </td>
+            </tr>
+        </tfoot>
+        }
+        @else if (footerType() === 'custom') {
+        <tfoot>
+            <tr>
+                @for(col of columns(); track col) {
+                @if(footerMap[col]) {
+                <td [attr.data-cell]="colData()[col].title" [style.flex]="flex[col]">
+                    <ng-container *ngTemplateOutlet="footerMap[col]"></ng-container>
+                </td>
+                }
+                @else {
+                <td [style.flex]="flex[col]"></td>
+                }
+                }
+            </tr>
+        </tfoot>
+        }
+    </table>
+    @if (paginate()) {
+    <mat-paginator class="dense-3 ml-a no-print wrap" [length]="sortedData().length"
+        [pageSize]="pageSize()" [pageSizeOptions]="[5, 10, 25, 50]" aria-label="Select page"
+        style="max-width: max-content" (page)="onPageChange($event)" [disabled]="editing()">
+    </mat-paginator>
+    }
+</ng-template>
+
+<ng-template #cellCheckEx let-value>
+    @if (value == undefined) {
+    <div style="display: inline-block; vertical-align: middle;">
+        <div class="flex-row align-center w-max">
+            <mat-icon [style.color]="'blue'">help_outline</mat-icon>
+            <span>Unknown</span>
+        </div>
+    </div>
+    }
+    @else if (value) {
+    <div style="display: inline-block; vertical-align: middle;">
+        <div class="flex-row align-center w-max">
+            <mat-icon [style.color]="'green'">check</mat-icon>
+            <span>Yes</span>
+        </div>
+    </div>
+    }
+    @else {
+    <div style="display: inline-block; vertical-align: middle;">
+        <div class="flex-row align-center w-max">
+            <mat-icon [style.color]="'red'">close</mat-icon>
+            <span>No</span>
+        </div>
+    </div>
+    }
+</ng-template>
+
+<iframe #printIframe></iframe>

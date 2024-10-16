@@ -1,0 +1,10 @@
+.center-box {
+    width: clamp(70%, 900px, 100%);
+    border-left-style: solid;
+    border-right-style: solid;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+  }

@@ -1,0 +1,77 @@
+<mat-form-field [classList]="FormFieldClass" [style.display]="'block'" [style]="FormFieldStyle">
+    <mat-label>{{label}}</mat-label>
+
+    <input matInput [(ngModel)]="value" [id]="id" [classList]="InputClass" [style]="InputStyle"
+        #inputField="cdkOverlayOrigin" #input #inputModel="ngModel" cdkOverlayOrigin validTime (focus)="onFocus()"
+        [name]="name">
+
+    <button mat-icon-button matSuffix (click)="openAndClear(input); $event.stopPropagation()">
+        <mat-icon>open_in_new</mat-icon>
+    </button>
+
+    @if (inputModel.errors?.['validTime']) {
+    <mat-error>{{inputModel.errors!['validTime']}}</mat-error>
+    }
+</mat-form-field>
+
+
+<ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="inputField" [cdkConnectedOverlayOpen]="isOpen"
+    (overlayOutsideClick)="close()" (overlayKeydown)="keydown($event)">
+    <div class="timepicker-main-panel surface-color" @fade (mousemove)="calculateAngles($event, handContainer)"
+        (click)="processClick($event, handContainer)" #timepickerpanel>
+        @if (mode == 'xm') {
+        <!-- AM/PM choices -->
+        <div @fade>
+            <span class="am-choice cant-select border-primary" (mousemove)="hoverXm('AM')"
+                (click)="clickXm('AM')">AM</span>
+            <span class="pm-choice cant-select border-primary" (mousemove)="hoverXm('PM')"
+                (click)="clickXm('PM')">PM</span>
+        </div>
+        }
+        @else {
+        <!-- Minute notches -->
+        @if (mode == 'm') {
+        <div @fade>
+            @for (min of minuteList; track min) {
+            <div class="tick-container" [style.transform]="'translate(0, -50%) rotate('+min*6+'deg)'">
+                <span class="minute-tick">|</span>
+            </div>
+            }
+        </div>
+        }
+        <!-- Number bubbles -->
+        <div @fade>
+            @for (num of hourList; track num) {
+            <div mat-mini-fab [class]="'surface-color floating-number border-primary n'+num"
+                [class.hovered]="(mode == 'h' && currentHour == num) || (mode == 'm' && (currentMinute%60) == (num*5%60))">
+                @if (mode == 'h') {
+                <span class="cant-select">{{num}}</span>
+                }
+                @else if (mode == 'm') {
+                <span class="cant-select">{{(''+(num*5)%60).padStart(2, '0')}}</span>
+                }
+            </div>
+            }
+        </div>
+        }
+        <!-- Clock hand (Container always has to be present, the hand itself is conditional) -->
+        <div @fade class="hand-container" [style]="'transform: rotate('+targetHandRotation+'deg)'" #handContainer>
+            @if (mode != 'xm') {
+            <div class="hand"></div>
+            }
+        </div>
+
+        <!-- Result box (the time in the middle of the panel) -->
+        <div class="result-container surface-color">
+            <span [class.current-result-number]="mode == 'h'" class="cant-select">{{currentHour}}</span>
+            <span class="cant-select">:</span>
+            <span [class.current-result-number]="mode == 'm'" class="cant-select">{{(currentMinute+'').padStart(2,
+                '0')}}</span>
+            <span class="cant-select">&nbsp;</span>
+            <span [class.current-result-number]="mode == 'xm'" class="cant-select">{{currentXm}}</span>
+        </div>
+
+        <!-- X on the top-right -->
+        <div class="timepicker-close-button dark-hover" (click)="close()"><mat-icon>close</mat-icon></div>
+    </div>
+</ng-template>

@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
+import { CreateUser, CreateUserData } from "api/Users";
 
 @Injectable({
     providedIn: 'root'
@@ -14,5 +15,8 @@ export class AuthService {
         //https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize?response_type=code&redirect_uri=[redirect_uri]&client_id=[client_id]&state=[state]&aud=[audience]
         const url = `https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize?response_type=code&redirect_uri=${this.RedirectUrl}&client_id=${this.ClientIdNonProduction}`;
         this.http.get(url).subscribe(v => console.log(v));
+    }
+    CreateUser = (input: CreateUserData) => {
+        return CreateUser(input);
     }
 }

@@ -1,0 +1,51 @@
+th {
+  text-align: left;
+  // box-sizing: content-box; // Is this important?
+}
+
+.arrow {
+  transition: opacity 0.3s, rotate 0.3s;
+}
+.arrow-hidden {
+  opacity: 0;
+}
+th:hover .arrow-hidden {
+  opacity: 0.3;
+}
+.arrow-desc {
+  rotate: 180deg;
+}
+::ng-deep mat-paginator.hide-label .mat-mdc-paginator-range-label {
+  display: none;
+}
+
+table.has-search {
+  th.search-focus {
+    border: 1px solid black !important;
+  }
+}
+
+iframe {
+  position: absolute;
+  top: -10000px;
+  left: -10000px;
+}
+
+.table-outline {
+  border: 1px solid black;
+  thead tr th {
+    border-top: 1px solid black;
+
+    &:first-child {
+      border-left: 1px solid black;
+    }
+    &:last-child {
+      border-right: 1px solid black;
+    }
+  }
+
+}
+  mat-paginator {
+    border: 1px solid black;
+    border-top: none;
+  }

@@ -28,10 +28,6 @@ $dark-theme: mat.m2-define-dark-theme(
 // TODO: Only import themes you're using
 @include mat.all-component-themes($light-theme);
 
-.my-dark-theme {
-  @include mat.all-component-colors($dark-theme);
-}
-
 // #endregion
 
 // #region Dark mode
@@ -50,6 +46,9 @@ $dark-surface: rgb(66, 66, 66);
 .surface-border {
   border-color: lightgrey;
 }
+.bg-pink {
+  background-color: pink;
+}
 .my-dark-theme {
   @include mat.all-component-colors($dark-theme);
   .base-color {
@@ -57,12 +56,17 @@ $dark-surface: rgb(66, 66, 66);
   }
   .surface-color {
     background-color: $dark-surface;
+    color: white;
   }
   .surface-color-2 {
     background-color: rgb(92, 92, 92);
+    color: white;
   }
   .surface-border {
     border-color: rgb(63, 63, 63);
+  }
+  .bg-pink {
+    background-color: rgb(150, 81, 94);
   }
   color: white;
   hr {
@@ -73,23 +77,6 @@ $dark-surface: rgb(66, 66, 66);
     background-color: $dark-surface;
     color: white;
   }
-  quill-editor {
-    svg {
-      filter: invert(1);
-    }
-    span {
-      color: white;
-    }
-    span .ql-picker-item {
-      color: black;
-    }
-  }
-}
-
-.ql-container {
-  background-color: white;
-  color: black;
-  caret-color: black;
 }
 // #endregion
 
@@ -455,6 +442,11 @@ table.table-scrollable.breakable-table:not(.one-col):not(.two-col) {
 }
 .breakable-table {
   @extend .table-basic;
+  // &:not(.one-col) {
+  //   tr {
+  //     display: flex;
+  //   }
+  // }
 }
 
 @media print {
@@ -485,6 +477,9 @@ table.table-scrollable.breakable-table:not(.one-col):not(.two-col) {
     caption {
       padding-top: 16px;
       padding-bottom: 16px;
+    }
+    .edit-cell {
+      flex: 0 0 100% !important;
     }
   }
 
@@ -518,13 +513,22 @@ table.table-scrollable.breakable-table:not(.one-col):not(.two-col) {
       padding-top: 16px;
       padding-bottom: 16px;
     }
+    .edit-cell {
+      flex: 0 0 100% !important;
+    }
   }
 
   .breakable-table.show-prefix {
-    td::before,
-    th::before {
+    td:not(.no-before) > *:first-child,
+    th:not(.no-before) > *:first-child {
+      display: inline-block;
+      vertical-align: middle;
+    }
+    td:not(.no-before)::before,
+    th:not(.no-before)::before {
       content: attr(data-cell) ': ';
       font-weight: bold !important;
+      display: inline;
     }
   }
 }
@@ -815,7 +819,7 @@ mat-form-field.width-unset .mat-mdc-form-field-infix {
 
 .dialog {
   padding: 1rem;
-  min-width: 650px;
+  // min-width: 650px;
   max-width: 100%;
   width: 80vw;
   > :first-child {
@@ -862,4 +866,20 @@ mat-form-field.width-unset .mat-mdc-form-field-infix {
 .mat-button-toggle-group.constant-spacing .mat-button-toggle:not(.mat-button-toggle-checked) span {
   padding-left: 27px;
   padding-right: 27px;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  box-shadow: 0 0 0 1000px white inset !important;
+}
+
+.my-dark-theme {
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px $dark-surface inset !important;
+    box-shadow: 0 0 0 1000px $dark-surface inset !important;
+    color: white !important;
+  }
+  input {
+    color: white !important;
+  }
 }

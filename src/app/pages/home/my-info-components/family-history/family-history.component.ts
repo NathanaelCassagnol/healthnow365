@@ -2,7 +2,7 @@ import { Component, computed, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTooltipModule } from "@angular/material/tooltip";
-import { MagicTableBodyDirective, MagicTableColumnData, MagicTableComponent } from "app/shared/magic-table/magic-table.component";
+import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
 import { mockFamilyMemberHistory1 } from "fhir/R4/mocks/family-member-history/mock-family-member-history-1";
 import { mockFamilyMemberHistory2 } from "fhir/R4/mocks/family-member-history/mock-family-member-history-2";
 import { annotationToString, codeableConceptToString, dateTimeToString, periodToString, quantityToString, rangeToString, referenceToString } from "fhir/R4/utilities/validators-tostring.util";
@@ -12,7 +12,7 @@ import { annotationToString, codeableConceptToString, dateTimeToString, periodTo
     styleUrl: './family-history.component.scss',
     templateUrl: './family-history.component.html',
     standalone: true,
-    imports: [MagicTableComponent, MagicTableBodyDirective, MatButtonModule, MatTooltipModule, MatIconModule],
+    imports: [MagicTableModule, MatButtonModule, MatTooltipModule, MatIconModule],
 })
 export class FamilyHistoryComponent {
     myFamilyHistory = signal([mockFamilyMemberHistory1, mockFamilyMemberHistory2]);

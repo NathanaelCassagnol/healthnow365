@@ -1,7 +1,7 @@
 import { Component, computed, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
-import { MagicTableBodyDirective, MagicTableColumnData, MagicTableComponent } from "app/shared/magic-table/magic-table.component";
+import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
 import { mockProcedure1 } from "fhir/R4/mocks/procedure/mock-procedure-1";
 import { mockProcedure10 } from "fhir/R4/mocks/procedure/mock-procedure-10";
 import { mockProcedure11 } from "fhir/R4/mocks/procedure/mock-procedure-11";
@@ -27,7 +27,7 @@ import { annotationToString, codeableConceptToString, dateTimeToString, periodTo
     styleUrl: './procedure.component.scss',
     templateUrl: './procedure.component.html',
     standalone: true,
-    imports: [MagicTableComponent, MagicTableBodyDirective, MatButtonModule, MatTooltipModule],
+    imports: [MagicTableModule, MatButtonModule, MatTooltipModule],
 })
 export class ProcedureComponent {
     myProcedures = signal([mockProcedure1, mockProcedure2, mockProcedure3, mockProcedure4, mockProcedure5, mockProcedure6, mockProcedure7, mockProcedure8, mockProcedure9, mockProcedure10, mockProcedure11, mockProcedure12, mockProcedure13, mockProcedure14, mockProcedure15, mockProcedure16]);

@@ -1,7 +1,7 @@
 import { Component, computed, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
-import { MagicTableBodyDirective, MagicTableColumnData, MagicTableComponent } from "app/shared/magic-table/magic-table.component";
+import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
 import { mockMedicationAdministration1 } from "fhir/R4/mocks/medication-administration/mock-medication-administration-1";
 import { mockMedicationAdministration10 } from "fhir/R4/mocks/medication-administration/mock-medication-administration-10";
 import { mockMedicationAdministration11 } from "fhir/R4/mocks/medication-administration/mock-medication-administration-11";
@@ -54,7 +54,7 @@ import { annotationToString, codeableConceptToString, dateTimeToString, periodTo
     styleUrl: './medications.component.scss',
     templateUrl: './medications.component.html',
     standalone: true,
-    imports: [MagicTableComponent, MagicTableBodyDirective, MatButtonModule, MatTooltipModule],
+    imports: [MagicTableModule, MatButtonModule, MatTooltipModule],
 })
 export class MedicationsComponent {
     myDispensations = signal([
@@ -126,9 +126,9 @@ export class MedicationsComponent {
     })));
     dispenseColData: MagicTableColumnData = {
         medication: {
-            applySearch: true,
-            sortAs: 'text',
-            filterOn: ['includes'],
+            search: true,
+            sort: 'text',
+            filter: ['includes'],
         }
     };
 
@@ -147,9 +147,9 @@ export class MedicationsComponent {
     })));
     administerColData: MagicTableColumnData = {
         medication: {
-            applySearch: true,
-            sortAs: 'text',
-            filterOn: ['includes'],
+            search: true,
+            sort: 'text',
+            filter: ['includes'],
         }
     };
 }

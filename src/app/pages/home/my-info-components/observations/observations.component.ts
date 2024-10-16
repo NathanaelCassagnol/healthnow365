@@ -3,8 +3,8 @@ import { Component, Signal, computed, input, signal } from "@angular/core";
 import { BasicToStringPipe, BasicToStringPropPipe } from "app/pipes/basic-to-string.pipe";
 import { Observation } from "fhir/R4/types/observation.types";
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MagicTableColumnData, MagicTableComponent } from "app/shared/magic-table/magic-table.component";
 import { MatTabsModule } from "@angular/material/tabs";
+import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
 
 @Component({
     selector: 'app-observations',
@@ -13,8 +13,8 @@ import { MatTabsModule } from "@angular/material/tabs";
     standalone: true,
     imports: [
         MatCheckboxModule,
-        MagicTableComponent,
         MatTabsModule,
+        MagicTableModule
     ],
 })
 export class ObservationsComponent {
@@ -36,20 +36,20 @@ export class ObservationsComponent {
     columns = ["name", "status", "time", "value", "interpretation", "referenceRange"];
     columnData: MagicTableColumnData = {
         name: {
-            sortAs: "text",
-            applySearch: true,
-            filterOn: ["includes", "startsWith"],
+            sort: "text",
+            search: true,
+            filter: ["includes", "startsWith"],
         },
         status: {
-            sortAs: "text",
-            filterOn: ["matches"],
+            sort: "text",
+            filter: ["matches"],
         },
         time: {
-            sortAs: "time",
+            sort: "time",
         },
         value: {
-            applySearch: true,
-            filterOn: ["includes"],
+            search: true,
+            filter: ["includes"],
         }
     }
 

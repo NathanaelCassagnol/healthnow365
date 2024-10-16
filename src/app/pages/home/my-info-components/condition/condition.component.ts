@@ -1,7 +1,7 @@
 import { Component, computed, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
-import { MagicTableBodyDirective, MagicTableColumnData, MagicTableComponent } from "app/shared/magic-table/magic-table.component";
+import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
 import { mockCondition1 } from "fhir/R4/mocks/condition/mock-condition-1";
 import { mockCondition10 } from "fhir/R4/mocks/condition/mock-condition-10";
 import { mockCondition11 } from "fhir/R4/mocks/condition/mock-condition-11";
@@ -24,7 +24,7 @@ import { annotationToString, codeableConceptToString, dateTimeToString, periodTo
     styleUrl: './condition.component.scss',
     templateUrl: './condition.component.html',
     standalone: true,
-    imports: [MagicTableComponent, MagicTableBodyDirective, MatButtonModule, MatTooltipModule],
+    imports: [MatButtonModule, MatTooltipModule, MagicTableModule],
 })
 export class ConditionComponent {
     myConditions = signal([mockCondition1, mockCondition2, mockCondition3, mockCondition4, mockCondition5, mockCondition6, mockCondition7, mockCondition8, mockCondition9, mockCondition10, mockCondition11, mockCondition12]);
