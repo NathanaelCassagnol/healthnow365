@@ -1,24 +1,6 @@
 <div class="flex-col h-100">
-  <!-- #region Toolbar -->
-  <mat-toolbar color="primary" style="flex: 0 0 64px;">
-    <img src="../../assets/logo_256.png" alt="" width="48px" style="border-radius:50%" class="mr-h" />
-    <span>HealthNow</span>
-    <div
-      style="
-        margin-left: auto;
-        display: flex;
-        align-items: center;
-        margin-right: 24px;
-      "
-    >
-      <mat-icon style="margin-right: 4px">account_circle</mat-icon>
-      <span>Welcome, Philip</span>
-    </div>
-    <span>
-      <mat-icon>settings</mat-icon>
-    </span>
-  </mat-toolbar>
-  <!-- #endregion -->
+  <app-topnavmenu [user]="User" title="HealthNow365" [middleItems]="MenuItems" [accountItems]="UserMenuItems" [showAccount]="true"
+    titleImg="assets/logo_256.png" (titleClick)="titleClick()" />
 
   <div style="flex: 1 0 auto;" class="flex-row justify-center base-color">
     <div class="center-box surface-color surface-border">

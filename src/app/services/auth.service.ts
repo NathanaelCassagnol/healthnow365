@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { CreateUser, CreateUserData } from "api/Users";
+import { confirmSignIn, signIn } from 'aws-amplify/auth'
 
 @Injectable({
     providedIn: 'root'
@@ -18,5 +19,24 @@ export class AuthService {
     }
     CreateUser = (input: CreateUserData) => {
         return CreateUser(input);
+    }
+    SignIn = async (username: string, password: string): Promise<boolean> => {
+        const { isSignedIn, nextStep } = await signIn({
+            username,
+            password,
+        })
+
+        // TODO Implement any required next steps
+        // "CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE" | "CONTINUE_SIGN_IN_WITH_MFA_SELECTION" | "CONFIRM_SIGN_IN_WITH_SMS_CODE" | "CONFIRM_SIGN_IN_WITH_TOTP_CODE" | "CONTINUE_SIGN_IN_WITH_TOTP_SETUP" | "CONFIRM_SIGN_UP" | "RESET_PASSWORD" | "DONE" | "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED"
+        // if (nextStep.signInStep === 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE') {
+        //     await confirmSignIn({
+        //         challengeResponse: "12345"
+        //     })
+        // }
+
+        return isSignedIn;
+    }
+    SignOut = () => {
+        
     }
 }

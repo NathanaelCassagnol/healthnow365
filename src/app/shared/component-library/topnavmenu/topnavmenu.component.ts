@@ -18,14 +18,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MenuDropdownButtonComponent } from './menu-dropdown-button/menu-dropdown.button.component';
 import { CommonModule } from '@angular/common';
-import { UserInfo } from '../../../../services/user/user.service';
-import { klona as clone } from 'klona';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ThemeService } from '../../services/theme.service';
 import { FormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ConfigService } from '../../services/config.service';
 import { trigger } from '@angular/animations';
 import { collapseTransitionY, fadeTransition, IconSpinnerTransition, slideTransition } from '../../transitions';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -57,8 +54,9 @@ export class TopnavmenuComponent implements OnChanges, OnInit {
   @Input() middleItems: TopNavMenuItem[] = [];
   @Input() settingsItems: TopNavMenuItem[] = [];
   @Input() accountItems: TopNavMenuItem[] = [];
-  @Input() user?: UserInfo | null;
+  @Input() user?: {Username: string} | null;
   @Input() title?: string;
+  @Input() titleImg?: string;
   @Input() showAccount: boolean = false;
 
   @Output() navigate: EventEmitter<string> = new EventEmitter<string>();
@@ -69,7 +67,6 @@ export class TopnavmenuComponent implements OnChanges, OnInit {
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
   themeSvc = inject(ThemeService);
-  config = inject(ConfigService);
 
   HandleItemClick(item: TopNavMenuItem) {
     // Case 2 - Submenu Button
@@ -90,8 +87,6 @@ export class TopnavmenuComponent implements OnChanges, OnInit {
     }
   }
   ngOnInit() {
-    // Hook into the router event structure so we can monitor successful route changes in order to
-    // update the active button (and also remove buttons which may not apply).
     this.router.events
       .pipe(
         takeUntilDestroyed(this.destroyRef),
@@ -101,7 +96,7 @@ export class TopnavmenuComponent implements OnChanges, OnInit {
           return navev.url;
         })
       )
-      .subscribe(url => this.UpdateItemActiveVariable(url));
+      .subscribe(url => this.UpdateVisibleItems());
 
     setTimeout(() => (this.anyWraps = this.TestWraps()));
     this.SetSubmenusToClosed();
@@ -109,7 +104,6 @@ export class TopnavmenuComponent implements OnChanges, OnInit {
 
   ngOnChanges() {
     this.UpdateVisibleItems();
-    this.UpdateItemActiveVariable(this.router.routerState.snapshot.url);
   }
 
   sideMenuOpen = false;
@@ -125,12 +119,12 @@ export class TopnavmenuComponent implements OnChanges, OnInit {
 
   private UpdateVisibleItems() {
     // Process the menu items against the user (if available) to determine which are available.
-    const itemRoleFilter = (itm: TopNavMenuItem) =>
-      !itm.Exclude &&
-      (itm.AllowedRoles?.includes('all') ||
-        (this.user?.CurrentRole && itm.AllowedRoles?.includes(this.user.CurrentRole.RoleName)));
+    const itemRoleFilter = (itm: TopNavMenuItem) => true;
+      // !itm.Exclude &&
+      // (itm.AllowedRoles?.includes('all') ||
+      //   (this.user?.CurrentRole && itm.AllowedRoles?.includes(this.user.CurrentRole.RoleName)));
 
-    this.FilteredItems = clone((this.middleItems || []).filter(itemRoleFilter));
+    this.FilteredItems = JSON.parse(JSON.stringify((this.middleItems || []).filter(itemRoleFilter)));
 
     // Filter submenus and flatten menus with only one item
     this.FilteredItems.forEach((i, index) => {
@@ -138,18 +132,6 @@ export class TopnavmenuComponent implements OnChanges, OnInit {
       if (i.Submenus && i.Submenus.length === 1) {
         this.FilteredItems[index] = i.Submenus[0];
       }
-    });
-  }
-
-  private UpdateItemActiveVariable(url: string = this.router.routerState.snapshot.url) {
-    const parsedUrl = url.replace(/^\/(.*?)\/(.*)$/, '~/$2');
-    let activeCondition = (item: TopNavMenuItem) =>
-      !!item.LinkedStates?.find(value => value.indexOf(url) >= 0 || value.indexOf(parsedUrl) >= 0);
-
-    // Set each menu and submenu item as active or inactive
-    this.FilteredItems.forEach(item => {
-      item.Active = activeCondition(item);
-      if (item.Submenus) item.Submenus.forEach(subitem => (subitem.Active = activeCondition(subitem)));
     });
   }
 
@@ -222,11 +204,7 @@ export class TopNavMenuItem {
   MenuIcon?: string;
   ActionRoute?: any[];
   ActionFn?: Function;
-  LinkedStates?: string[];
-  AllowedRoles?: string[];
-  Type?: 'About' | 'Home' | 'Logout' | 'Link' = 'Link';
   Color?: string;
-  Active?: boolean;
   Exclude?: boolean;
   Disabled?: boolean | Signal<boolean>;
   Tooltip?: string | Signal<string>;
