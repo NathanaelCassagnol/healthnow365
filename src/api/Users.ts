@@ -78,7 +78,7 @@ export async function CreateUser(user_data: CreateUserData): Promise<CreateUserR
       }
     });
 
-    temp_user_data.id = userId;
+    temp_user_data.id = userId ?? '';
 
     // Add profile picture to S3
     //if (user_data.profile_picture) {
@@ -101,9 +101,9 @@ export async function CreateUser(user_data: CreateUserData): Promise<CreateUserR
     //  temp_user_data.profile_picture_URI = uri;
     //}
 
-    // Add user data to GraphQL
+
     const { errors, data: newUser } = await client.models.User.create({
-      input: temp_user_data
+      ...temp_user_data
     })
 
     return {
