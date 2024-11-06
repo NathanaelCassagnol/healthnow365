@@ -1,11 +1,12 @@
 import { format, differenceInYears } from 'date-fns';
 import { signUp, signOut } from 'aws-amplify/auth';
-//import { uploadData } from 'aws-amplify/storage';
-import { generateClient } from 'aws-amplify/api';
-import { CreateUserInput } from '../API';
-import { createUser } from 'graphql/mutations';
 
-const client = generateClient();
+//import { uploadData } from 'aws-amplify/storage';
+
+import { generateClient } from 'aws-amplify/data';
+import { type Schema } from '../../amplify/data/resource'
+
+const client = generateClient<Schema>();
 export interface CreateUserData {
   first_name: string;
   last_name: string;
@@ -15,13 +16,17 @@ export interface CreateUserData {
   birth_date: Date;
   phone_number: string;
 
-  profile_picture?: File;
-  address_line_one?: string;
-  address_line_two?: string;
-  address_city?: string;
-  address_state?: string;
-  address_country?: string;
-  address_zip_code?: string;
+  // profile_picture?: File;
+
+  address?: {
+    line_one?: string;
+    line_two?: string;
+    city?: string;
+    state?: string;
+    country?: string;
+    zip_code?: string;
+  }
+
   gender?: string;
 }
 export interface CreateUserResponse {
@@ -46,19 +51,15 @@ export interface CreateUserResponse {
 export async function CreateUser(user_data: CreateUserData): Promise<CreateUserResponse> {
   try {
     // Initialize user data
-    const temp_user_data: CreateUserInput = {
+    const temp_user_data = {
+      id: '',
       first_name: user_data.first_name,
       last_name: user_data.last_name,
       username: user_data.username,
       email: user_data.email,
       birth_date: format(user_data.birth_date, 'yyyy-MM-dd'),
       phone_number: user_data.phone_number,
-      address_line_one: user_data.address_line_one,
-      address_line_two: user_data.address_line_two,
-      address_city: user_data.address_city,
-      address_state: user_data.address_state,
-      address_country: user_data.address_country,
-      address_zip_code: user_data.address_zip_code,
+      address: user_data.address,
       age: differenceInYears(new Date(), new Date(user_data.birth_date)),
       gender: user_data.gender,
     };
@@ -101,10 +102,9 @@ export async function CreateUser(user_data: CreateUserData): Promise<CreateUserR
     //}
 
     // Add user data to GraphQL
-    const newUser = await client.graphql({
-      query: createUser,
-      variables: { input: temp_user_data }
-    });
+    const { errors, data: newUser } = await client.models.User.create({
+      input: temp_user_data
+    })
 
     return {
       successStatus: true,

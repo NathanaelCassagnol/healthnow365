@@ -1,6 +1,0 @@
-{
-  "AppSyncApiName": "healthnow365",
-  "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false,
-  "AuthModeLastUpdated": "2024-10-04T00:52:06.381Z"
-}
