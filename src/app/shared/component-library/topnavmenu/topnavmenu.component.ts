@@ -50,7 +50,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     trigger('collapse', collapseTransitionY(200)),
   ],
 })
-export class TopnavmenuComponent implements OnChanges, OnInit {
+export class  TopnavmenuComponent implements OnChanges, OnInit {
   @Input() middleItems: TopNavMenuItem[] = [];
   @Input() settingsItems: TopNavMenuItem[] = [];
   @Input() accountItems: TopNavMenuItem[] = [];
@@ -170,26 +170,17 @@ export class TopnavmenuComponent implements OnChanges, OnInit {
   anyWraps: boolean = false;
   private TestWraps(): boolean {
     // Test to see if any flex-row with class 'test-wrap' has wrapped
-    let wrap = false;
     let wrapElements = document.getElementsByClassName('test-wrap');
     for (let a = 0; a < wrapElements.length; a++) {
       // 'item' is the flex-row with 'test-wrap'
       let item = wrapElements.item(a);
       if (!item) continue;
 
-      let children = item.children;
-      let top: number | null = null;
-      for (let b = 0; b < children.length; b++) {
-        // Compare each child's height; if there is a difference, it probably wrapped
-        let subitem = children.item(b);
-        if (!subitem) continue;
-
-        let myTop = subitem.getBoundingClientRect().top;
-        if (top == null) top = myTop;
-        else if (top != myTop) wrap = true;
-      }
+      let firstTop = item.children.item(0)?.getBoundingClientRect().top ?? 0;
+      let lastTop = item.children.item(item.children.length-1)?.getBoundingClientRect().top ?? 0;
+      if (Math.abs(firstTop - lastTop) > 10) return true;
     }
-    return wrap;
+    return false;
   }
 
   getTooltip(tooltip?: string | Signal<string>) {

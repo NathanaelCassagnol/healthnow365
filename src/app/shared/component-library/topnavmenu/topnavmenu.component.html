@@ -1,4 +1,4 @@
-<mat-toolbar class="bg-primary no-print flex-row justify-between" style="color: white; height: 64px">
+<mat-toolbar class="bg-primary no-print flex-row wrap justify-between test-wrap gap-h w-100" style="color: white; height: 64px">
   <!-- LEFT SIDE: Title -->
   <span class="title pointer" (click)="this.titleClick.emit()">
     <div class="flex-row gap-h align-center">
@@ -11,7 +11,7 @@
 
   <!-- MIDDLE: Middle items -->
   @if (!anyWraps) {
-  <div class="flex-row wrap gap-h test-wrap">
+  <div class="flex-row wrap gap-h">
     @for(item of FilteredItems; track item) {
     <ng-container *ngTemplateOutlet="menuItem; context: {item}" />
     }
