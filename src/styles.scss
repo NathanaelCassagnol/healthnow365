@@ -43,6 +43,9 @@ $dark-surface: rgb(66, 66, 66);
 .surface-color-2 {
   background-color: rgb(231, 231, 231);
 }
+.surface-gradient {
+  background-image: linear-gradient(white,  mat.m2-get-color-from-palette($site-primary, 100));
+}
 .surface-border {
   border-color: lightgrey;
 }
@@ -61,6 +64,9 @@ $dark-surface: rgb(66, 66, 66);
   .surface-color-2 {
     background-color: rgb(92, 92, 92);
     color: white;
+  }
+  .surface-gradient {
+    background-image: linear-gradient($dark-surface,  mat.m2-get-color-from-palette($site-primary, 100));
   }
   .surface-border {
     border-color: rgb(63, 63, 63);
