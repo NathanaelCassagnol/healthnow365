@@ -1,38 +1,12 @@
-<table class="striped-hover-table w-100 pad-cells mt">
-    <thead>
-        <tr>
-            <th>Allergen</th>
-            <th>Category</th>
-            <th>Criticality</th>
-            <th>Status</th>
-            <th>Last Occurrence</th>
-            <th>Reactions</th>
-            <th>Notes</th>
-        </tr>
-    </thead>
-    <tbody>
-    @for(allergy of loadedAllergyData; track allergy.id) {
-        <tr>
-            <th scope="row">{{allergy.allergenName| titlecase}}</th>
-            <td>{{allergy.category | titlecase}}</td>
-            <td>{{allergy.criticality | titlecase}}</td>
-            <td>{{allergy.status | titlecase}}</td>
-            <td>{{allergy.lastOccurrence}}</td>
-            <td>
-                @if (allergy.reactionCount > 0) {
-                <button mat-raised-button type="button" color="primary">
-                    See {{allergy.reactionCount}} Reaction{{allergy.reactionCount === 1 ? '' : 's'}}
-                </button>
-                }
-            </td>
-            <td>
-                <span *ngFor="let note of allergy.notes; let i = index"
-                    style="border: 1px solid black; border-radius: 4px; padding-left: 4px; padding-right: 4px;"
-                    tabindex="0" [matTooltip]="note">
-                    {{i+1}}
-                </span>
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+<magic-table [data]="allergiesTransform()" [columnData]="tableData" [columns]="columns" paginate footer="row-counts">
+    <ng-template MagicTableBody="notes" let-row>
+        @for(n of row.notes; track n; let i = $index) {
+            <div [matTooltip]="n" style="border: 2px solid black; border-radius: 4px; padding: 4px; width: max-content;">{{i+1}}</div>
+        }
+    </ng-template>
+    <ng-template MagicTableBody="reactionCount" let-row>
+        @if (row.reactionCount > 0) {
+            <button mat-raised-button type="button" color="primary">See {{row.reactionCount}} Reactions</button>
+        }
+    </ng-template>
+</magic-table>

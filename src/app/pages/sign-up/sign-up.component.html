@@ -1,82 +1,91 @@
-<h1>Sign Up</h1>
+<h1 class="mt-0">Sign Up</h1>
 
-<ng-container *ngIf="page === 0">
-    <p>Progress bar 1 of 4</p>
+@if (page < 4) {
+    <p style="text-align: center;">Page {{page+1}} of 4</p>
+    <mat-progress-bar mode="determinate" [value]="(page+1)/4*100" />
+}
+
+@if (page === 0) {
     <h2>I am a...</h2>
     <button mat-raised-button color="primary" type="button" (click)="buttonPatient()">Patient</button>
     <br />
     <button mat-raised-button color="primary" type="button" style="margin-top: 16px;" (click)="buttonDoctor()">Doctor</button>
-</ng-container>
-
-<ng-container *ngIf="page === 1">
-    <p>Progress bar 2 of 4</p>
+}
+@else if (page === 1) {
     <h2>Personal Information</h2>
     
-    <mat-form-field>
-        <mat-label>First name</mat-label>
-        <input matInput required>
-    </mat-form-field>
-    <mat-form-field style="margin-left: 25px;">
-        <mat-label>Last name</mat-label>
-        <input matInput required>
-    </mat-form-field>
-    <br />
+    <div class="flex-col gap-1 align-start mb-1">
 
-    <mat-form-field>
-        <mat-label>Date of birth</mat-label>
-        <input matInput required>
-    </mat-form-field>
-    <br />
+    <div class="flex-row gap-h wrap align-center">
+        <mat-form-field>
+            <mat-label>First name</mat-label>
+            <input matInput required [(ngModel)]="mySignupInfo.first_name">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Last name</mat-label>
+            <input matInput required [(ngModel)]="mySignupInfo.last_name">
+        </mat-form-field>
+    </div>
 
-    <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input matInput required>
-    </mat-form-field>
-    <mat-form-field style="margin-left: 25px;">
-        <mat-label>Phone</mat-label>
-        <input matInput required>
-    </mat-form-field>
-    <br />
+    <date-input [(ngModel)]="mySignupInfo.birth_date" label="Date of birth" />
+
+    <div class="flex-row gap-h wrap align-center">
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput required [(ngModel)]="mySignupInfo.email">
+        </mat-form-field>
+
+        <phone-input label="Phone" required [(ngModel)]="mySignupInfo.phone_number" />
+    </div>
 
     <mat-form-field>
         <mat-label>Username</mat-label>
-        <input matInput required>
+        <input matInput required [(ngModel)]="mySignupInfo.username">
     </mat-form-field>
-    <br />
 
-    <mat-form-field>
-        <mat-label>Password</mat-label>
-        <input matInput required>
-    </mat-form-field>
-    <mat-form-field style="margin-left: 25px;">
-        <mat-label>Confirm Password</mat-label>
-        <input matInput required>
-    </mat-form-field>
-    <br />
+    <div class="flex-row gap-h wrap align-center">
+        <password-input label="Password" [(ngModel)]="mySignupInfo.password" />
+        <password-input label="Confirm Password" [(ngModel)]="confirmPassword" />
+    </div>
+    </div>
 
-    <button mat-raised-button color="primary" type="button" (click)="personalInfo()">Continue</button>
-</ng-container>
-
-<ng-container *ngIf="page === 2">
-    <p>Progress bar 3 of 4</p>
+    <div class="flex-row gap-1 wrap align-center">
+        <button mat-raised-button color="primary" type="button" (click)="personalInfo()">Continue</button>
+        <button mat-raised-button color="primary" type="button" (click)="previousPage()">Previous Page</button>
+    </div>
+}
+@else if (page === 2) {
     <h2>2 factor authentication (optional)</h2>
     <p>Insert 2FA components</p>
     
-    <button mat-raised-button color="primary" type="button" (click)="skip2fa()">Skip</button>
-</ng-container>
-
-<ng-container *ngIf="page === 3">
-    <p>Progress bar 4 of 4</p>
+    <div class="flex-row gap-1 wrap align-center">
+        <button mat-raised-button color="primary" type="button" (click)="skip2fa()">Skip</button>
+        <button mat-raised-button color="primary" type="button" (click)="previousPage()">Previous Page</button>
+    </div>
+}
+@else if (page === 3) {
     <h2>Connect to a Healthcare Provider (optional)</h2>
     <p>Insert healthcare provider components</p>
-    
-    <button mat-raised-button color="primary" type="button" (click)="skipProvider()">Skip</button>
-</ng-container>
 
-
-<ng-container *ngIf="page === 4">
-    <h2>All done!</h2>
-    <p>Return to the landing page to log in</p>
+    <div class="flex-row gap-1 wrap align-center">
+        <button mat-raised-button color="primary" type="button" (click)="skipProvider()">Skip</button>
+        <button mat-raised-button color="primary" type="button" (click)="previousPage()">Previous Page</button>
+    </div>
+}
+@else if (page === 4) {
+    @if (createStatus == null) {
+        <h2>Creating user</h2>
+        <p>Please wait while we create your account</p>
+    }
+    @else if (createStatus.successStatus) {
+        <h2>Account Created</h2>
+        <p>Your account has been successfully created. Return to the login page to sign in to your account.</p>
+        <button mat-raised-button color="primary" type="button" routerLink="/landing">Return</button>
+    }
+    @else {
+        <h2>Account Creation Failed</h2>
+        <p>A problem occurred while creating your account.</p>
+        <button mat-raised-button color="primary" type="button" (click)="previousPage()">Previous Page</button>
+    }
     
-    <button mat-raised-button color="primary" type="button" routerLink="/landing">Return</button>
-</ng-container>
+}

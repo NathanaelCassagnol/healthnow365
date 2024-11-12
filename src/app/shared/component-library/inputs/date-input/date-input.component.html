@@ -1,0 +1,7 @@
+<mat-form-field [classList]="FormFieldClass" [style]="FormFieldStyle">
+    <mat-label>{{label}}</mat-label>
+    <input matInput [(ngModel)]="value" [id]="id" [name]="name" [matDatepicker]="picker"
+        [classList]="InputClass" [style]="InputStyle" #input [required]="required()">
+    <mat-datepicker-toggle matIconSuffix [for]="picker" />
+    <mat-datepicker #picker />
+</mat-form-field>

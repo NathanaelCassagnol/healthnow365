@@ -1,7 +1,21 @@
-<p>Age: 32</p>
-<p>Birthdate: 1/23/45</p>
-<p>Sex assigned at birth: Male</p>
-<p>Gender: Male</p>
-<p>Ethnicity: caucasion</p>
-<p>Last height: 6'2"</p>
-<p>Last weight: 185 lb</p>
+@if(person) {
+    @if (person.active === false) {
+        <p>This person's record is no longer in active use</p>
+    }
+    @if (person.resourceType === "Patient" && (person.deceasedBoolean || person.deceasedDateTime)) {
+        <p>This person is deceased</p>
+    }
+    @if (person.name) {
+        <p>Name: {{person.name | HumanNameText}}</p>
+    }
+    @if (person.gender) {
+        <p>Gender: {{person.gender | titlecase}}</p>
+    }
+    @if (person.birthDate) {
+        <p>Birthdate: {{person.birthDate}}</p>
+        <p>Age: {{person.birthDate | DateToAgePipe}}</p>
+    }
+    @if (person.resourceType === "Patient" && person.maritalStatus) {
+        <p>Marital status: {{person.maritalStatus}}</p>
+    }
+}

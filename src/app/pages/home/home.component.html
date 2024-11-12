@@ -1,16 +1,18 @@
-<div class="flex-col h-100">
+<!-- <div class="flex-col h-100">
   <mat-tab-group class="mt">
-    <mat-tab label="My Information">
+    <mat-tab label="My Information"> -->
 
-      <div class="pt">
-        <mat-accordion class="mt">
-          <mat-expansion-panel>
+      <div>
+        <mat-accordion>
+          <mat-expansion-panel expanded>
             <mat-expansion-panel-header>
               <mat-panel-title>
                 Demographics
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-demographics/>
+
+            <app-demographics [person]="myPerson"/>
+
           </mat-expansion-panel>
           <mat-expansion-panel>
             <mat-expansion-panel-header>
@@ -20,21 +22,101 @@
             </mat-expansion-panel-header>
             <app-allergies [allergies]="myAllergies"/>
           </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Observations
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-observations [observations]="myObservations"></app-observations>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Immunizations (Vaccinations)
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-immunizations></app-immunizations>
+          </mat-expansion-panel>
+
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>
                 Medications
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <ul>
-              <li>ABC, 10mg, twice a day, since mm/dd/yyyy</li>
-              <li>DEF, 20mg, once a week, since mm/dd/yyyy</li>
-              <li>XYZ, 5mg, once a week, since mm/dd/yyyy</li>
-            </ul>
+            <app-medications></app-medications>
           </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Family History
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-family-history></app-family-history>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Imaging
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-imaging-study></app-imaging-study>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Issues
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-detected-issue></app-detected-issue>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Procedures
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-procedure></app-procedure>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Conditions
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-condition></app-condition>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Adverse Events
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-adverse-event></app-adverse-event>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Diagnostic Reports
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-diagnostic-report></app-diagnostic-report>
+          </mat-expansion-panel>
+
+
         </mat-accordion>
       </div>
-    </mat-tab>
+    <!-- </mat-tab>
     <mat-tab label="Documents">
       <br />
       <div style="display: flex; justify-content: center">
@@ -99,4 +181,4 @@
       </div>
     </mat-tab>
   </mat-tab-group>
-</div>
+</div> -->

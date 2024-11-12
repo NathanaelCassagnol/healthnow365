@@ -1,0 +1,14 @@
+<div class="dialog" #dialog>
+    <div class="flex-row gap-h align-center wrap surface-color" style="position: sticky; top: 0; z-index: 2">
+        <h2 class="m-0" style="width: max-content">{{label}}</h2>
+        <button mat-mini-fab (click)="scrollUp(dialog)">
+            <mat-icon>arrow_upward</mat-icon>
+        </button>
+        <button mat-mini-fab (click)="scrollDown(dialog)">
+            <mat-icon>arrow_downward</mat-icon>
+        </button>
+    </div>
+    @for (op of options; track op) {
+    <button mat-raised-button type="button" class="mb-q" (click)="send(op.value)">{{op.display}}</button><br />
+    }
+</div>

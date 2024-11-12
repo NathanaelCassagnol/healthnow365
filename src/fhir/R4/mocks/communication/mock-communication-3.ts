@@ -1,0 +1,81 @@
+import { Communication } from "fhir/R4/types/communication";
+
+// https://hl7.org/fhir/R4/communication-example-fm-attachment.json.html
+// An example of an unsolicited attachment - provision of additional information
+
+export const mockCommunication3: Communication = {
+    "resourceType": "Communication",
+    "id": "fm-attachment",
+    "text": {
+      "status": "generated",
+      "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Attachment which is unsolicited</div>"
+    },
+    "identifier": [
+      {
+        "system": "http://www.providerco.com/communication",
+        "value": "12345"
+      }
+    ],
+    "status": "completed",
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://acme.org/messagetypes",
+            "code": "SolicitedAttachment"
+          }
+        ]
+      }
+    ],
+    "subject": {
+      "reference": "Patient/1"
+    },
+    "about": [
+      {
+        "identifier": {
+          "system": "http://happyvalley.com/claim",
+          "value": "12345"
+        }
+      },
+      {
+        "identifier": {
+          "system": "http://www.BenefitsInc.com/fhir/claimresponse",
+          "value": "R3500"
+        }
+      }
+    ],
+    "sent": "2016-06-12T18:01:10-08:00",
+    "recipient": [
+      {
+        "identifier": {
+          "system": "http://www.jurisdiction.com/insurer",
+          "value": "123456"
+        }
+      }
+    ],
+    "sender": {
+      "identifier": {
+        "system": "http://www.jurisdiction.com/provideroffices",
+        "value": "3456"
+      }
+    },
+    "payload": [
+      {
+        "contentAttachment": {
+          "contentType": "application/pdf",
+          "data": "SGVsbG8=",
+          "title": "accident notes 20100201.pdf",
+          "creation": "2010-02-01T11:50:23-05:00"
+        }
+      },
+      {
+        "contentAttachment": {
+          "contentType": "application/pdf",
+          "url": "http://example.org/docs/AB12345",
+          "size": 104274,
+          "hash": "SGVsbG8gdGhlcmU=",
+          "creation": "2010-02-01T10:57:34+01:00"
+        }
+      }
+    ]
+  }

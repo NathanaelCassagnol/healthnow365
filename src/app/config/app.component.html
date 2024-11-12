@@ -1,23 +1,10 @@
-<div class="hmin-full flex-col bg-primary-50">
-  <mat-toolbar color="primary">
-    <span>HealthNow</span>
-    <div
-      style="
-        margin-left: auto;
-        display: flex;
-        align-items: center;
-        margin-right: 24px;
-      "
-    >
-      <mat-icon style="margin-right: 4px">account_circle</mat-icon>
-      <span>Welcome, Philip</span>
-    </div>
-    <span>
-      <mat-icon>settings</mat-icon>
-    </span>
-  </mat-toolbar>
+<div class="flex-col h-100">
+  <app-topnavmenu [user]="User" title="HealthNow365" [middleItems]="MenuItems" [accountItems]="UserMenuItems" [showAccount]="true"
+    titleImg="assets/logo_256.png" (titleClick)="titleClick()" />
 
-  <div style="padding-left: 25px; padding-right: 25px; flex: 1">
-    <router-outlet></router-outlet>
+  <div style="flex: 1 0 auto;" class="flex-row justify-center base-color">
+    <div class="center-box surface-color surface-border">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

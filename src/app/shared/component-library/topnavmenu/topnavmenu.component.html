@@ -1,0 +1,125 @@
+<mat-toolbar class="bg-primary no-print flex-row wrap justify-between test-wrap gap-h w-100" style="color: white; height: 64px">
+  <!-- LEFT SIDE: Title -->
+  <span class="title pointer" (click)="this.titleClick.emit()">
+    <div class="flex-row gap-h align-center">
+      @if (titleImg) {
+        <img [src]="titleImg" style="width: 48px; height: 48px; border-radius: 100%;">
+      }
+      {{title}}
+    </div>
+  </span>
+
+  <!-- MIDDLE: Middle items -->
+  @if (!anyWraps) {
+  <div class="flex-row wrap gap-h">
+    @for(item of FilteredItems; track item) {
+    <ng-container *ngTemplateOutlet="menuItem; context: {item}" />
+    }
+  </div>
+  }
+
+  <!-- RIGHT SIDE: Settings -->
+  <div class="flex-row align-center gap-h">
+    @if (!anyWraps) {
+    <div [matMenuTriggerFor]="settingsMenu" class="flex-row align-center dark-hover"
+      style="padding: 3px 8px; border-radius: 5px">
+      <mat-icon>settings</mat-icon>
+    </div>
+    @if (showAccount && user) {
+    <div [matMenuTriggerFor]="userMenu" class="flex-row align-center dark-hover"
+      style="padding: 3px 8px; border-radius: 5px">
+      <mat-icon>account_circle</mat-icon>
+      <span class="ml-h">{{ user.Username }}</span>
+    </div>
+    }
+    }
+    @if (anyWraps) {
+    <div class="dark-hover" style="padding: 3px 8px; border-radius: 5px" mat-button (click)="ToggleSideMenu()">
+      <mat-icon>menu</mat-icon>
+    </div>
+    }
+  </div>
+</mat-toolbar>
+
+<!-- Side panel menu -->
+<div class="side-panel-container" [class.h-0]="!sideMenuOpen">
+  @if (sideMenuOpen) {
+  <div class="side-panel surface-color" @slideLeft>
+    @for(item of FilteredItems; track item) {
+    <ng-container *ngTemplateOutlet="submenuItem; context: {item}" />
+    }
+    <p class="mb-0">Settings:</p>
+    <div class="flex-row align-center mt-h p" (click)="$event.stopPropagation()">
+      <mat-icon style="margin-right: 4px">brightness_7</mat-icon>
+      <mat-slide-toggle [(ngModel)]="themeSvc.isDark"></mat-slide-toggle>
+      <mat-icon>brightness_5</mat-icon>
+    </div>
+    @for(item of settingsItems; track item) {
+    <ng-container *ngTemplateOutlet="submenuItem; context: {item}" />
+    }
+    @if (showAccount && user) {
+    <p class="mb-0">Account: {{user.Username}}</p>
+    @for(item of accountItems; track item) {
+    <ng-container *ngTemplateOutlet="submenuItem; context: {item}" />
+    }
+    }
+  </div>
+  <div class="side-panel-background" (click)="CloseSideMenu()" @fade></div>
+  }
+</div>
+
+<mat-menu #settingsMenu>
+  <div class="flex-row align-center mt-h p" (click)="$event.stopPropagation()">
+    <mat-icon style="margin-right: 4px">brightness_7</mat-icon>
+    <mat-slide-toggle [(ngModel)]="themeSvc.isDark"></mat-slide-toggle>
+    <mat-icon>brightness_5</mat-icon>
+  </div>
+  @for(item of settingsItems; track item) {
+  <ng-container *ngTemplateOutlet="submenuItem; context: {item}" />
+  }
+</mat-menu>
+
+<mat-menu #userMenu>
+  @for(item of accountItems; track item) {
+  <ng-container *ngTemplateOutlet="submenuItem; context: {item}" />
+  }
+</mat-menu>
+
+<ng-template #menuItem let-item="item">
+  @if(item.Submenus && !!item.Submenus.length) {
+  <app-menu-dropdown-button (HandleItemClick)="HandleItemClick($event)" [item]="item" />
+  }
+  @else {
+  <div [matTooltip]="getTooltip(item.Tooltip)">
+    <button type="button" mat-stroked-button disableRipple class="bg-primary-300" (click)="HandleItemClick(item)"
+      [disabled]="!!item.Disabled && (item.Disabled == true || item.Disabled() == true)">
+      <!-- [class]="item.Active ? 'accent' : null" (click)="HandleItemClick(item)" -->
+      <div class="flex-row align-center">
+        <mat-icon *ngIf="item.MenuIcon">{{ item.MenuIcon }}</mat-icon>
+        <span>{{ item.MenuText }}</span>
+      </div>
+    </button>
+  </div>
+  }
+</ng-template>
+
+
+<ng-template #submenuItem let-item="item">
+  <button mat-menu-item (click)="HandleItemClick(item)"
+    [disabled]="!!item.Disabled && (item.Disabled == true || item.Disabled() == true)">
+    <div class="flex-row align-center">
+      <mat-icon *ngIf="item.MenuIcon">{{ item.MenuIcon }}</mat-icon>
+      <span>{{ item.MenuText }}</span>
+      @if (item.Submenus?.length) {
+      <mat-icon [@iconspinner]="item.SubmenuOpen"> arrow_drop_down </mat-icon>
+      }
+    </div>
+  </button>
+  @if (item.Submenus?.length && item.SubmenuOpen) {
+  <div @collapse class="ml-1">
+    @for (subitem of item.Submenus; track subitem) {
+    <ng-container *ngTemplateOutlet="submenuItem; context: {item: subitem}" />
+    }
+  </div>
+  }
+</ng-template>

@@ -1,0 +1,154 @@
+.timepicker-main-panel {
+  border-radius: 8px;
+  width: 300px;
+  height: 300px;
+  border: 1px solid black;
+  position: relative;
+}
+
+// 1 = buttons are on edge of box, 0 = everything's in the center
+$radius-factor: 0.7;
+.floating-number {
+  position: absolute;
+  // Move back to position the button relative to its center
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid black;
+  border-radius: 50%;
+  // Vertically center the number in the circle
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  span {
+    text-align: center;
+  }
+  transition: transform 0.3s;
+
+  &.hovered {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+
+  // Use trigonometry, multiply by radius
+  &.n12 {
+    top: calc($radius-factor * -50%) + 50%;
+    left: calc($radius-factor * 0) + 50%;
+  }
+  &.n1 {
+    top: calc($radius-factor * -43.3%) + 50%;
+    left: calc($radius-factor * 25%) + 50%;
+  }
+  &.n2 {
+    top: calc($radius-factor * -25%) + 50%;
+    left: calc($radius-factor * 43.3%) + 50%;
+  }
+  &.n3 {
+    top: calc($radius-factor * 0) + 50%;
+    left: calc($radius-factor * 50%) + 50%;
+  }
+  &.n4 {
+    top: calc($radius-factor * 25%) + 50%;
+    left: calc($radius-factor * 43.3%) + 50%;
+  }
+  &.n5 {
+    top: calc($radius-factor * 43.3%) + 50%;
+    left: calc($radius-factor * 25%) + 50%;
+  }
+  &.n6 {
+    top: calc($radius-factor * 50%) + 50%;
+    left: calc($radius-factor * 0) + 50%;
+  }
+  &.n7 {
+    top: calc($radius-factor * 43.3%) + 50%;
+    left: calc($radius-factor * -25%) + 50%;
+  }
+  &.n8 {
+    top: calc($radius-factor * 25%) + 50%;
+    left: calc($radius-factor * -43.3%) + 50%;
+  }
+  &.n9 {
+    top: calc($radius-factor * 0) + 50%;
+    left: calc($radius-factor * -50%) + 50%;
+  }
+  &.n10 {
+    top: calc($radius-factor * -25%) + 50%;
+    left: calc($radius-factor * -43.3%) + 50%;
+  }
+  &.n11 {
+    top: calc($radius-factor * -43.3%) + 50%;
+    left: calc($radius-factor * -25%) + 50%;
+  }
+}
+
+.hand-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transition: transform 0.5s;
+
+  .hand {
+    width: 100px;
+    height: 5px;
+    background-color: rgb(99, 99, 99);
+    border: 1px solid black;
+    border-radius: 5px;
+    transform: translate(0, -50%);
+  }
+}
+
+.result-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 8px;
+  border: 1px solid black;
+  border-radius: 8px;
+
+  .current-result-number {
+    padding: 4px;
+    border: 1px solid black;
+    border-radius: 4px;
+  }
+}
+
+.am-choice,
+.pm-choice {
+  position: absolute;
+
+  transform: translate(-50%, -50%);
+  padding: 8px;
+  border: 2px solid black;
+  border-radius: 8px;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+.am-choice {
+  left: 33%;
+  top: 25%;
+}
+.pm-choice {
+  left: 67%;
+  top: 25%;
+}
+
+.tick-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 70%;
+}
+
+.timepicker-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border-radius: 4px;
+}
