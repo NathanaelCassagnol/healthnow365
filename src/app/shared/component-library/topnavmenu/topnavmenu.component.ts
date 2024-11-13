@@ -54,10 +54,11 @@ export class  TopnavmenuComponent implements OnChanges, OnInit {
   @Input() middleItems: TopNavMenuItem[] = [];
   @Input() settingsItems: TopNavMenuItem[] = [];
   @Input() accountItems: TopNavMenuItem[] = [];
-  @Input() user?: {Username: string} | null;
+  @Input() user?: any;
   @Input() title?: string;
   @Input() titleImg?: string;
   @Input() showAccount: boolean = false;
+  @Input() signOut?: Function;
 
   @Output() navigate: EventEmitter<string> = new EventEmitter<string>();
   @Output() titleClick: EventEmitter<void> = new EventEmitter<void>();
@@ -77,13 +78,15 @@ export class  TopnavmenuComponent implements OnChanges, OnInit {
     }
     // Case 3 - Normal Link Button
     // Attempt to navigate to the action route, if one is defined.
-    if (item.ActionRoute && !!item.ActionRoute.length) {
+    if (item.ActionRoute?.length) {
       const newroute = item.ActionRoute;
       this.router.navigate(newroute);
       this.sideMenuOpen = false;
     } else if (item.ActionFn != undefined) {
       // this.ReturnText.emit(item.ReturnText);
       item.ActionFn();
+    } else if (item.ActionType != undefined) {
+      if (item.ActionType == 'SignOut' && this.signOut) this.signOut();
     }
   }
   ngOnInit() {
@@ -195,6 +198,7 @@ export class TopNavMenuItem {
   MenuIcon?: string;
   ActionRoute?: any[];
   ActionFn?: Function;
+  ActionType?: "SignOut";
   Color?: string;
   Exclude?: boolean;
   Disabled?: boolean | Signal<boolean>;

@@ -2,11 +2,12 @@ import { Amplify } from 'aws-amplify';
 import { Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 
 import outputs from '../../../amplify_outputs.json';
 import { TopNavMenuItem, TopnavmenuComponent } from 'app/shared/component-library/topnavmenu/topnavmenu.component';
 import { AuthService } from 'app/services/auth.service';
+import { AmplifyAuthenticatorModule, AuthenticatorService } from '@aws-amplify/ui-angular';
 
 Amplify.configure(outputs);
 
@@ -19,7 +20,8 @@ Amplify.configure(outputs);
     MatToolbarModule,
     MatIconModule,
     RouterModule,
-    TopnavmenuComponent
+    TopnavmenuComponent,
+    AmplifyAuthenticatorModule,
 ]
 })
 export class AppComponent {
@@ -31,22 +33,24 @@ export class AppComponent {
       Color: "primary",
     }
   ];
-
-  private auth = inject(AuthService);
+    
+  constructor(public authenticator: AuthenticatorService) {
+    Amplify.configure(outputs);
+  }
 
   UserMenuItems: TopNavMenuItem[] = [
     {
       MenuText: 'Logout',
       MenuIcon: 'exit_to_app',
-      ActionFn: () => this.auth.SignOut(),
+      ActionType: "SignOut",
       Color: "primary",
     }
   ];
 
-  private router = inject(Router);
+  router = inject(Router);
   titleClick() {
     this.router.navigateByUrl("landing")
   }
 
-  User = {Username: "Philip Sawyer"}
+  // User = {Username: "Philip Sawyer"}
 }

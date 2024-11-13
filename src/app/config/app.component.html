@@ -1,10 +1,23 @@
-<div class="flex-col h-100">
-  <app-topnavmenu [user]="User" title="HealthNow365" [middleItems]="MenuItems" [accountItems]="UserMenuItems" [showAccount]="true"
-    titleImg="assets/logo_256.png" (titleClick)="titleClick()" />
-
-  <div style="flex: 1 0 auto;" class="flex-row justify-center base-color">
-    <div class="center-box surface-color surface-border">
-      <router-outlet></router-outlet>
-    </div>
+@if (router.url == "/landing" || router.url == "/about") {
+  <div class="flex-col h-100">
+    <router-outlet></router-outlet>
   </div>
-</div>
+}
+@else {
+    <amplify-authenticator>
+      <ng-template amplifySlot="authenticated" let-user="user" let-signOut="signOut">
+  
+        <div class="flex-col" style="min-height: 100vh">
+          <app-topnavmenu [user]="user" title="HealthNow365" [middleItems]="MenuItems" [accountItems]="UserMenuItems" [showAccount]="true"
+          titleImg="assets/logo_256.png" (titleClick)="titleClick()" [signOut]="signOut" />
+    
+          <div style="flex: 1 0 auto;" class="flex-row justify-center base-color">
+            <div class="center-box surface-color surface-border">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+        </div>
+  
+      </ng-template>
+    </amplify-authenticator>
+}

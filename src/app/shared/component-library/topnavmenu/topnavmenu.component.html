@@ -29,7 +29,12 @@
     <div [matMenuTriggerFor]="userMenu" class="flex-row align-center dark-hover"
       style="padding: 3px 8px; border-radius: 5px">
       <mat-icon>account_circle</mat-icon>
-      <span class="ml-h">{{ user.Username }}</span>
+      @if (user.username.length < 36) {
+        <span class="ml-h">{{ user.username }}</span>
+      }
+      @else {
+        <span class="ml-h">{{ user.signInDetails.loginId }}</span>
+      }
     </div>
     }
     }
