@@ -1,7 +1,8 @@
 import { Directive, Input, TemplateRef } from '@angular/core';
 
 @Directive({
-  selector: '[MagicTableBody]',
+    selector: '[MagicTableBody]',
+    standalone: false
 })
 export class MagicTableBodyDirective {
   constructor(public template: TemplateRef<any>) {}
@@ -9,7 +10,8 @@ export class MagicTableBodyDirective {
 }
 
 @Directive({
-  selector: '[MagicTableEdit]',
+    selector: '[MagicTableEdit]',
+    standalone: false
 })
 export class MagicTableEditDirective {
   constructor(public template: TemplateRef<any>) {}
@@ -17,7 +19,8 @@ export class MagicTableEditDirective {
 }
 
 @Directive({
-  selector: '[MagicTableHeader]',
+    selector: '[MagicTableHeader]',
+    standalone: false
 })
 export class MagicTableHeaderDirective {
   constructor(public template: TemplateRef<any>) {}
@@ -25,7 +28,8 @@ export class MagicTableHeaderDirective {
 }
 
 @Directive({
-  selector: '[MagicTableFooter]',
+    selector: '[MagicTableFooter]',
+    standalone: false
 })
 export class MagicTableFooterDirective {
   constructor(public template: TemplateRef<any>) {}

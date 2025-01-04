@@ -12,8 +12,7 @@ import { annotationToString, codeableConceptToString, dateTimeToString, periodTo
     selector: 'app-adverse-event',
     styleUrl: './adverse-event.component.scss',
     templateUrl: './adverse-event.component.html',
-    standalone: true,
-    imports: [MatButtonModule, MatTooltipModule, MagicTableModule],
+    imports: [MatButtonModule, MatTooltipModule, MagicTableModule]
 })
 export class AdverseEventComponent {
     myAdverseEvents = signal([mockAdverseEvent1]);

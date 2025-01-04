@@ -11,19 +11,18 @@ import { PasswordInput } from 'app/shared/component-library/inputs/password-inpu
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    RouterModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    FormsModule,
-    PasswordInput,
-  ],
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    imports: [
+        MatButtonModule,
+        RouterModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        FormsModule,
+        PasswordInput,
+    ]
 })
 export class LoginComponent implements OnInit {
   username = "";

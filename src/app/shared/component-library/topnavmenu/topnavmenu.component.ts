@@ -28,27 +28,26 @@ import { collapseTransitionY, fadeTransition, IconSpinnerTransition, slideTransi
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
-  selector: 'app-topnavmenu',
-  styleUrls: ['topnavmenu.component.scss'],
-  templateUrl: 'topnavmenu.component.html',
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    MatIconModule,
-    MenuDropdownButtonComponent,
-    CommonModule,
-    MatTooltipModule,
-    MatMenuModule,
-    MatSlideToggleModule,
-    FormsModule,
-    MatToolbarModule,
-  ],
-  animations: [
-    trigger('slideLeft', slideTransition(200, '300px', '0')),
-    trigger('fade', fadeTransition(200)),
-    trigger('iconspinner', IconSpinnerTransition(100)),
-    trigger('collapse', collapseTransitionY(200)),
-  ],
+    selector: 'app-topnavmenu',
+    styleUrls: ['topnavmenu.component.scss'],
+    templateUrl: 'topnavmenu.component.html',
+    imports: [
+        MatButtonModule,
+        MatIconModule,
+        MenuDropdownButtonComponent,
+        CommonModule,
+        MatTooltipModule,
+        MatMenuModule,
+        MatSlideToggleModule,
+        FormsModule,
+        MatToolbarModule,
+    ],
+    animations: [
+        trigger('slideLeft', slideTransition(200, '300px', '0')),
+        trigger('fade', fadeTransition(200)),
+        trigger('iconspinner', IconSpinnerTransition(100)),
+        trigger('collapse', collapseTransitionY(200)),
+    ]
 })
 export class  TopnavmenuComponent implements OnChanges, OnInit {
   @Input() middleItems: TopNavMenuItem[] = [];

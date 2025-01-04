@@ -23,8 +23,7 @@ import { annotationToString, codeableConceptToString, dateTimeToString, periodTo
     selector: 'app-condition',
     styleUrl: './condition.component.scss',
     templateUrl: './condition.component.html',
-    standalone: true,
-    imports: [MatButtonModule, MatTooltipModule, MagicTableModule],
+    imports: [MatButtonModule, MatTooltipModule, MagicTableModule]
 })
 export class ConditionComponent {
     myConditions = signal([mockCondition1, mockCondition2, mockCondition3, mockCondition4, mockCondition5, mockCondition6, mockCondition7, mockCondition8, mockCondition9, mockCondition10, mockCondition11, mockCondition12]);

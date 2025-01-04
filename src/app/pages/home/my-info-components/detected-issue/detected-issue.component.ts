@@ -12,8 +12,7 @@ import { codeableConceptToString, dateTimeToString, periodToString } from "fhir/
     selector: 'app-detected-issue',
     styleUrl: './detected-issue.component.scss',
     templateUrl: './detected-issue.component.html',
-    standalone: true,
-    imports: [MagicTableModule, MatButtonModule, MatTooltipModule],
+    imports: [MagicTableModule, MatButtonModule, MatTooltipModule]
 })
 export class DetectedIssueComponent {
     myIssues = signal([mockDetectedIssue1, mockDetectedIssue2]);

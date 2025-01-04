@@ -53,8 +53,7 @@ import { annotationToString, codeableConceptToString, dateTimeToString, periodTo
     selector: 'app-medications',
     styleUrl: './medications.component.scss',
     templateUrl: './medications.component.html',
-    standalone: true,
-    imports: [MagicTableModule, MatButtonModule, MatTooltipModule],
+    imports: [MagicTableModule, MatButtonModule, MatTooltipModule]
 })
 export class MedicationsComponent {
     myDispensations = signal([

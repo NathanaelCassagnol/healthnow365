@@ -40,10 +40,11 @@ const DEFAULT_WIDTH = 100;
 const DEFAULT_TITLE_WIDTH = 50;
 
 @Component({
-  selector: 'magic-table',
-  styleUrl: './magic-table.component.scss',
-  templateUrl: './magic-table.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'magic-table',
+    styleUrl: './magic-table.component.scss',
+    templateUrl: './magic-table.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class MagicTableComponent implements OnInit {
   // Basic stuff

@@ -15,8 +15,7 @@ import { annotationToString, codeableConceptToString, dateTimeToString } from "f
     selector: 'app-immunizations',
     styleUrl: './immunizations.component.scss',
     templateUrl: './immunizations.component.html',
-    standalone: true,
-    imports: [MagicTableModule, MatButtonModule, MatTooltipModule],
+    imports: [MagicTableModule, MatButtonModule, MatTooltipModule]
 })
 export class ImmunizationsComponent {
     myImmunizations = signal([

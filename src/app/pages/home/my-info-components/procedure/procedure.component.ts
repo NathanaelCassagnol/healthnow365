@@ -26,8 +26,7 @@ import { annotationToString, codeableConceptToString, dateTimeToString, periodTo
     selector: 'app-procedure',
     styleUrl: './procedure.component.scss',
     templateUrl: './procedure.component.html',
-    standalone: true,
-    imports: [MagicTableModule, MatButtonModule, MatTooltipModule],
+    imports: [MagicTableModule, MatButtonModule, MatTooltipModule]
 })
 export class ProcedureComponent {
     myProcedures = signal([mockProcedure1, mockProcedure2, mockProcedure3, mockProcedure4, mockProcedure5, mockProcedure6, mockProcedure7, mockProcedure8, mockProcedure9, mockProcedure10, mockProcedure11, mockProcedure12, mockProcedure13, mockProcedure14, mockProcedure15, mockProcedure16]);

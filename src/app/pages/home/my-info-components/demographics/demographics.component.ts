@@ -9,9 +9,8 @@ import { Person } from "fhir/R4/types/person.types";
     selector: 'app-demographics',
     templateUrl: './demographics.component.html',
     styleUrls: ['./demographics.component.scss'],
-    standalone: true,
-    imports: [HumanNameTextPipe, DateToAgePipe, TitleCasePipe],
-  })
+    imports: [HumanNameTextPipe, DateToAgePipe, TitleCasePipe]
+})
   export class DemographicsComponent {
     @Input() person?: Patient | Person;
   }

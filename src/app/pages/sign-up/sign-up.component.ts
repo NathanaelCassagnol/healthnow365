@@ -13,21 +13,20 @@ import { PasswordInput } from 'app/shared/component-library/inputs/password-inpu
 import { SplashService } from 'app/shared/services/splash.service';
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss'],
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    RouterModule,
-    MatInputModule,
-    MatFormFieldModule,
-    FormsModule,
-    PhoneInput,
-    DateInput,
-    MatProgressBarModule,
-    PasswordInput,
-],
+    selector: 'app-sign-up',
+    templateUrl: './sign-up.component.html',
+    styleUrls: ['./sign-up.component.scss'],
+    imports: [
+        MatButtonModule,
+        RouterModule,
+        MatInputModule,
+        MatFormFieldModule,
+        FormsModule,
+        PhoneInput,
+        DateInput,
+        MatProgressBarModule,
+        PasswordInput,
+    ]
 })
 export class SignUpComponent {
   page: number = 0;

@@ -12,17 +12,16 @@ import { AmplifyAuthenticatorModule, AuthenticatorService } from '@aws-amplify/u
 Amplify.configure(outputs);
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
-  standalone: true,
-  imports: [
-    MatToolbarModule,
-    MatIconModule,
-    RouterModule,
-    TopnavmenuComponent,
-    AmplifyAuthenticatorModule,
-]
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss',
+    imports: [
+        MatToolbarModule,
+        MatIconModule,
+        RouterModule,
+        TopnavmenuComponent,
+        AmplifyAuthenticatorModule,
+    ]
 })
 export class AppComponent {
   MenuItems: TopNavMenuItem[] = [

@@ -28,8 +28,7 @@ import { codeableConceptToString, dateTimeToString, periodToString } from "fhir/
     selector: 'app-diagnostic-report',
     styleUrl: './diagnostic-report.component.scss',
     templateUrl: './diagnostic-report.component.html',
-    standalone: true,
-    imports: [MagicTableModule, MatButtonModule, MatTooltipModule],
+    imports: [MagicTableModule, MatButtonModule, MatTooltipModule]
 })
 export class DiagnosticReportComponent {
     myAdverseEvents = signal([

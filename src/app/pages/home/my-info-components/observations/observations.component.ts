@@ -10,12 +10,11 @@ import { MagicTableColumnData, MagicTableModule } from "app/shared/component-lib
     selector: 'app-observations',
     templateUrl: './observations.component.html',
     styleUrls: ['./observations.component.scss'],
-    standalone: true,
     imports: [
         MatCheckboxModule,
         MatTabsModule,
         MagicTableModule
-    ],
+    ]
 })
 export class ObservationsComponent {
     observations = input<Observation[]>([]);

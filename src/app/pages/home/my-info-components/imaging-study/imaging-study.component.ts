@@ -12,8 +12,7 @@ import { annotationToString, codeableConceptToString, codingToString, dateTimeTo
     selector: 'app-imaging-study',
     styleUrl: './imaging-study.component.scss',
     templateUrl: './imaging-study.component.html',
-    standalone: true,
-    imports: [MagicTableModule, MatButtonModule, MatTooltipModule],
+    imports: [MagicTableModule, MatButtonModule, MatTooltipModule]
 })
 export class ImagingStudyComponent {
     myStudies = signal([mockImagingStudy1, mockImagingStudy2]);

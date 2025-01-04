@@ -25,31 +25,29 @@ import { AdverseEventComponent } from './my-info-components/adverse-event/advers
 import { DiagnosticReportComponent } from './my-info-components/diagnostic-report/diagnostic-report.component';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-  standalone: true,
-  imports: [
-    MatTabsModule,
-    MatButtonModule,
-    MatTableModule,
-    DatePipe,
-    MatDividerModule,
-    MatExpansionModule,
-
-    DemographicsComponent,
-    AllergiesComponent,
-    ObservationsComponent,
-    ImmunizationsComponent,
-    MedicationsComponent,
-    FamilyHistoryComponent,
-    ImagingStudyComponent,
-    DetectedIssueComponent,
-    ProcedureComponent,
-    ConditionComponent,
-    AdverseEventComponent,
-    DiagnosticReportComponent,
-  ],
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
+    imports: [
+        MatTabsModule,
+        MatButtonModule,
+        MatTableModule,
+        DatePipe,
+        MatDividerModule,
+        MatExpansionModule,
+        DemographicsComponent,
+        AllergiesComponent,
+        ObservationsComponent,
+        ImmunizationsComponent,
+        MedicationsComponent,
+        FamilyHistoryComponent,
+        ImagingStudyComponent,
+        DetectedIssueComponent,
+        ProcedureComponent,
+        ConditionComponent,
+        AdverseEventComponent,
+        DiagnosticReportComponent,
+    ]
 })
 export class HomeComponent {
   myPerson = mockPatient3;

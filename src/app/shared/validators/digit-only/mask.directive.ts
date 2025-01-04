@@ -2,6 +2,7 @@ import { Directive, ElementRef, HostListener, OnInit } from '@angular/core';
 
 @Directive({
     selector: '[mask]',
+    standalone: false
 })
 export class MaskDirective implements OnInit {
     private navigationKeys = [

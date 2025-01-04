@@ -10,7 +10,6 @@ import { MagicTableColumnData, MagicTableModule } from "app/shared/component-lib
     selector: 'app-allergies',
     templateUrl: './allergies.component.html',
     styleUrls: ['./allergies.component.scss'],
-    standalone: true,
     imports: [
         MatButtonModule,
         TitleCasePipe,
@@ -18,7 +17,7 @@ import { MagicTableColumnData, MagicTableModule } from "app/shared/component-lib
         CommonModule,
         MatTooltipModule,
         MagicTableModule
-    ],
+    ]
 })
 export class AllergiesComponent {
     toTitle = new TitleCasePipe().transform;
