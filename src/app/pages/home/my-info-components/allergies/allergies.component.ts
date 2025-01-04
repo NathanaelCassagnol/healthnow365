@@ -20,8 +20,9 @@ import { MagicTableColumnData, MagicTableModule } from "app/shared/component-lib
     standalone: true,
 })
 export class AllergiesComponent {
-    toTitle = new TitleCasePipe().transform;
     allergies = input<AllergyIntolerance[]>([]);
+    
+    toTitle = new TitleCasePipe().transform;
     allergiesTransform: Signal<loadedAllergyType[]> = computed(() => this.allergies().map((a, i) => ({
         allergenName: a.code?.coding?.at(0)?.display ?? "Unknown",
         category: (a.category??[]).map(this.toTitle).join(", "),

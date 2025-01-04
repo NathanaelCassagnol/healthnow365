@@ -7,7 +7,8 @@ import { humanNameToString } from "fhir/R4/utilities/validators-tostring.util";
    standalone: true,
 })
 export class HumanNameTextPipe implements PipeTransform {
-    transform(input: HumanName | HumanName[]) {
+    transform(input: HumanName | HumanName[] | undefined | null) {
+        if (input == null) return '';
         if (Array.isArray(input)) {
             // Find best name
             let notOld = (n: HumanName) => n.use != 'old';

@@ -11,7 +11,7 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
 
-            <app-demographics [person]="myPerson"/>
+            <app-demographics [person]="myPerson()"/>
 
           </mat-expansion-panel>
           <mat-expansion-panel>
@@ -20,7 +20,7 @@
                 Allergies
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-allergies [allergies]="myAllergies"/>
+            <app-allergies [allergies]="myAllergies()"/>
           </mat-expansion-panel>
 
           <mat-expansion-panel>
@@ -29,7 +29,7 @@
                 Observations
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-observations [observations]="myObservations"></app-observations>
+            <app-observations [observations]="myObservations()" />
           </mat-expansion-panel>
 
           <mat-expansion-panel>
@@ -38,7 +38,7 @@
                 Immunizations (Vaccinations)
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-immunizations></app-immunizations>
+            <app-immunizations [myImmunizations]="myImmunizations()" [myImmunizationRecs]="myImmunizationRecs()" />
           </mat-expansion-panel>
 
           <mat-expansion-panel>
@@ -47,7 +47,7 @@
                 Medications
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-medications></app-medications>
+            <app-medications [myAdministrations]="myMedAdministrations()" [myDispensations]="myMedDispensations()" />
           </mat-expansion-panel>
 
           <mat-expansion-panel>
@@ -56,7 +56,7 @@
                 Family History
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-family-history></app-family-history>
+            <app-family-history [myFamilyHistory]="myFamilyHistory()" />
           </mat-expansion-panel>
 
           <mat-expansion-panel>
@@ -65,7 +65,7 @@
                 Imaging
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-imaging-study></app-imaging-study>
+            <app-imaging-study [myStudies]="myStudies()" />
           </mat-expansion-panel>
 
           <mat-expansion-panel>
@@ -74,7 +74,7 @@
                 Issues
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-detected-issue></app-detected-issue>
+            <app-detected-issue [myIssues]="myIssues()" />
           </mat-expansion-panel>
 
           <mat-expansion-panel>
@@ -83,7 +83,7 @@
                 Procedures
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-procedure></app-procedure>
+            <app-procedure [myProcedures]="myProcedures()" />
           </mat-expansion-panel>
 
           <mat-expansion-panel>
@@ -92,7 +92,7 @@
                 Conditions
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-condition></app-condition>
+            <app-condition [myConditions]="myConditions()" />
           </mat-expansion-panel>
 
           <mat-expansion-panel>
@@ -101,7 +101,7 @@
                 Adverse Events
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-adverse-event></app-adverse-event>
+            <app-adverse-event [myAdverseEvents]="myAdverseEvents()" />
           </mat-expansion-panel>
 
           <mat-expansion-panel>
@@ -110,7 +110,7 @@
                 Diagnostic Reports
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <app-diagnostic-report></app-diagnostic-report>
+            <app-diagnostic-report [myDiagnosticReports]="myDiagnosticReports()" />
           </mat-expansion-panel>
 
 

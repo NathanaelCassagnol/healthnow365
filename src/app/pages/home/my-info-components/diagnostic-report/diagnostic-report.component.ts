@@ -1,4 +1,4 @@
-import { Component, computed, signal } from "@angular/core";
+import { Component, computed, input, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
@@ -32,26 +32,10 @@ import { codeableConceptToString, dateTimeToString, periodToString } from "fhir/
     standalone: true,
 })
 export class DiagnosticReportComponent {
-    myAdverseEvents = signal([
-        ...(mockDiagnosticReport1Bundle.entry ?? []).map(e => e.resource),
-        ...(mockDiagnosticReport2Bundle.entry ?? []).map(e => e.resource),
-        ...(mockDiagnosticReport3Bundle.entry ?? []).map(e => e.resource),
-        mockDiagnosticReport4,
-        mockDiagnosticReport6,
-        ...(mockDiagnosticReport7Bundle.entry ?? []).map(e => e.resource),
-        ...(mockDiagnosticReport8Bundle.entry ?? []).map(e => e.resource),
-        mockDiagnosticReport9,
-        ...(mockDiagnosticReport10Bundle.entry ?? []).map(e => e.resource),
-        mockDiagnosticReport11,
-        mockDiagnosticReport12,
-        ...(mockDiagnosticReport13Bundle.entry ?? []).map(e => e.resource),
-        ...(mockDiagnosticReport14Bundle.entry ?? []).map(e => e.resource),
-        ...(mockDiagnosticReport15Bundle.entry ?? []).map(e => e.resource),
-        mockDiagnosticReport16,
-        ...(mockDiagnosticReport17Bundle.entry ?? []).map(e => e.resource)] as DiagnosticReport[]);
+    myDiagnosticReports = input.required<DiagnosticReport[]>();
 
     columns = [];
-    data = computed(() => this.myAdverseEvents().map(e => ({
+    data = computed(() => this.myDiagnosticReports().map(e => ({
         status: e.status,
         category: codeableConceptToString(e.category),
         code: codeableConceptToString(e.code),

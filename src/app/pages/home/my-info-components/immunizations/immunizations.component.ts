@@ -1,4 +1,4 @@
-import { Component, computed, signal } from "@angular/core";
+import { Component, computed, input, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
@@ -9,6 +9,8 @@ import { mockImmunization2 } from "fhir/R4/mocks/immunization/mock-immunization-
 import { mockImmunization3 } from "fhir/R4/mocks/immunization/mock-immunization-3";
 import { mockImmunization4 } from "fhir/R4/mocks/immunization/mock-immunization-4";
 import { mockImmunization5 } from "fhir/R4/mocks/immunization/mock-immunization-5";
+import { Immunization } from "fhir/R4/types/immunization";
+import { ImmunizationRecommendation } from "fhir/R4/types/immunization-recommendation";
 import { annotationToString, codeableConceptToString, dateTimeToString } from "fhir/R4/utilities/validators-tostring.util";
 
 @Component({
@@ -19,17 +21,8 @@ import { annotationToString, codeableConceptToString, dateTimeToString } from "f
     standalone: true,
 })
 export class ImmunizationsComponent {
-    myImmunizations = signal([
-        mockImmunization1,
-        mockImmunization2,
-        mockImmunization3,
-        mockImmunization4,
-        mockImmunization5
-    ]);
-    myImmunizationRecs = signal([
-        mockImmunizationRecommendation1,
-        mockImmunizationRecommendation2,
-    ]);
+    myImmunizations = input.required<Immunization[]>();
+    myImmunizationRecs = input.required<ImmunizationRecommendation[]>();
 
     takenColumns = ["name", "status", "occurrence", "expiration", "reason", "reactionCount", "notes"];
     takenData = computed(() => {

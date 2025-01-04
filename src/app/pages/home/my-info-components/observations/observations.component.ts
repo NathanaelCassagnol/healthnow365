@@ -18,7 +18,7 @@ import { MagicTableColumnData, MagicTableModule } from "app/shared/component-lib
     standalone: true,
 })
 export class ObservationsComponent {
-    observations = input<Observation[]>([]);
+    observations = input.required<Observation[]>();
     toTitle = new TitleCasePipe().transform;
     basicToString = new BasicToStringPipe().transform;
     basicToStringProp = new BasicToStringPropPipe().transform;
