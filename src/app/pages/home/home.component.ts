@@ -32,7 +32,6 @@ import { DiagnosticReportComponent } from './my-info-components/diagnostic-repor
         MatTabsModule,
         MatButtonModule,
         MatTableModule,
-        DatePipe,
         MatDividerModule,
         MatExpansionModule,
         DemographicsComponent,
@@ -47,7 +46,8 @@ import { DiagnosticReportComponent } from './my-info-components/diagnostic-repor
         ConditionComponent,
         AdverseEventComponent,
         DiagnosticReportComponent,
-    ]
+    ],
+    standalone: true,
 })
 export class HomeComponent {
   myPerson = mockPatient3;

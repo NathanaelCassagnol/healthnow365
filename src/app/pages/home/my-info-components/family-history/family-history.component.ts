@@ -11,7 +11,8 @@ import { annotationToString, codeableConceptToString, dateTimeToString, periodTo
     selector: 'app-family-history',
     styleUrl: './family-history.component.scss',
     templateUrl: './family-history.component.html',
-    imports: [MagicTableModule, MatButtonModule, MatTooltipModule, MatIconModule]
+    imports: [MagicTableModule, MatButtonModule, MatTooltipModule, MatIconModule],
+    standalone: true,
 })
 export class FamilyHistoryComponent {
     myFamilyHistory = signal([mockFamilyMemberHistory1, mockFamilyMemberHistory2]);

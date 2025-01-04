@@ -14,7 +14,8 @@ import { MagicTableColumnData, MagicTableModule } from "app/shared/component-lib
         MatCheckboxModule,
         MatTabsModule,
         MagicTableModule
-    ]
+    ],
+    standalone: true,
 })
 export class ObservationsComponent {
     observations = input<Observation[]>([]);

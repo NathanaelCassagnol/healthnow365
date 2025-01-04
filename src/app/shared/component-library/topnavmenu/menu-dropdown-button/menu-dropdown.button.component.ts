@@ -13,7 +13,8 @@ import { IconSpinnerTransition } from '../../../transitions';
     styles: '',
     templateUrl: './menu-dropdown-button.component.html',
     animations: [trigger('iconspinner', IconSpinnerTransition(100))],
-    imports: [MatMenuModule, MatButtonModule, MatIconModule, CommonModule, MatTooltipModule]
+    imports: [MatMenuModule, MatButtonModule, MatIconModule, CommonModule, MatTooltipModule],
+    standalone: true,
 })
 export class MenuDropdownButtonComponent {
   @Input() item?: TopNavMenuItem;

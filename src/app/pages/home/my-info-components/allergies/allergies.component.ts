@@ -12,12 +12,12 @@ import { MagicTableColumnData, MagicTableModule } from "app/shared/component-lib
     styleUrls: ['./allergies.component.scss'],
     imports: [
         MatButtonModule,
-        TitleCasePipe,
         MatIconModule,
         CommonModule,
         MatTooltipModule,
         MagicTableModule
-    ]
+    ],
+    standalone: true,
 })
 export class AllergiesComponent {
     toTitle = new TitleCasePipe().transform;

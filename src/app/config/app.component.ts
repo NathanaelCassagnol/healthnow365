@@ -21,7 +21,8 @@ Amplify.configure(outputs);
         RouterModule,
         TopnavmenuComponent,
         AmplifyAuthenticatorModule,
-    ]
+    ],
+    standalone: true,
 })
 export class AppComponent {
   MenuItems: TopNavMenuItem[] = [

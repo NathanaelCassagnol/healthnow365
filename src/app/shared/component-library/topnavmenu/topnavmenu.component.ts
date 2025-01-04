@@ -47,7 +47,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         trigger('fade', fadeTransition(200)),
         trigger('iconspinner', IconSpinnerTransition(100)),
         trigger('collapse', collapseTransitionY(200)),
-    ]
+    ],
+    standalone: true,
 })
 export class  TopnavmenuComponent implements OnChanges, OnInit {
   @Input() middleItems: TopNavMenuItem[] = [];
