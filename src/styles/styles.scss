@@ -1,0 +1,412 @@
+// #region Theme Setup
+@use '@angular/material' as mat;
+@use 'sass:map';
+@include mat.core();
+@include mat.elevation-classes();
+@include mat.app-background();
+
+$site-primary: mat.m2-define-palette(mat.$m2-light-blue-palette);
+$site-accent: mat.m2-define-palette(mat.$m2-orange-palette, A200, A100, A400);
+$site-warn: mat.m2-define-palette(mat.$m2-red-palette);
+$light-theme: mat.m2-define-light-theme(
+  (
+    color: (
+      primary: $site-primary,
+      accent: $site-accent,
+      warn: $site-warn,
+    ),
+  )
+);
+$dark-theme: mat.m2-define-dark-theme(
+  (
+    color: (
+      primary: $site-primary,
+      accent: $site-accent,
+      warn: $site-warn,
+    ),
+  )
+);
+
+// TODO: Only import themes you're using
+@include mat.all-component-themes($light-theme);
+
+// #endregion
+
+// #region Dark mode
+$dark-background: #202020;
+$dark-surface: rgb(66, 66, 66);
+
+.base-color {
+  background-color: #f6f6f6;
+}
+.surface-color {
+  background-color: white;
+}
+.surface-color-2 {
+  background-color: rgb(231, 231, 231);
+}
+.surface-gradient {
+  background-image: linear-gradient(white,  mat.m2-get-color-from-palette($site-primary, 100));
+}
+.surface-border {
+  border-color: lightgrey;
+}
+.bg-pink {
+  background-color: pink;
+}
+.my-light-theme {
+  .slight-red-text {
+    // Love that Material keeps overriding my styles
+    // I'm gonna end up making my own version of Mat soon at this rate
+    color: #a40f28 !important;
+    font-weight: 500 !important;
+  }
+}
+.my-dark-theme {
+  @include mat.all-component-colors($dark-theme);
+  .base-color {
+    background-color: $dark-background;
+  }
+  .surface-color {
+    background-color: $dark-surface;
+    color: white;
+  }
+  .surface-color-2 {
+    background-color: rgb(92, 92, 92);
+    color: white;
+  }
+  .surface-gradient {
+    background-image: linear-gradient(white,  mat.m2-get-color-from-palette($site-primary, 100));
+  }
+  .surface-border {
+    border-color: rgb(63, 63, 63);
+  }
+  .bg-pink {
+    background-color: rgb(150, 81, 94);
+  }
+  .slight-red-text {
+    color: #ffc0cb;
+    font-weight: unset;
+  }
+  color: white;
+  hr {
+    border-color: $dark-background;
+    border-bottom-style: solid;
+  }
+  mat-dialog-container {
+    background-color: $dark-surface;
+    color: white;
+  }
+  quill-editor {
+    svg {
+      filter: invert(1);
+    }
+
+    .ql-toolbar {
+      span {
+        color: white;
+      }
+      span .ql-picker-item {
+        color: black;
+      }
+    }
+  }
+}
+
+.ql-container {
+  background-color: white;
+  color: black;
+  caret-color: black;
+}
+// #endregion
+
+// #region Basic page stuff
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+app-root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+* {
+  box-sizing: border-box;
+}
+// #endregion
+
+// #region Color Palette Classes
+@mixin palette-mixin($base-set, $color-name) {
+  $steps: (
+    '-50': 50,
+    '-100': 100,
+    '-200': 200,
+    '-300': 300,
+    '-400': 400,
+    '-500': 500,
+    '-600': 600,
+    '-700': 700,
+    '-800': 800,
+    '-900': 900,
+    '': 500,
+  );
+
+  @each $lev-selector, $lev in $steps {
+    .bg-#{$color-name}#{$lev-selector} {
+      background-color: mat.m2-get-color-from-palette($base-set, $lev) !important;
+    }
+    .color-#{$color-name}#{$lev-selector} {
+      color: mat.m2-get-color-from-palette($base-set, $lev) !important;
+    }
+    .border-#{$color-name}#{$lev-selector} {
+      border-color: mat.m2-get-color-from-palette($base-set, $lev) !important;
+      border-width: 1px;
+      border-style: solid;
+    }
+  }
+}
+
+// Craft the primary and warn set of colors
+@include palette-mixin($site-primary, 'primary');
+@include palette-mixin($site-accent, 'accent');
+@include palette-mixin($site-warn, 'warn');
+// #endregion
+
+// #region Margin/Padding Helpers
+@mixin spacing-helper() {
+  $sizes: (
+    '-0': 0,
+    '-q': 0.25rem,
+    '-h': 0.5rem,
+    '-hq': 0.75rem,
+    '': 1rem,
+    '-1': 1rem,
+    '-1h': 1.5rem,
+    '-2': 2rem,
+    '-2h': 2.5rem,
+    '-3': 3rem,
+    '-a': auto,
+  );
+  $sides: (
+    't': '-top',
+    'b': '-bottom',
+    'l': '-left',
+    'r': '-right',
+    '': '',
+  );
+  $classes: (
+    'm': 'margin',
+    'p': 'padding',
+  );
+
+  @each $className, $class in $classes {
+    @each $sideName, $side in $sides {
+      @each $sizeName, $size in $sizes {
+        .#{$className}#{$sideName}#{$sizeName} {
+          #{$class}#{$side}: #{$size} !important;
+        }
+      }
+    }
+  }
+}
+@include spacing-helper();
+// #endregion
+
+// #region Bordered Buttons
+// Make button focus more visible, helps with accessibility
+// Focus is used, instead of just focus-visible, for browser compatability
+// (IE and some others don't support focus-visible)
+button.focus-border:focus {
+  border: 3px solid red;
+}
+button.focus-border[color='warn']:focus {
+  border: 3px solid blue;
+}
+// By default, make an invisible border - prevents buttons from moving around on focus
+button.focus-border:focus:not(:focus-visible),
+button.focus-border:not(:focus) {
+  border: 3px solid rgba(0, 0, 0, 0);
+}
+.focus-border-all-buttons {
+  button {
+    @extend .focus-border;
+  }
+}
+// #endregion
+
+// #region Utilities
+
+mat-form-field.width-unset .mat-mdc-form-field-infix {
+  width: unset !important;
+}
+
+.w-100 {
+  width: 100%;
+}
+.w-max {
+  width: max-content;
+}
+.w-min {
+  width: min-content;
+}
+.h-100 {
+  height: 100%;
+}
+.h-max {
+  height: max-content;
+}
+.h-min {
+  height: min-content;
+}
+.flex {
+  display: flex !important;
+}
+.flex-row {
+  display: flex !important;
+  flex-direction: row;
+}
+.flex-col {
+  display: flex !important;
+  flex-direction: column;
+}
+.inline {
+  display: inline;
+}
+.flex-1 {
+  flex: 1 0 0;
+}
+.wrap {
+  flex-wrap: wrap;
+}
+.gap-h {
+  gap: 0.5rem 0.5rem;
+}
+.gap-1 {
+  gap: 1rem 1rem;
+}
+.justify-even {
+  justify-content: space-evenly;
+}
+.justify-around {
+  justify-content: space-around;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-center {
+  justify-content: center;
+}
+.align-center {
+  align-content: center;
+  align-items: center;
+}
+.align-start {
+  align-content: start;
+  align-items: start;
+}
+.bold {
+  font-weight: bold !important;
+}
+.cant-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+.centered {
+  text-align: center;
+}
+// #endregion
+
+// #region Print Styling
+@media screen {
+  .only-print {
+    display: none;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+// #endregion
+
+.dialog {
+  padding: 1rem;
+  // min-width: 650px;
+  max-width: 100%;
+  width: 80vw;
+  > :first-child {
+    margin-top: 0;
+  }
+  max-height: 90vh;
+  overflow: auto;
+
+  .bottom-buttons {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: end;
+    gap: 1rem 1rem;
+    margin-top: 1rem;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.round-panel {
+  @extend .border-primary;
+  border-radius: 8px;
+  border-width: 2px;
+  padding: 1rem;
+}
+
+.dark-hover {
+  transition: background-color 0.3s;
+}
+
+.dark-hover:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.mat-calendar-body-label {
+  padding-top: 11px !important;
+  padding-bottom: 11px !important;
+}
+
+.mat-button-toggle-group.constant-spacing .mat-button-toggle:not(.mat-button-toggle-checked) span {
+  padding-left: 27px;
+  padding-right: 27px;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  box-shadow: 0 0 0 1000px white inset !important;
+}
+
+.my-dark-theme {
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px $dark-surface inset !important;
+    box-shadow: 0 0 0 1000px $dark-surface inset !important;
+    color: white !important;
+  }
+  input {
+    color: white !important;
+  }
+}
