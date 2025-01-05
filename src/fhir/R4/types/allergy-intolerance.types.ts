@@ -23,13 +23,15 @@ export type AllergyIntolerance = DomainResource & {
     asserter?: Reference,
     lastOccurrence?: dateTime,
     note?: Annotation[],
-    reaction?: (BackboneElement & {
-      substance?: CodeableConcept, 
-      manifestation: CodeableConcept[],
-      description?: string,
-      onset?: dateTime,
-      severity?: "mild" | "moderate" | "severe",
-      exposureRoute?: CodeableConcept,
-      note?: Annotation[]
-    })[]
+    reaction?: AllergyIntoleranceReaction[]
+}
+
+export type AllergyIntoleranceReaction = BackboneElement & {
+  substance?: CodeableConcept, 
+  manifestation: CodeableConcept[],
+  description?: string,
+  onset?: dateTime,
+  severity?: "mild" | "moderate" | "severe",
+  exposureRoute?: CodeableConcept,
+  note?: Annotation[]
 }

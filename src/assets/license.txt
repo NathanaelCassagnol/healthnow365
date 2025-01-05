@@ -1,0 +1,16 @@
+svg-watermarks
+    fast-food-outline.svg
+        https://www.svgrepo.com/svg/326624/fast-food-outline
+        MIT license
+    medication.svg
+        https://www.svgrepo.com/svg/340643/medication
+        Apache License
+    plant.svg
+        https://www.svgrepo.com/svg/368893/plant
+        MIT License
+    biology-dna.svg
+        https://www.svgrepo.com/svg/260138/biology-dna
+        CC0 License
+    question-mark-circle.svg
+        https://www.svgrepo.com/svg/325523/question-mark-circle
+        MIT License

@@ -9,14 +9,15 @@ import { DigitOnlyModule } from '../../../validators/digit-only/digit-only.modul
     selector: 'phone-input',
     templateUrl: './phone-input.component.html',
     styleUrl: './phone-input.component.scss',
-    imports: [MatFormFieldModule, FormsModule, MatInputModule, PhonePipe, DigitOnlyModule],
+    imports: [MatFormFieldModule, FormsModule, MatInputModule, DigitOnlyModule],
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => PhoneInput),
             multi: true,
         },
-    ]
+    ],
+    standalone: true,
 })
 export class PhoneInput implements ControlValueAccessor, OnInit {
   @Input() label = '';

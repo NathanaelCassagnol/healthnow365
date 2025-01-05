@@ -126,6 +126,7 @@ import { mockProcedure6 } from 'fhir/R4/mocks/procedure/mock-procedure-6';
 import { mockProcedure7 } from 'fhir/R4/mocks/procedure/mock-procedure-7';
 import { mockProcedure8 } from 'fhir/R4/mocks/procedure/mock-procedure-8';
 import { mockProcedure9 } from 'fhir/R4/mocks/procedure/mock-procedure-9';
+import { ValidateBasicType } from 'fhir/R4/utilities/validators-tostring.util';
 
 @Component({
     selector: 'app-home',

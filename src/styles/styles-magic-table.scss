@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
 @use 'sass:map';
+@use 'sass:color';
 
 $site-primary: mat.m2-define-palette(mat.$m2-light-blue-palette);
 $site-accent: mat.m2-define-palette(mat.$m2-orange-palette, A200, A100, A400);
@@ -42,54 +43,54 @@ $dark-surface: rgb(66, 66, 66);
   tr.body-row:nth-child(even):not(.override-odd):not(.highlight-row):not(.red-row):not(.group-row),
   tr.override-even {
     // Even (standard)
-    background-color: mix($color-1, $base, map.get($shademap, 'even-s')) !important;
+    background-color: color.mix($color-1, $base, map.get($shademap, 'even-s')) !important;
   }
   tbody tr:nth-child(even):not(.override-odd):not(.red-row):not(.highlight-row):not(.group-row):hover,
   tr.body-row:nth-child(even):not(.override-odd):not(.red-row):not(.highlight-row):not(.group-row):hover,
   tr.override-even:hover {
     // Even (hover)
-    background-color: mix($color-1, $base, map.get($shademap, 'even-h')) !important;
+    background-color: color.mix($color-1, $base, map.get($shademap, 'even-h')) !important;
   }
   tbody tr:nth-child(odd):not(.override-even):not(.red-row):not(.highlight-row):not(.group-row),
   tr.body-row:nth-child(odd):not(.override-even):not(.red-row):not(.highlight-row):not(.group-row),
   tr.override-odd {
     // Odd (standard)
-    background-color: mix($odd-color, $base, map.get($shademap, 'odd-s')) !important;
+    background-color: color.mix($odd-color, $base, map.get($shademap, 'odd-s')) !important;
   }
   tbody tr:nth-child(odd):not(.override-even):not(.red-row):not(.highlight-row):not(.group-row):hover,
   tr.body-row:nth-child(odd):not(.override-even):not(.red-row):not(.highlight-row):not(.group-row):hover,
   tr.override-odd:hover {
     // Odd (hover)
-    background-color: mix($odd-color, $base, map.get($shademap, 'odd-h')) !important;
+    background-color: color.mix($odd-color, $base, map.get($shademap, 'odd-h')) !important;
   }
   .highlight-row:nth-child(even) {
-    background-color: mix($color-2, $base, map.get($shademap, 'highlight-es')) !important;
+    background-color: color.mix($color-2, $base, map.get($shademap, 'highlight-es')) !important;
   }
   .highlight-row:nth-child(even):hover {
-    background-color: mix($color-2, $base, map.get($shademap, 'highlight-eh')) !important;
+    background-color: color.mix($color-2, $base, map.get($shademap, 'highlight-eh')) !important;
   }
   .highlight-row:nth-child(odd) {
-    background-color: mix($color-2, $base, map.get($shademap, 'highlight-os')) !important;
+    background-color: color.mix($color-2, $base, map.get($shademap, 'highlight-os')) !important;
   }
   .highlight-row:nth-child(odd):hover {
-    background-color: mix($color-2, $base, map.get($shademap, 'highlight-oh')) !important;
+    background-color: color.mix($color-2, $base, map.get($shademap, 'highlight-oh')) !important;
   }
   .footer-row,
   tfoot tr {
-    background-color: mix($color-2, $base, map.get($shademap, 'footer-s')) !important;
+    background-color: color.mix($color-2, $base, map.get($shademap, 'footer-s')) !important;
   }
   .footer-row:hover,
   tfoot tr:hover {
-    background-color: mix($color-2, $base, map.get($shademap, 'footer-h')) !important;
+    background-color: color.mix($color-2, $base, map.get($shademap, 'footer-h')) !important;
   }
   .group-row {
-    background-color: mix($color-1, $base, map.get($shademap, 'group')) !important;
+    background-color: color.mix($color-1, $base, map.get($shademap, 'group')) !important;
   }
   .header-row,
   thead tr,
   caption {
     // Header / Caption
-    $col: mix($color-1, $base, map.get($shademap, 'header'));
+    $col: color.mix($color-1, $base, map.get($shademap, 'header'));
     background-color: $col !important;
 
     th {

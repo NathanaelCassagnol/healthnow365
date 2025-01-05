@@ -72,7 +72,7 @@ export class SplashService {
       border-radius: 2px;
     }
   `,
-    imports: [MatButtonModule, MatSnackBarLabel, MatSnackBarActions, MatSnackBarAction]
+    imports: [MatButtonModule, MatSnackBarLabel]
 })
 class CustomSnackbar {
   snackBarRef = inject(MatSnackBarRef);

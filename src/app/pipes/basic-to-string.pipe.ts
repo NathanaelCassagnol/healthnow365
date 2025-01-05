@@ -7,12 +7,26 @@ import { BasicTypesRosettaStone, guessType } from "fhir/R4/utilities/validators-
    standalone: true,
 })
 export class BasicToStringPipe implements PipeTransform {
-    transform(input: anyBasicType, type: string = ''): string {
-        if (type === '') type = guessType(input);
-        if (type === 'Unknown') return 'Unknown';
-        if (!Object.hasOwn(BasicTypesRosettaStone, type)) return 'Unknown Type'; // = Programmer error probably
-        return BasicTypesRosettaStone[type].toString(input);
+    transform(input: anyBasicType | undefined | null, type: string = ''): string {
+        return BasicToString(input, type);
     }
+}
+
+export function BasicToString(input: anyBasicType | undefined | null, type: string = ''): string {
+    if (input == undefined) return '';
+
+    // Basic checks
+    if (typeof input === 'string') return input;
+    if (typeof input === 'object' && Object.hasOwn(input, 'text')) {
+        const text = (input as {text: unknown}).text;
+        if (typeof text === 'string') return text;
+    }
+
+    // Full type check
+    if (type === '') type = guessType(input);
+    if (type === 'Unknown') return 'Unknown';
+    if (!Object.hasOwn(BasicTypesRosettaStone, type)) return 'Unknown Type'; // = Programmer error probably
+    return BasicTypesRosettaStone[type].toString(input);
 }
 
 @Pipe({
