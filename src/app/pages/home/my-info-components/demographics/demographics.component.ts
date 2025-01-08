@@ -1,5 +1,5 @@
 import { TitleCasePipe } from "@angular/common";
-import { Component, Input } from "@angular/core";
+import { Component, input, Input } from "@angular/core";
 import { DateToAgePipe } from "app/pipes/date-to-age.pipe";
 import { HumanNameTextPipe } from "app/pipes/human-name-text.pipe";
 import { Patient } from "fhir/R4/types/patient.types";
@@ -9,9 +9,9 @@ import { Person } from "fhir/R4/types/person.types";
     selector: 'app-demographics',
     templateUrl: './demographics.component.html',
     styleUrls: ['./demographics.component.scss'],
-    standalone: true,
     imports: [HumanNameTextPipe, DateToAgePipe, TitleCasePipe],
-  })
+    standalone: true,
+})
   export class DemographicsComponent {
-    @Input() person?: Patient | Person;
+    person = input.required<Patient | Person>();
   }

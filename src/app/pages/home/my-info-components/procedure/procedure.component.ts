@@ -1,4 +1,4 @@
-import { Component, computed, signal } from "@angular/core";
+import { Component, computed, input, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
@@ -18,6 +18,7 @@ import { mockProcedure6 } from "fhir/R4/mocks/procedure/mock-procedure-6";
 import { mockProcedure7 } from "fhir/R4/mocks/procedure/mock-procedure-7";
 import { mockProcedure8 } from "fhir/R4/mocks/procedure/mock-procedure-8";
 import { mockProcedure9 } from "fhir/R4/mocks/procedure/mock-procedure-9";
+import { Procedure } from "fhir/R4/types/procedure";
 import { annotationToString, codeableConceptToString, dateTimeToString, periodToString, quantityToString, rangeToString } from "fhir/R4/utilities/validators-tostring.util";
 
 // https://hl7.org/fhir/R4/procedure.html
@@ -26,11 +27,11 @@ import { annotationToString, codeableConceptToString, dateTimeToString, periodTo
     selector: 'app-procedure',
     styleUrl: './procedure.component.scss',
     templateUrl: './procedure.component.html',
-    standalone: true,
     imports: [MagicTableModule, MatButtonModule, MatTooltipModule],
+    standalone: true,
 })
 export class ProcedureComponent {
-    myProcedures = signal([mockProcedure1, mockProcedure2, mockProcedure3, mockProcedure4, mockProcedure5, mockProcedure6, mockProcedure7, mockProcedure8, mockProcedure9, mockProcedure10, mockProcedure11, mockProcedure12, mockProcedure13, mockProcedure14, mockProcedure15, mockProcedure16]);
+    myProcedures = input.required<Procedure[]>();
 
     columns = ["status", "category", "code", "performed", "reason", "bodySite", "outcome", "complications", "followUp", "notes"];
     // TODO: Add reasonReference, performer, complicationDetail

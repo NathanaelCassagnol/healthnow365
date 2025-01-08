@@ -50,8 +50,8 @@ export class SplashService {
 }
 
 @Component({
-  selector: 'snack-bar-annotated-component-example-snack',
-  template: `
+    selector: 'snack-bar-annotated-component-example-snack',
+    template: `
     <span matSnackBarLabel>
       <div class="flex-row gap-h h-100">
         <div [style.backgroundColor]="data.color" class="color"></div>
@@ -62,7 +62,7 @@ export class SplashService {
       <button mat-button matSnackBarAction (click)="snackBarRef.dismissWithAction()"></button>
     </span> -->
   `,
-  styles: `
+    styles: `
     :host {
       display: flex;
     }
@@ -72,8 +72,7 @@ export class SplashService {
       border-radius: 2px;
     }
   `,
-  standalone: true,
-  imports: [MatButtonModule, MatSnackBarLabel, MatSnackBarActions, MatSnackBarAction],
+    imports: [MatButtonModule, MatSnackBarLabel]
 })
 class CustomSnackbar {
   snackBarRef = inject(MatSnackBarRef);

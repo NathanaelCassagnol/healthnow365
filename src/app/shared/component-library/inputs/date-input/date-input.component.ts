@@ -5,18 +5,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
-  selector: 'date-input',
-  templateUrl: './date-input.component.html',
-  styleUrl: './date-input.component.scss',
-  standalone: true,
-  imports: [MatFormFieldModule, FormsModule, MatInputModule, MatDatepickerModule],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => DateInput),
-      multi: true,
-    },
-  ],
+    selector: 'date-input',
+    templateUrl: './date-input.component.html',
+    styleUrl: './date-input.component.scss',
+    imports: [MatFormFieldModule, FormsModule, MatInputModule, MatDatepickerModule],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => DateInput),
+            multi: true,
+        },
+    ]
 })
 export class DateInput implements ControlValueAccessor {
   @Input() label = '';

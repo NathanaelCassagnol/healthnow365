@@ -6,18 +6,18 @@ import { PhonePipe } from '../../../pipes/phone.pipe';
 import { DigitOnlyModule } from '../../../validators/digit-only/digit-only.module';
 
 @Component({
-  selector: 'phone-input',
-  templateUrl: './phone-input.component.html',
-  styleUrl: './phone-input.component.scss',
-  standalone: true,
-  imports: [MatFormFieldModule, FormsModule, MatInputModule, PhonePipe, DigitOnlyModule],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PhoneInput),
-      multi: true,
-    },
-  ],
+    selector: 'phone-input',
+    templateUrl: './phone-input.component.html',
+    styleUrl: './phone-input.component.scss',
+    imports: [MatFormFieldModule, FormsModule, MatInputModule, DigitOnlyModule],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => PhoneInput),
+            multi: true,
+        },
+    ],
+    standalone: true,
 })
 export class PhoneInput implements ControlValueAccessor, OnInit {
   @Input() label = '';

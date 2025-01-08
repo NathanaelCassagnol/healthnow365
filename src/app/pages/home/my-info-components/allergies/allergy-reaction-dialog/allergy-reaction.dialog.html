@@ -1,0 +1,60 @@
+<div class="dialog">
+    <h2>{{ai.type}}: {{ai.allergenName}}</h2>
+    @if (ai.status?.length) {
+        <p>Status: {{ai.status}}</p>
+    }
+    @if (ai.category.length) {
+        <p>Category: {{ai.category}}</p>
+    }
+    @if (ai.criticality?.length) {
+        <p>Criticality: {{ai.criticality}}</p>
+    }
+    @if (ai.lastOccurrence?.length) {
+        <p>Last Occurrence: {{ai.lastOccurrence}}</p>
+    }
+    @if (ai.notes.length) {
+        <h3 class="mb-h">Notes</h3>
+        @for (note of ai.notes; track i; let i = $index) {
+            <p class="mt-0">{{note}}</p>
+        }
+    }
+    @if (ai.reactions?.length) {
+        <h3 class="mb-h">Reactions</h3>
+        <div class="flex-row gap-1 wrap">
+            @for (reaction of ai.reactions; track i; let i = $index) {
+                <div class="flex-col surface-color-2" style="border: 1px solid black; border-radius: 10px; padding: 8px;">
+                    @if (reaction.substance) {
+                        <span>Substance: {{reaction.substance | BasicToString}}</span>
+                    }
+                    @if (reaction.onset) {
+                        <span>Date: {{reaction.onset}}</span>
+                    }
+                    @if (reaction.severity) {
+                        <span>Severity: {{reaction.severity}}</span>
+                    }
+                    @if (reaction.manifestation.length) {
+                        @for (man of reaction.manifestation; track i; let i = $index) {
+                            <span>Manifestation: {{man | BasicToString}}</span>
+                        }
+                    }
+                    @if (reaction.description) {
+                        <span>Description: {{reaction.description}}</span>
+                    }
+                    @if (reaction.exposureRoute) {
+                        <span>Exposure Route: {{reaction.exposureRoute | BasicToString}}</span>
+                    }
+                    @if (reaction.note?.length) {
+                        @for (note of reaction.note; track i; let i = $index) {
+                            <span>Note: {{note | BasicToString}}</span>
+                        }
+                    }
+                    
+                </div>
+            }
+        </div>
+    }
+
+    <div class="bottom-buttons">
+        <button mat-raised-button color="warn" type="button" (click)="close()">Close</button>
+    </div>
+</div>

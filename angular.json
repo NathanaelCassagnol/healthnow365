@@ -29,7 +29,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles/styles.scss",
+              "src/styles/styles-density.scss",
+              "src/styles/styles-magic-table.scss",
+              "node_modules/@aws-amplify/ui-angular/theme.css"
             ],
             "scripts": []
           },
@@ -91,7 +94,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles/styles.scss",
+              "src/styles/styles-density.scss",
+              "src/styles/styles-magic-table.scss",
+              "node_modules/@aws-amplify/ui-angular/theme.css"
             ],
             "scripts": []
           }

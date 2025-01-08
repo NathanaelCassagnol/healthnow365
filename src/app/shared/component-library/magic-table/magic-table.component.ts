@@ -40,10 +40,11 @@ const DEFAULT_WIDTH = 100;
 const DEFAULT_TITLE_WIDTH = 50;
 
 @Component({
-  selector: 'magic-table',
-  styleUrl: './magic-table.component.scss',
-  templateUrl: './magic-table.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'magic-table',
+    styleUrl: './magic-table.component.scss',
+    templateUrl: './magic-table.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class MagicTableComponent implements OnInit {
   // Basic stuff
@@ -144,13 +145,11 @@ export class MagicTableComponent implements OnInit {
           this.columns.set(this.columns_input().slice());
         else if (this.data().length) this.columns.set(Object.keys(this.data()[0]).filter(k => k != 'id'));
       },
-      { allowSignalWrites: true }
     );
     effect(
       () => {
         this.filters.set(this.filters_input().map(f => ({ ...f })));
       },
-      { allowSignalWrites: true }
     );
     effect(() => this.updateSize());
     effect(() => this.refreshFilterCheck());
@@ -165,7 +164,6 @@ export class MagicTableComponent implements OnInit {
           }
         }
       },
-      { allowSignalWrites: true }
     );
     // Make sure pagination is in range
     effect(
@@ -174,7 +172,6 @@ export class MagicTableComponent implements OnInit {
           this.pageNumber.set(0);
         }
       },
-      { allowSignalWrites: true }
     );
   }
 

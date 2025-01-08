@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { CreateUser, CreateUserData } from "api/Users";
-import { confirmSignIn, signIn } from 'aws-amplify/auth'
+import { signIn } from 'aws-amplify/auth'
 
 @Injectable({
     providedIn: 'root'
@@ -37,6 +37,10 @@ export class AuthService {
         return isSignedIn;
     }
     SignOut = () => {
+        
+    }
+
+    SignInWithUI() {
         
     }
 }

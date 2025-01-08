@@ -6,18 +6,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
-  selector: 'password-input',
-  templateUrl: './password-input.component.html',
-  styleUrl: './password-input.component.scss',
-  standalone: true,
-  imports: [MatFormFieldModule, FormsModule, MatInputModule, MatIconModule, MatButtonModule],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PasswordInput),
-      multi: true,
-    },
-  ],
+    selector: 'password-input',
+    templateUrl: './password-input.component.html',
+    styleUrl: './password-input.component.scss',
+    imports: [MatFormFieldModule, FormsModule, MatInputModule, MatIconModule, MatButtonModule],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => PasswordInput),
+            multi: true,
+        },
+    ]
 })
 export class PasswordInput implements ControlValueAccessor {
   @Input() label = '';

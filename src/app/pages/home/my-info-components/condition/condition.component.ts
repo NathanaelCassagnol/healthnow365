@@ -1,19 +1,8 @@
-import { Component, computed, signal } from "@angular/core";
+import { Component, computed, input } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
-import { mockCondition1 } from "fhir/R4/mocks/condition/mock-condition-1";
-import { mockCondition10 } from "fhir/R4/mocks/condition/mock-condition-10";
-import { mockCondition11 } from "fhir/R4/mocks/condition/mock-condition-11";
-import { mockCondition12 } from "fhir/R4/mocks/condition/mock-condition-12";
-import { mockCondition2 } from "fhir/R4/mocks/condition/mock-condition-2";
-import { mockCondition3 } from "fhir/R4/mocks/condition/mock-condition-3";
-import { mockCondition4 } from "fhir/R4/mocks/condition/mock-condition-4";
-import { mockCondition5 } from "fhir/R4/mocks/condition/mock-condition-5";
-import { mockCondition6 } from "fhir/R4/mocks/condition/mock-condition-6";
-import { mockCondition7 } from "fhir/R4/mocks/condition/mock-condition-7";
-import { mockCondition8 } from "fhir/R4/mocks/condition/mock-condition-8";
-import { mockCondition9 } from "fhir/R4/mocks/condition/mock-condition-9";
+import { Condition } from "fhir/R4/types/condition";
 
 import { annotationToString, codeableConceptToString, dateTimeToString, periodToString, quantityToString, rangeToString } from "fhir/R4/utilities/validators-tostring.util";
 
@@ -23,12 +12,12 @@ import { annotationToString, codeableConceptToString, dateTimeToString, periodTo
     selector: 'app-condition',
     styleUrl: './condition.component.scss',
     templateUrl: './condition.component.html',
-    standalone: true,
     imports: [MatButtonModule, MatTooltipModule, MagicTableModule],
+    standalone: true,
 })
 export class ConditionComponent {
-    myConditions = signal([mockCondition1, mockCondition2, mockCondition3, mockCondition4, mockCondition5, mockCondition6, mockCondition7, mockCondition8, mockCondition9, mockCondition10, mockCondition11, mockCondition12]);
-
+    myConditions = input.required<Condition[]>();
+    
     // TODO: See if clinicalStatus or verificationStatus are important
     // columns = ["clinicalStatus", "verificationStatus", "category", "severity", "code", "bodySite", "onset", "abatement", "recordedDate", "stage", "evidence", "notes"];
     columns = ["category", "severity", "code", "bodySite", "onset", "abatement", "recordedDate", "stage", "evidence", "notes"];

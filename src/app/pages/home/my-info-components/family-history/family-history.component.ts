@@ -1,21 +1,22 @@
-import { Component, computed, signal } from "@angular/core";
+import { Component, computed, input, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
 import { mockFamilyMemberHistory1 } from "fhir/R4/mocks/family-member-history/mock-family-member-history-1";
 import { mockFamilyMemberHistory2 } from "fhir/R4/mocks/family-member-history/mock-family-member-history-2";
+import { FamilyMemberHistory } from "fhir/R4/types/family-member-history";
 import { annotationToString, codeableConceptToString, dateTimeToString, periodToString, quantityToString, rangeToString, referenceToString } from "fhir/R4/utilities/validators-tostring.util";
 
 @Component({
     selector: 'app-family-history',
     styleUrl: './family-history.component.scss',
     templateUrl: './family-history.component.html',
-    standalone: true,
     imports: [MagicTableModule, MatButtonModule, MatTooltipModule, MatIconModule],
+    standalone: true,
 })
 export class FamilyHistoryComponent {
-    myFamilyHistory = signal([mockFamilyMemberHistory1, mockFamilyMemberHistory2]);
+    myFamilyHistory = input.required<FamilyMemberHistory[]>();
 
     columns = ['status', 'date', 'name', 'relation', 'sex', 'born', 'age', 'deceased', 'reason', 'notes', 'condition'];
     // TODO: If reasonReference, add to reason

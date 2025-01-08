@@ -9,12 +9,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { IconSpinnerTransition } from '../../../transitions';
 
 @Component({
-  selector: 'app-menu-dropdown-button',
-  styles: '',
-  templateUrl: './menu-dropdown-button.component.html',
-  animations: [trigger('iconspinner', IconSpinnerTransition(100))],
-  standalone: true,
-  imports: [MatMenuModule, MatButtonModule, MatIconModule, CommonModule, MatTooltipModule],
+    selector: 'app-menu-dropdown-button',
+    styles: '',
+    templateUrl: './menu-dropdown-button.component.html',
+    animations: [trigger('iconspinner', IconSpinnerTransition(100))],
+    imports: [MatMenuModule, MatButtonModule, MatIconModule, CommonModule, MatTooltipModule],
+    standalone: true,
 })
 export class MenuDropdownButtonComponent {
   @Input() item?: TopNavMenuItem;

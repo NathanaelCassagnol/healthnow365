@@ -421,7 +421,7 @@ export function annotationToString(a?: Annotation | Annotation[]) {
 }
 
 export function attachmentToString(a: Attachment) {
-    return a.title ?? 'Unnamed Attachment';
+    return a.title ?? '';
 }
 
 export function codeableConceptToString(c?: CodeableConcept | CodeableConcept[]) {
@@ -577,19 +577,20 @@ export function dateTimeToString(dt?: date | dateTime | time) {
     return toWrittenDate(dt.slice(0, 10)) + ' ' + toWrittenTime(dt.slice(11));
 }
 
-export function ValidateBasicType(input: anyBasicType, typeName: string) {
+export function ValidateBasicType(input: anyBasicType, typeName: string, verbose = false) {
     // TODO: Add the validation rules for each data type in FHIR documentation
     if (["Duration", "Count", "Distance", "Age"].includes(typeName)) typeName = 'Quantity';
     const rosetta = BasicTypesRosettaStone[typeName];
     if (!rosetta) return false;
-    let isValid = true;
     if (rosetta.customValidator && !rosetta.customValidator(input)) return false;
+    let isValid = true;
     if (typeof input === 'object') {
         // Make sure it has all required variables
         if (rosetta.params?.length) {
             rosetta.params.filter(p => p.required).forEach(p => {
                 if (!Object.hasOwn(input, p.name)) {
                     isValid = false;
+                    if (verbose) console.log("Object does not have required param "+p.name)
                 }
             })
             if (!isValid) return false;
@@ -598,10 +599,26 @@ export function ValidateBasicType(input: anyBasicType, typeName: string) {
         // id, extension, and _[extension] are defined in ancestors
         Object.entries(input).filter(e => e[0] != 'id' && e[0] != 'extension' && e[0][0] != '_').forEach(([key, value]) => {
             const param = (rosetta.params??[]).find(p => p.name === key);
-            if (!param) isValid = false;
-            else if ((param.isArray) != Array.isArray(value)) isValid = false;
-            else if (!ValidateBasicType(value, param.type)) isValid = false;
-            else if (param.codeVals && !param.codeVals.includes(value)) isValid = false;
+            if (!param) {
+                isValid = false;
+                if (verbose) console.log("Object has invalid param "+key);
+            }
+            else if ((param.isArray) != Array.isArray(value)) {
+                isValid = false;
+                if (verbose) console.log("Object has param which should be an array but isn't: "+key);
+            }
+            else if (!param.isArray && !ValidateBasicType(value, param.type)) {
+                isValid = false;
+                if (verbose) console.log("Object has param of invalid type: "+key);
+            }
+            else if (param.isArray && value.map((v: anyBasicType) => ValidateBasicType(v, param.type)).find((x: boolean) => x == false)) {
+                isValid = false;
+                if (verbose) console.log("Object has array param of invalid type: "+key);
+            }
+            else if (param.codeVals && !param.codeVals.includes(value)) {
+                isValid = false;
+                if (verbose) console.log("Object property "+key+" is not in the list "+param.codeVals.join(','));
+            }
         })
         return isValid;
     }

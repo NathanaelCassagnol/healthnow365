@@ -1,9 +1,10 @@
-import { Component, computed, signal } from "@angular/core";
+import { Component, computed, input, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
 import { mockDetectedIssue1 } from "fhir/R4/mocks/detected-issue/mock-detected-issue-1";
 import { mockDetectedIssue2 } from "fhir/R4/mocks/detected-issue/mock-detected-issue-2";
+import { DetectedIssue } from "fhir/R4/types/detected-issue";
 import { codeableConceptToString, dateTimeToString, periodToString } from "fhir/R4/utilities/validators-tostring.util";
 
 // https://hl7.org/fhir/R4/detectedissue.html
@@ -12,11 +13,11 @@ import { codeableConceptToString, dateTimeToString, periodToString } from "fhir/
     selector: 'app-detected-issue',
     styleUrl: './detected-issue.component.scss',
     templateUrl: './detected-issue.component.html',
-    standalone: true,
     imports: [MagicTableModule, MatButtonModule, MatTooltipModule],
+    standalone: true,
 })
 export class DetectedIssueComponent {
-    myIssues = signal([mockDetectedIssue1, mockDetectedIssue2]);
+    myIssues = input.required<DetectedIssue[]>();
 
     columns = ['status', 'code', 'severity', 'timeIdentified', 'evidence', 'detail', 'mitigation'];
     data = computed(() => this.myIssues().map(i => ({

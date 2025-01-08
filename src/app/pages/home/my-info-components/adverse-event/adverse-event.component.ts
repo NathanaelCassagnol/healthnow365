@@ -1,10 +1,10 @@
-import { Component, computed, signal } from "@angular/core";
+import { Component, computed, input, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
-import { mockAdverseEvent1 } from "fhir/R4/mocks/adverse-event/mock-adverse-event-1";
+import { AdverseEvent } from "fhir/R4/types/adverse-event";
 
-import { annotationToString, codeableConceptToString, dateTimeToString, periodToString, quantityToString, rangeToString } from "fhir/R4/utilities/validators-tostring.util";
+import { codeableConceptToString, dateTimeToString } from "fhir/R4/utilities/validators-tostring.util";
 
 // https://hl7.org/fhir/R4/adverseevent.html
 
@@ -12,11 +12,11 @@ import { annotationToString, codeableConceptToString, dateTimeToString, periodTo
     selector: 'app-adverse-event',
     styleUrl: './adverse-event.component.scss',
     templateUrl: './adverse-event.component.html',
-    standalone: true,
     imports: [MatButtonModule, MatTooltipModule, MagicTableModule],
+    standalone: true,
 })
 export class AdverseEventComponent {
-    myAdverseEvents = signal([mockAdverseEvent1]);
+    myAdverseEvents = input.required<AdverseEvent[]>();
 
     columns = [];
     data = computed(() => this.myAdverseEvents().map(e => ({
