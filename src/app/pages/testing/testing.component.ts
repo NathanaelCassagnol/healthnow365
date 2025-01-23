@@ -27,25 +27,27 @@ export class TestingComponent {
   private auth = inject(AuthService);
 
   async test() {
-    const User = {
-      id: a.id().required(),
-      first_name: a.string().required(),
-      last_name: a.string().required(),
-      username: a.string().required(),
-      email: a.string().required(),
-      phone_number: a.string().required(),
-      birth_date: a.date(),
-      address: a.customType({
-        line_one: a.string(),
-        line_two: a.string(),
-        city: a.string(),
-        state: a.string(),
-        country: a.string(),
-        zip_code: a.string(),
-      }),
-      age: a.integer(),
-      gender: a.string(),
-    };
+
+    // you tosser delete the bad code
+    //const User = {
+    //  id: id().required(),
+    //  first_name: a.string().required(),
+    //  last_name: a.string().required(),
+    //  username: a.string().required(),
+    //  email: a.string().required(),
+    //  phone_number: a.string().required(),
+    //  birth_date: a.date(),
+    //  address: a.customType({
+    //    line_one: a.string(),
+    //    line_two: a.string(),
+    //    city: a.string(),
+    //    state: a.string(),
+    //    country: a.string(),
+    //    zip_code: a.string(),
+    //  }),
+    //  age: a.integer(),
+    //  gender: a.string(),
+    //};
 
     const client = generateClient<Schema>();
 
