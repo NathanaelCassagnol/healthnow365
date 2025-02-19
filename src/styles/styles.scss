@@ -449,7 +449,7 @@ $card-border-radius: 20px;
   flex-wrap: wrap;
 }
 
-.hn-card {
+.hn-card-strip > * {
   @extend .surface-color-2;
 
   flex: 1 0 200px;

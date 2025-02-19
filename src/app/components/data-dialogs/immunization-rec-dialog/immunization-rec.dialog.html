@@ -1,0 +1,34 @@
+<div class="dialog">
+        <h2>{{immunization.targetDisease}}</h2>
+        <div class="card-content pt-0">
+            @if (immunization.description.length) {
+                <p>{{immunization.description}}</p>
+            }
+            @if (immunization.vaccineCodes.length) {
+                <p>Vaccines: {{immunization.vaccineCodes | join:', '}}</p>
+            }
+            @if (immunization.contraindicatedVaccines.length) {
+                <p>Contraindicated Vaccines: {{immunization.contraindicatedVaccines | join:', '}}</p>
+            }
+            @if (immunization.forecastStatus.length) {
+                <p>Forecast Status: {{immunization.forecastStatus}}</p>
+            }
+            @if (immunization.date.length) {
+                <p>Date: {{immunization.date}}</p>
+            }
+            @if (immunization.series) {
+                <p>Series: {{immunization.series}}</p>
+            }
+            @if (immunization.doseNumber) {
+                <p>Dose Number: {{immunization.doseNumber}}</p>
+            }
+            @if (immunization.seriesDoses) {
+                <p>Series Doses: {{immunization.seriesDoses}}</p>
+            }
+        </div>
+    
+
+    <div class="bottom-buttons">
+        <button mat-raised-button color="warn" type="button" (click)="close()">Close</button>
+    </div>
+</div>

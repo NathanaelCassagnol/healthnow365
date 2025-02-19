@@ -1,6 +1,7 @@
 
 
 <h3>Family History</h3>
+@if (false) {
 <magic-table [columns]="columns" [data]="data()" [columnData]="colData" paginate footer="row-counts">
     <ng-template MagicTableBody="notes" let-row>
         @for(n of row.notes; track n; let i = $index) {
@@ -19,3 +20,11 @@
         }
     </ng-template>
 </magic-table>
+}
+@else {
+    <div class="hn-card-strip">
+        @for (hist of data(); track i; let i = $index) {
+            <app-family-history-card [hist]="hist" />
+        }
+    </div>
+    }

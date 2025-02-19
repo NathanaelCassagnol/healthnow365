@@ -1,0 +1,67 @@
+<div class="dialog">
+        <h2>Family History: {{hist.conditionText}}</h2>
+        <div class="card-content pt-0">
+            @if (hist.relation.length) {
+                <p>Relationship: {{hist.relation}}</p>
+            }
+            @if (hist.status.length) {
+                <p>Status: {{hist.status}}</p>
+            }
+            @if (hist.date.length) {
+                <p>Date: {{hist.date}}</p>
+            }
+            @if (hist.name.length) {
+                <p>Name: {{hist.name}}</p>
+            }
+            @if (hist.sex.length) {
+                <p>Sex: {{hist.sex}}</p>
+            }
+            @if (hist.age.length || hist.born.length || hist.deceased.length) {
+                <p>TODO Make age text logic</p>
+            }
+            @for (reason of hist.reason; track i; let i = $index) {
+                <p>Reason: {{reason}}</p>
+            }
+            @if (hist.born.length) {
+                <p>Born: {{hist.born}}</p>
+            }
+            @if (hist.deceased.length) {
+                <p>Deceased: {{hist.deceased}}</p>
+            }
+            @if (hist.notes.length) {
+                <h3 class="mb-h">Notes</h3>
+                @for (note of hist.notes; track i; let i = $index) {
+                    <p class="mt-0">{{note}}</p>
+                }
+            }
+            @if (hist.condition.length) {
+                <h3 class="mb-h">Conditions</h3>
+                <div class="flex-row gap-1 wrap">
+                    @for (condition of hist.condition; track i; let i = $index) {
+                        <div class="flex-col surface-color-2" style="border: 1px solid black; border-radius: 10px; padding: 8px;">
+
+                            @if (condition.code.length) {
+                                <span><b>{{condition.code}}</b></span>
+                            }
+                            @if (condition.outcome.length) {
+                                <span>Outcome: {{condition.outcome}}</span>
+                            }
+                            @if (condition.contributedToDeath) {
+                                <span class="slight-red-text"><b>Contributed to death</b></span>
+                            }
+                            @if (condition.onset.length) {
+                                <span>Onset: {{condition.onset}}</span>
+                            }
+                            @for (note of condition.notes; track i; let i = $index) {
+                                <span>Note: {{note}}</span>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+
+    <div class="bottom-buttons">
+        <button mat-raised-button color="warn" type="button" (click)="close()">Close</button>
+    </div>
+</div>

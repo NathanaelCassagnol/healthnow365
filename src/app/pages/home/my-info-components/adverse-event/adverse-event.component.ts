@@ -4,7 +4,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
 import { AdverseEvent } from "fhir/R4/types/adverse-event";
 
-import { codeableConceptToString, dateTimeToString } from "fhir/R4/utilities/validators-tostring.util";
+import { codeableConceptsToString, codeableConceptToString, dateTimeToString } from "fhir/R4/utilities/validators-tostring.util";
 
 // https://hl7.org/fhir/R4/adverseevent.html
 
@@ -21,7 +21,7 @@ export class AdverseEventComponent {
     columns = [];
     data = computed(() => this.myAdverseEvents().map(e => ({
         actuality: e.actuality,
-        category: codeableConceptToString(e.category),
+        category: codeableConceptsToString(e.category),
         event: codeableConceptToString(e.event),
         occurred: dateTimeToString(e.date),
         detected: dateTimeToString(e.detected),

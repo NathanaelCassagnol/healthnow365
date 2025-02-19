@@ -1,0 +1,56 @@
+<div class="dialog">
+        <h2>{{immunization.name}}</h2>
+        <div class="card-content pt-0">
+            @if (immunization.status.length) {
+                <p>Status: {{immunization.status}}</p>
+            }
+            @if (immunization.occurrence.length) {
+                <p>Occurrence: {{immunization.occurrence}}</p>
+            }
+            @if (immunization.reportOrigin.length) {
+                <p>Report Origin: {{immunization.reportOrigin}}</p>
+            }
+            @if (immunization.expiration.length) {
+                <p>Expiration: {{immunization.expiration}}</p>
+            }
+            @if (immunization.site.length) {
+                <p>Site: {{immunization.site}}</p>
+            }
+            @if (immunization.route.length) {
+                <p>Route: {{immunization.route}}</p>
+            }
+            @if (immunization.reason.length) {
+                <p>Reason: {{immunization.reason}}</p>
+            }
+            @if (immunization.reactionCount) {
+                <p>Reaction Count: {{immunization.reactionCount}}</p>
+            }
+            @if (immunization.dose) {
+                <p>Dose: {{immunization.dose}}</p>
+            }
+            @if (immunization.isSubpotent) {
+                <p>Subpotent: {{immunization.isSubpotent}} {{immunization.subpotentReason ? ' ('+immunization.subpotentReason+')':''}}</p>
+            }
+            @if (immunization.fundingSource) {
+                <p>Funding Source: {{immunization.fundingSource}}</p>
+            }
+
+            @if (immunization.notes.length) {
+                <h3 class="mb-h">Notes</h3>
+                @for (note of immunization.notes; track i; let i = $index) {
+                    <p class="mt-0">{{note}}</p>
+                }
+            }
+            @if (immunization.programEligibility.length) {
+                <h3 class="mb-h">Program Eligibility</h3>
+                @for (pe of immunization.programEligibility; track i; let i = $index) {
+                    <p class="mt-0">{{pe}}</p>
+                }
+            }
+        </div>
+    
+
+    <div class="bottom-buttons">
+        <button mat-raised-button color="warn" type="button" (click)="close()">Close</button>
+    </div>
+</div>

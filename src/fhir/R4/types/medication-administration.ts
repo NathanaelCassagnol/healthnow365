@@ -1,4 +1,4 @@
-import { Identifier, Reference, CodeableConcept, dateTime, Period, BackboneElement, Annotation, Quantity, Ratio, uri, SimpleQuantity } from "./_basic-types";
+import { Identifier, Reference, CodeableConcept, dateTime, Period, BackboneElement, Annotation, Ratio, uri, SimpleQuantity } from "./_basic-types";
 import { DomainResource } from "./_resource.types";
 
 export type MedicationAdministration = DomainResource & {

@@ -2,6 +2,250 @@ import { Expression } from "@angular/compiler";
 import { Address, Age, Annotation, Attachment, CodeableConcept, Coding, Count, Distance, Duration, HumanName, Identifier, Money, Period, Quantity, SimpleQuantity, Range, Ratio, SampledData, Signature, Timing, ContactDetail, Contributor, DataRequirement, ParameterDefinition, RelatedArtifact, TriggerDefinition, UsageContext, Dosage, ContactPoint, Reference, anyBasicType, date, dateTime, time } from "../types/_basic-types";
 import { Meta } from "@angular/platform-browser";
 
+export function addressToString(a: Address) {
+    if (a.text) return a.text;
+    return [ ...(a.line??[]), a.city, a.district, a.state, a.country, a.postalCode ]
+        .filter(x => x != null)
+        .join(", ");
+}
+
+export function quantityToString(q: Quantity | SimpleQuantity | Age | Distance | Duration | Count | undefined) {
+    if (q == undefined) return '';
+    return [q.comparator, q.value, q.unit ?? q.code].filter(x => x != undefined).join(" ");
+}
+
+export const annotationToString = (a?: Annotation): string => {
+    // Currently only writes author if it is a string, may add author reference in the future
+    if (!a) return '';
+
+        let ret = '';
+        if(a.authorString || a.time) {
+            ret += '[';
+            if (a.authorString) ret += a.authorString;
+            if (a.authorString && a.time) ret += ' ';
+            if (a.time) ret += dateTimeToString(a.time);
+            ret += '] ';
+        }
+        ret += a.text;
+        return ret;
+}
+export const annotationsToString = (a?: Annotation[]): string[] => {
+    return a?.map(annotationToString) ?? [];
+}
+
+export function attachmentToString(a: Attachment) {
+    return a.title ?? '';
+}
+
+export const codeableConceptToString = (c?: CodeableConcept): string => {
+    if (!c) return '';
+    return c.text ?? c.coding?.[0]?.display ?? '';
+}
+export const codeableConceptsToString = (c?: CodeableConcept[]): string[] => c?.map(codeableConceptToString) ?? [];
+
+export function codingToString(c: Coding) {
+    return c.display ?? '';
+}
+
+export function humanNameToString(name: HumanName) {
+    if (name.text) return name.text;
+    let constructedName = [];
+    if (name.prefix && name.prefix.length > 0) constructedName.push(...name.prefix);
+    if (name.given && name.given.length > 0) constructedName.push(name.given[0]);
+    if (name.family) constructedName.push(name.family);
+    if (name.suffix && name.suffix.length > 0) constructedName.push(...name.suffix);
+    return constructedName.join(" ");
+}
+
+export function identifierToString(i: Identifier) {
+    return i.value ?? '';
+}
+
+export function moneyToString(m: Money) {
+    // Should have some sort of lookup to find currency symbols
+    return (m.currency??'') + (m.value??'Unknown');
+}
+
+export function periodToString(p: Period) {
+    if (p.start && !p.end) return dateTimeToString(p.start)+' and later';
+    if (!p.start && p.end) return dateTimeToString(p.end)+' and before';
+    if (p.start && p.end) return dateTimeToString(p.start)+" - "+dateTimeToString(p.end);
+    return "Unknown Time"
+}
+
+export function rangeToString(r: Range) {
+    let unit = r.low?.unit ?? r.high?.unit ?? '';
+    if (r.low?.value != undefined && r.high?.value == undefined) return `${r.low.value} ${unit} and above`;
+    if (r.low?.value == undefined && r.high?.value != undefined) return `${r.high.value} ${unit} and below`;
+    if (r.low?.value != undefined && r.high?.value != undefined) return `${r.low.value} - ${r.high.value} ${unit}`;
+    return ''
+}
+
+export function ratioToString(r: Ratio) {
+    let num = (r.numerator?.value??'Unknown')+(r.numerator?.unit??'');
+    let den = (r.denominator?.value??'Unknown')+(r.denominator?.unit??'');
+    return num+'/'+den;
+}
+
+export function sampledDataToString(d: SampledData) {
+    return 'SampledData (TODO)';
+}
+
+export function signatureToString(s: Signature) {
+    return 'Signature (TODO)';
+}
+
+export function timingToString(s: Timing) {
+    return 'Timing (TODO)';
+}
+
+export function contactPointToString(c: ContactPoint) {
+    return 'ContactPoint (TODO)';
+}
+
+export function contactDetailToString(c: ContactDetail) {
+    return 'ContactDetail (TODO)';
+}
+
+export function contributorToString(c: Contributor) {
+    return 'Contributor (TODO)';
+}
+export function dataRequirementToString(r: DataRequirement) {
+    return 'DataRequirement (TODO)';
+}
+export function expressionToString(e: Expression) {
+    return 'Expression (TODO)';
+}
+export function parameterDefinitionToString(p: ParameterDefinition) {
+    return 'ParameterDefinition (TODO)';
+}
+export function relatedArtifactToString(a: RelatedArtifact) {
+    return 'RelatedArtifact (TODO)';
+}
+export function triggerDefinitionToString(a: TriggerDefinition) {
+    return 'TriggerDefinition (TODO)';
+}
+export function usageContextToString(a: UsageContext) {
+    return 'UsageContext (TODO)';
+}
+export function dosageToString(d: Dosage) {
+    return 'Dosage (TODO)';
+}
+export function metaToString(m: Meta) {
+    return 'Meta (TODO)';
+}
+export function referenceToString(r?: Reference) {
+    if (r == null) return '';
+    if (r.display) return r.display;
+    return '';
+}
+
+export function isAnyDateTime(d: string) {
+    return isDate(d) || isTime(d) || isDateTime(d) || isInstant(d);
+}
+export function isDate(d: string) {
+    return /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1]))?)?$/.test(d);
+}
+export function isDateTime(d: string) {
+    return /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])(T([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00)))?)?)?$/.test(d);
+}
+export function isTime(d: string) {
+    return /^([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?$/.test(d);
+}
+export function isInstant(d: string) {
+    return /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))$/.test(d);
+}
+export function dateTimeToString(dt?: date | dateTime | time) {
+    if (!dt) return '';
+    if (!isAnyDateTime(dt)) return 'Invalid Time';
+
+    if (dt.length === 4) return dt;
+    if (dt.length === 7) {
+        let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        let monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+        let year = Number(dt.slice(0, 4));
+        let month = Number(dt.slice(5));
+        return `${months[month]} ${year}`;
+    }
+    let toWrittenDate = (str: string) => {
+        let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        let monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+        let year = Number(str.slice(0, 4));
+        let month = Number(str.slice(5, 7));
+        let day = Number(str.slice(8, 10));
+        return `${monthsShort[month-1]} ${day}, ${year}`;
+    }
+    if (dt.length === 10) {
+        return toWrittenDate(dt);
+    }
+    let toWrittenTime = (str: string) => {
+        // let ret = (str.slice(6, 8) === '00') ? str.slice(0, 5) : str.slice(0, 8);
+        let ret = str.slice(0, 5); // Don't show the seconds
+        if (ret[0] === '0') ret = ret.slice(1);
+        return ret;
+    }
+    if (dt.length === 8) {
+        return toWrittenTime(dt);
+    }
+    return toWrittenDate(dt.slice(0, 10)) + ' ' + toWrittenTime(dt.slice(11));
+}
+
+export function ValidateBasicType(input: anyBasicType, typeName: string, verbose = false) {
+    // TODO: Add the validation rules for each data type in FHIR documentation
+    if (["Duration", "Count", "Distance", "Age"].includes(typeName)) typeName = 'Quantity';
+    const rosetta = BasicTypesRosettaStone[typeName];
+    if (!rosetta) return false;
+    if (rosetta.customValidator && !rosetta.customValidator(input)) return false;
+    let isValid = true;
+    if (typeof input === 'object') {
+        // Make sure it has all required variables
+        if (rosetta.params?.length) {
+            rosetta.params.filter(p => p.required).forEach(p => {
+                if (!Object.hasOwn(input, p.name)) {
+                    isValid = false;
+                    if (verbose) console.log("Object does not have required param "+p.name)
+                }
+            })
+            if (!isValid) return false;
+        }
+        // Make sure all included properties are in the list, and they have the right types
+        // id, extension, and _[extension] are defined in ancestors
+        Object.entries(input).filter(e => e[0] != 'id' && e[0] != 'extension' && e[0][0] != '_').forEach(([key, value]) => {
+            const param = (rosetta.params??[]).find(p => p.name === key);
+            if (!param) {
+                isValid = false;
+                if (verbose) console.log("Object has invalid param "+key);
+            }
+            else if ((param.isArray) != Array.isArray(value)) {
+                isValid = false;
+                if (verbose) console.log("Object has param which should be an array but isn't: "+key);
+            }
+            else if (!param.isArray && !ValidateBasicType(value, param.type)) {
+                isValid = false;
+                if (verbose) console.log("Object has param of invalid type: "+key);
+            }
+            else if (param.isArray && value.map((v: anyBasicType) => ValidateBasicType(v, param.type)).find((x: boolean) => x == false)) {
+                isValid = false;
+                if (verbose) console.log("Object has array param of invalid type: "+key);
+            }
+            else if (param.codeVals && !param.codeVals.includes(value)) {
+                isValid = false;
+                if (verbose) console.log("Object property "+key+" is not in the list "+param.codeVals.join(','));
+            }
+        })
+        return isValid;
+    }
+    return true;
+}
+
+export function guessType(input: any) {
+    let possibleTypes = Object.keys(BasicTypesRosettaStone).filter(t => ValidateBasicType(input, t));
+    if (possibleTypes.length != 1) console.log("Value has "+possibleTypes.length+" possible types:", input, possibleTypes);
+    if (possibleTypes.length === 0) return 'Unknown';
+    return possibleTypes[0];
+}
+
+
 type RosettaStoneType = {
     [key: string]: {
         toString: Function,
@@ -386,248 +630,4 @@ export const BasicTypesRosettaStone: RosettaStoneType = {
     'uri': { toString: (v: string) => v, customValidator: (input: any) => typeof input === 'string' },
     'url': { toString: (v: string) => v, customValidator: (input: any) => typeof input === 'string' },
     'uuid': { toString: (v: string) => v, customValidator: (input: any) => typeof input === 'string' },
-}
-
-export function addressToString(a: Address) {
-    if (a.text) return a.text;
-    return [ ...(a.line??[]), a.city, a.district, a.state, a.country, a.postalCode ]
-        .filter(x => x != null)
-        .join(", ");
-}
-
-export function quantityToString(q: Quantity | SimpleQuantity | Age | Distance | Duration | Count) {
-    return [q.comparator, q.value, q.unit].filter(x => x != undefined).join(" ");
-}
-
-export function annotationToString(a?: Annotation | Annotation[]) {
-    // Currently only writes author if it is a string, may add author reference in the future
-    if (!a) return '';
-
-    const anMap = (an: Annotation) => {
-        let ret = '';
-        if(an.authorString || an.time) {
-            ret += '[';
-            if (an.authorString) ret += an.authorString;
-            if (an.authorString && an.time) ret += ' ';
-            if (an.time) ret += dateTimeToString(an.time);
-            ret += '] ';
-        }
-        ret += an.text;
-        return ret;
-    }
-
-    if (Array.isArray(a)) return a.map(anMap);
-    return anMap(a);
-}
-
-export function attachmentToString(a: Attachment) {
-    return a.title ?? '';
-}
-
-export function codeableConceptToString(c?: CodeableConcept | CodeableConcept[]) {
-    if (!c) return '';
-    let ccMap = (cc: CodeableConcept) => cc.text ?? cc.coding?.[0]?.display ?? '';
-    if (Array.isArray(c)) return c.map(ccMap);
-    return ccMap(c);
-}
-
-export function codingToString(c: Coding) {
-    return c.display ?? '';
-}
-
-export function humanNameToString(name: HumanName) {
-    if (name.text) return name.text;
-    let constructedName = [];
-    if (name.prefix && name.prefix.length > 0) constructedName.push(...name.prefix);
-    if (name.given && name.given.length > 0) constructedName.push(name.given[0]);
-    if (name.family) constructedName.push(name.family);
-    if (name.suffix && name.suffix.length > 0) constructedName.push(...name.suffix);
-    return constructedName.join(" ");
-}
-
-export function identifierToString(i: Identifier) {
-    return i.value ?? '';
-}
-
-export function moneyToString(m: Money) {
-    // Should have some sort of lookup to find currency symbols
-    return (m.currency??'') + (m.value??'Unknown');
-}
-
-export function periodToString(p: Period) {
-    if (p.start && !p.end) return dateTimeToString(p.start)+' and later';
-    if (!p.start && p.end) return dateTimeToString(p.end)+' and before';
-    if (p.start && p.end) return dateTimeToString(p.start)+" - "+dateTimeToString(p.end);
-    return "Unknown Time"
-}
-
-export function rangeToString(r: Range) {
-    let unit = r.low?.unit ?? r.high?.unit ?? '';
-    if (r.low?.value != undefined && r.high?.value == undefined) return `${r.low.value} ${unit} and above`;
-    if (r.low?.value == undefined && r.high?.value != undefined) return `${r.high.value} ${unit} and below`;
-    if (r.low?.value != undefined && r.high?.value != undefined) return `${r.low.value} - ${r.high.value} ${unit}`;
-    return 'Unknown'
-}
-
-export function ratioToString(r: Ratio) {
-    let num = (r.numerator?.value??'Unknown')+(r.numerator?.unit??'');
-    let den = (r.denominator?.value??'Unknown')+(r.denominator?.unit??'');
-    return num+'/'+den;
-}
-
-export function sampledDataToString(d: SampledData) {
-    return 'SampledData';
-}
-
-export function signatureToString(s: Signature) {
-    return 'Signature';
-}
-
-export function timingToString(s: Timing) {
-    return 'Timing';
-}
-
-export function contactPointToString(c: ContactPoint) {
-    return 'ContactPoint';
-}
-
-export function contactDetailToString(c: ContactDetail) {
-    return 'ContactDetail';
-}
-
-export function contributorToString(c: Contributor) {
-    return 'Contributor';
-}
-export function dataRequirementToString(r: DataRequirement) {
-    return 'DataRequirement';
-}
-export function expressionToString(e: Expression) {
-    return 'Expression';
-}
-export function parameterDefinitionToString(p: ParameterDefinition) {
-    return 'ParameterDefinition';
-}
-export function relatedArtifactToString(a: RelatedArtifact) {
-    return 'RelatedArtifact';
-}
-export function triggerDefinitionToString(a: TriggerDefinition) {
-    return 'TriggerDefinition';
-}
-export function usageContextToString(a: UsageContext) {
-    return 'UsageContext';
-}
-export function dosageToString(d: Dosage) {
-    return 'Doage';
-}
-export function metaToString(m: Meta) {
-    return 'Meta';
-}
-export function referenceToString(r: Reference) {
-    if (r.display) return r.display;
-    return '';
-}
-
-export function isAnyDateTime(d: string) {
-    return isDate(d) || isTime(d) || isDateTime(d) || isInstant(d);
-}
-export function isDate(d: string) {
-    return /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1]))?)?$/.test(d);
-}
-export function isDateTime(d: string) {
-    return /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])(T([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00)))?)?)?$/.test(d);
-}
-export function isTime(d: string) {
-    return /^([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?$/.test(d);
-}
-export function isInstant(d: string) {
-    return /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))$/.test(d);
-}
-export function dateTimeToString(dt?: date | dateTime | time) {
-    if (!dt) return '';
-    if (!isAnyDateTime(dt)) return 'Invalid Time';
-
-    if (dt.length === 4) return dt;
-    if (dt.length === 7) {
-        let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        let monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-        let year = Number(dt.slice(0, 4));
-        let month = Number(dt.slice(5));
-        return `${months[month]} ${year}`;
-    }
-    let toWrittenDate = (str: string) => {
-        let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        let monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-        let year = Number(str.slice(0, 4));
-        let month = Number(str.slice(5, 7));
-        let day = Number(str.slice(8, 10));
-        return `${monthsShort[month-1]} ${day}, ${year}`;
-    }
-    if (dt.length === 10) {
-        return toWrittenDate(dt);
-    }
-    let toWrittenTime = (str: string) => {
-        // let ret = (str.slice(6, 8) === '00') ? str.slice(0, 5) : str.slice(0, 8);
-        let ret = str.slice(0, 5); // Don't show the seconds
-        if (ret[0] === '0') ret = ret.slice(1);
-        return ret;
-    }
-    if (dt.length === 8) {
-        return toWrittenTime(dt);
-    }
-    return toWrittenDate(dt.slice(0, 10)) + ' ' + toWrittenTime(dt.slice(11));
-}
-
-export function ValidateBasicType(input: anyBasicType, typeName: string, verbose = false) {
-    // TODO: Add the validation rules for each data type in FHIR documentation
-    if (["Duration", "Count", "Distance", "Age"].includes(typeName)) typeName = 'Quantity';
-    const rosetta = BasicTypesRosettaStone[typeName];
-    if (!rosetta) return false;
-    if (rosetta.customValidator && !rosetta.customValidator(input)) return false;
-    let isValid = true;
-    if (typeof input === 'object') {
-        // Make sure it has all required variables
-        if (rosetta.params?.length) {
-            rosetta.params.filter(p => p.required).forEach(p => {
-                if (!Object.hasOwn(input, p.name)) {
-                    isValid = false;
-                    if (verbose) console.log("Object does not have required param "+p.name)
-                }
-            })
-            if (!isValid) return false;
-        }
-        // Make sure all included properties are in the list, and they have the right types
-        // id, extension, and _[extension] are defined in ancestors
-        Object.entries(input).filter(e => e[0] != 'id' && e[0] != 'extension' && e[0][0] != '_').forEach(([key, value]) => {
-            const param = (rosetta.params??[]).find(p => p.name === key);
-            if (!param) {
-                isValid = false;
-                if (verbose) console.log("Object has invalid param "+key);
-            }
-            else if ((param.isArray) != Array.isArray(value)) {
-                isValid = false;
-                if (verbose) console.log("Object has param which should be an array but isn't: "+key);
-            }
-            else if (!param.isArray && !ValidateBasicType(value, param.type)) {
-                isValid = false;
-                if (verbose) console.log("Object has param of invalid type: "+key);
-            }
-            else if (param.isArray && value.map((v: anyBasicType) => ValidateBasicType(v, param.type)).find((x: boolean) => x == false)) {
-                isValid = false;
-                if (verbose) console.log("Object has array param of invalid type: "+key);
-            }
-            else if (param.codeVals && !param.codeVals.includes(value)) {
-                isValid = false;
-                if (verbose) console.log("Object property "+key+" is not in the list "+param.codeVals.join(','));
-            }
-        })
-        return isValid;
-    }
-    return true;
-}
-
-export function guessType(input: any) {
-    let possibleTypes = Object.keys(BasicTypesRosettaStone).filter(t => ValidateBasicType(input, t));
-    if (possibleTypes.length != 1) console.log("Value has "+possibleTypes.length+" possible types:", input, possibleTypes);
-    if (possibleTypes.length === 0) return 'Unknown';
-    return possibleTypes[0];
 }

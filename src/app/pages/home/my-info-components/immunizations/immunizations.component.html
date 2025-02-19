@@ -1,6 +1,6 @@
 
 <h3>Immunizations Taken</h3>
-<magic-table [columns]="takenColumns" [data]="takenData()" [columnData]="takenColData" paginate footer="row-counts">
+<!-- <magic-table [columns]="takenColumns" [data]="takenData()" [columnData]="takenColData" paginate footer="row-counts">
     <ng-template MagicTableBody="reactionCount" let-row>
         @if (row.reactionCount > 0) {
             <button mat-raised-button color="primary" type="button">
@@ -13,8 +13,20 @@
             <div [matTooltip]="n" style="border: 2px solid black; border-radius: 4px; padding: 4px; width: max-content;">{{i+1}}</div>
         }
     </ng-template>
-</magic-table>
+</magic-table> -->
+<div class="hn-card-strip">
+@for (im of takenData(); track i; let i = $index) {
+    <app-immunization-card [immunization]="im" />
+}
+</div>
 <hr />
 
 <h3>Immunizations Recommended</h3>
-<magic-table [columns]="recommendedColumns" [data]="recommendedData()" [columnData]="recommendedColData" paginate footer="row-counts"></magic-table>
+<!-- <magic-table [columns]="recommendedColumns" [data]="recommendedData()" [columnData]="recommendedColData" paginate footer="row-counts"></magic-table> -->
+
+<div class="hn-card-strip">
+    @for (im of recommendedData(); track i; let i = $index) {
+        <app-immunization-rec-card [immunization]="im" />
+    }
+</div>
+<hr />

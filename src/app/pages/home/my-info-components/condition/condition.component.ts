@@ -4,7 +4,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
 import { Condition } from "fhir/R4/types/condition";
 
-import { annotationToString, codeableConceptToString, dateTimeToString, periodToString, quantityToString, rangeToString } from "fhir/R4/utilities/validators-tostring.util";
+import { annotationsToString, codeableConceptsToString, codeableConceptToString, dateTimeToString, periodToString, quantityToString, rangeToString } from "fhir/R4/utilities/validators-tostring.util";
 
 // https://hl7.org/fhir/R4/condition.html
 
@@ -27,7 +27,7 @@ export class ConditionComponent {
         category: (s.category ?? []).map(c => codeableConceptToString(c)),
         severity: codeableConceptToString(s.severity),
         code: codeableConceptToString(s.code),
-        bodySite: codeableConceptToString(s.bodySite),
+        bodySite: codeableConceptsToString(s.bodySite),
         onset: s.onsetDateTime ? dateTimeToString(s.onsetDateTime)
             : s.onsetAge ? quantityToString(s.onsetAge)
             : s.onsetPeriod ? periodToString(s.onsetPeriod)
@@ -42,8 +42,8 @@ export class ConditionComponent {
         stage: s.stage?.map(st => 
             [codeableConceptToString(st.type), codeableConceptToString(st.summary)]
             .filter(x => x != '').join(' | ')) ?? '',
-        evidence: s.evidence?.flatMap(e => codeableConceptToString(e.code)),
-        notes: annotationToString(s.note)
+        evidence: s.evidence?.flatMap(e => codeableConceptsToString(e.code)),
+        notes: annotationsToString(s.note)
     })));
     colData: MagicTableColumnData = {
     };

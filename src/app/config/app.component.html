@@ -1,7 +1,7 @@
-@if (router.url == "/landing" || router.url == "/about" || router.url.startsWith("/callback") || router.url == "/testing") {
-<div class="flex-col h-100">
-  <router-outlet></router-outlet>
-</div>
+@if (router.url == "/landing" || router.url == "/about" || true) {
+  <div class="flex-col h-100">
+    <router-outlet></router-outlet>
+  </div>
 }
 @else {
 <!-- <div class="auth-bg" style="z-index: 0;"></div> -->

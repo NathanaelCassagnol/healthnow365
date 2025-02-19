@@ -4,7 +4,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
 import { MedicationAdministration } from "fhir/R4/types/medication-administration";
 import { MedicationDispense } from "fhir/R4/types/medication-dispense";
-import { annotationToString, codeableConceptToString, dateTimeToString, periodToString, quantityToString, referenceToString } from "fhir/R4/utilities/validators-tostring.util";
+import { annotationToString, codeableConceptToString, dateTimeToString, dosageToString, periodToString, quantityToString, referenceToString } from "fhir/R4/utilities/validators-tostring.util";
 
 @Component({
     selector: 'app-medications',
@@ -23,16 +23,20 @@ export class MedicationsComponent {
     dispenseColumns = ["medication", "category", "status", "for", "type", "quantity", "daysSupplied", "notes"];
     dispenseData = computed(() => this.myDispensations().map(d => ({
         medication: d.medicationCodeableConcept ? codeableConceptToString(d.medicationCodeableConcept) : referenceToString(d.medicationReference!),
-        category: d.category ? codeableConceptToString(d.category) : '',
-        status: d.status ?? '', // Include status reason
-        for: d.subject ? referenceToString(d.subject) : '',
-        instructions: "TODO",
-        type: d.type ? codeableConceptToString(d.type) : '',
-        quantity: d.quantity ? quantityToString(d.quantity) : '',
-        daysSupplied: d.daysSupply ? quantityToString(d.daysSupply) : '',
-        substitution: 'TODO',
-        notes: d.note?.map(n => annotationToString(n)) ?? '',
-    })));
+        category: codeableConceptToString(d.category),
+        status: (d.status ?? '') + d.statusReasonCodeableConcept ? ` (${codeableConceptToString(d.statusReasonCodeableConcept)})` : '',
+        // for: referenceToString(d.subject),
+        type: codeableConceptToString(d.type),
+        quantity: quantityToString(d.quantity),
+        daysSupplied: quantityToString(d.daysSupply),
+        // TODO This line is confusing, rewrite
+        substitution: d.substitution ? [d.substitution.wasSubstituted ? 'Yes' : 'No', codeableConceptToString(d.substitution.type), d.substitution.reason?.map(x => codeableConceptToString(x)).join(', ')??''].filter(x => x != '').join(';') : '',
+        dosageInstruction: d.dosageInstruction?.map(dos => dosageToString(dos)) ?? [],
+        notes: d.note?.map(n => annotationToString(n)) ?? [],
+        whenPrepared: dateTimeToString(d.whenPrepared),
+        whenHandedOver: dateTimeToString(d.whenHandedOver),
+    } as DisplayMedicationDispense)));
+    
     dispenseColData: MagicTableColumnData = {
         medication: {
             search: true,
@@ -61,4 +65,20 @@ export class MedicationsComponent {
             filter: ['includes'],
         }
     };
+}
+
+export type DisplayMedicationDispense = {
+    medication: string;
+    // status: "preparation" | "in-progress" | "cancelled" | "on-hold" | "completed" | "entered-in-error" | "stopped" | "declined" | "unknown",
+    status: string;
+    category: string;
+    quantity: string;
+    daysSupplied: string;
+    type: string;
+    whenPrepared: string;
+    whenHandedOver: string;
+    dosageInstruction: string[];
+    substitution: string;
+
+    notes: string[];
 }
