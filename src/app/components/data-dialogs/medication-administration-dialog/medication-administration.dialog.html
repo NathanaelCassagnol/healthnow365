@@ -1,0 +1,33 @@
+<div class="dialog">
+        <h2>Medication Administration: {{med.medication}}</h2>
+        <div class="card-content pt-0">
+            @if (med.category) {
+                <p>Category: {{med.category}}</p>
+            }
+            @if (med.effective) {
+                <p>Effective: {{med.effective}}</p>
+            }
+            @if (med.status) {
+                <p>Status: {{med.status}}</p>
+            }
+            @if (med.reasons.length) {
+                <p>Reasons: {{med.reasons | join:', '}}</p>
+            }
+
+            @if (dosageText.length) {
+                <p>Dosage: {{dosageText}}</p>
+            }
+
+            @if (med.notes.length) {
+                <h3 class="mb-h">Notes</h3>
+                @for (note of med.notes; track i; let i = $index) {
+                    <p class="mt-0">{{note}}</p>
+                }
+            }
+
+        </div>
+
+    <div class="bottom-buttons">
+        <button mat-raised-button color="warn" type="button" (click)="close()">Close</button>
+    </div>
+</div>

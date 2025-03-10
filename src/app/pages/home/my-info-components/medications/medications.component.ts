@@ -2,20 +2,26 @@ import { Component, computed, input } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
+import { FHIRMedicationAdministrationToDisplay, FHIRMedicationDispenseToDisplay } from "app/types/display-types";
 import { MedicationAdministration } from "fhir/R4/types/medication-administration";
 import { MedicationDispense } from "fhir/R4/types/medication-dispense";
 import { annotationToString, codeableConceptToString, dateTimeToString, dosageToString, periodToString, quantityToString, referenceToString } from "fhir/R4/utilities/validators-tostring.util";
+import { MedicationAdministrationCardComponent } from "../../../../components/data-cards/medication-administration-card/medication-administration-card.component";
+import { MedicationDispenseCardComponent } from "../../../../components/data-cards/medication-dispense-card/medication-dispense-card.component";
 
 @Component({
     selector: 'app-medications',
     styleUrl: './medications.component.scss',
     templateUrl: './medications.component.html',
-    imports: [MagicTableModule, MatButtonModule, MatTooltipModule],
+    imports: [MagicTableModule, MatButtonModule, MatTooltipModule, MedicationAdministrationCardComponent, MedicationDispenseCardComponent],
     standalone: true,
 })
 export class MedicationsComponent {
     myDispensations = input.required<MedicationDispense[]>();
     myAdministrations = input.required<MedicationAdministration[]>();
+
+    displayDispense = computed(() => this.myDispensations().map(m => FHIRMedicationDispenseToDisplay(m)));
+    displayAdministration = computed(() => this.myAdministrations().map(m => FHIRMedicationAdministrationToDisplay(m)));
 
     // Add columns: instructions, substitution
     // Decode medicationReferences linked with "contained"

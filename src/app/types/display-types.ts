@@ -2,7 +2,10 @@ import { TitleCasePipe } from "@angular/common";
 import { BasicToString } from "app/pipes/basic-to-string.pipe";
 import { AllergyIntolerance, AllergyIntoleranceReaction } from "fhir/R4/types/allergy-intolerance.types";
 import { FamilyMemberHistory } from "fhir/R4/types/family-member-history";
-import { codeableConceptToString, dateTimeToString, periodToString, quantityToString, rangeToString, annotationToString, codeableConceptsToString } from "fhir/R4/utilities/validators-tostring.util";
+import { ImagingStudy } from "fhir/R4/types/imaging-study";
+import { MedicationAdministration } from "fhir/R4/types/medication-administration";
+import { MedicationDispense } from "fhir/R4/types/medication-dispense";
+import { codeableConceptToString, dateTimeToString, periodToString, quantityToString, rangeToString, annotationToString, codeableConceptsToString, ratioToString, codingToString, codingsToSTring, annotationsToString } from "fhir/R4/utilities/validators-tostring.util";
 
 const toTitle = new TitleCasePipe().transform;
 
@@ -104,4 +107,167 @@ export const FHIRFamilyHistoryToDisplay = (d: FamilyMemberHistory): DisplayFamil
     conditionText: d.condition?.map(c => codeableConceptToString(c.code)).join(", ") ?? ''
 });
 
+// #endregion
+
+// #region Medication Administration
+export type DisplayMedicationAdministration = {
+    status: string
+    category: string,
+    medication: string,
+    effective: string,
+    reasons: string[],
+    notes: string[],
+    dosage: {
+        text: string,
+        site: string,
+        route: string,
+        method: string,
+        dose: string,
+        rate: string,
+    },
+};
+
+export const FHIRMedicationAdministrationToDisplay = (d: MedicationAdministration): DisplayMedicationAdministration => {
+    let status =
+        d.status === 'in-progress' ? 'In Progress' :
+        d.status === 'not-done' ? 'Not Done' :
+        d.status === 'on-hold' ? 'On Hold' :
+        d.status === 'completed' ? 'Completed' :
+        d.status === 'entered-in-error' ? 'Entered in Error' :
+        d.status === 'stopped' ? 'Stopped' :
+        'Unknown';
+    if (d.statusReason?.length) {
+        status += ' (' + d.statusReason.map(codeableConceptToString).join(', ') + ')';
+    }
+
+    return {
+        status,
+        category: codeableConceptToString(d.category),
+        medication: codeableConceptToString(d.medicationCodeableConcept),
+        effective: d.effectiveDateTime ? dateTimeToString(d.effectiveDateTime) : d.effectivePeriod ? periodToString(d.effectivePeriod) : '',
+        reasons: d.reasonCode?.map(c => codeableConceptToString(c)) ?? [],
+        notes: d.note?.map(n => annotationToString(n)) ?? [],
+        dosage: {
+            text: d.dosage?.text ?? '',
+            site: codeableConceptToString(d.dosage?.site),
+            route: codeableConceptToString(d.dosage?.route),
+            method: codeableConceptToString(d.dosage?.method),
+            dose: quantityToString(d.dosage?.dose),
+            rate: d.dosage?.rateRatio ? ratioToString(d.dosage?.rateRatio) : d.dosage?.rateQuantity ? quantityToString(d.dosage?.rateQuantity) : ''
+        }
+    }
+};
+// #endregion
+
+// #region Medication Dispense
+
+export type DisplayMedicationDispense = {
+    status: string,
+    category: string,
+    medication: string,
+    type: string,
+    quantity: string,
+    daysSupply: string,
+    whenPrepared: string,
+    whenHandedOver: string,
+    notes: string[],
+    substitution:  {
+        wasSubstituted: boolean,
+        type: string,
+        reason: string[],
+    }
+};
+export const FHIRMedicationDispenseToDisplay = (d: MedicationDispense): DisplayMedicationDispense => {
+    let status =
+        d.status === 'preparation' ? 'Preparation' :
+        d.status === 'in-progress' ? 'In Progress' :
+        d.status === 'cancelled' ? 'Cancelled' :
+        d.status === 'on-hold' ? 'On Hold' :
+        d.status === 'completed' ? 'Completed' :
+        d.status === 'entered-in-error' ? 'Entered in Error' :
+        d.status === 'stopped' ? 'Stopped' :
+        d.status === 'declined' ? 'Declined' :
+        'Unknown';
+    if (d.statusReasonCodeableConcept) {
+        status += ' ('+codeableConceptToString(d.statusReasonCodeableConcept)+')'
+    }
+
+    return {
+        status,
+        category: codeableConceptToString(d.category),
+        medication: codeableConceptToString(d.medicationCodeableConcept),
+        type: codeableConceptToString(d.type),
+        quantity: quantityToString(d.quantity),
+        daysSupply: quantityToString(d.daysSupply),
+        whenPrepared: dateTimeToString(d.whenPrepared),
+        whenHandedOver: dateTimeToString(d.whenHandedOver),
+        notes: d.note?.map(n => annotationToString(n)) ?? [],
+
+        substitution: {
+            wasSubstituted: !!d.substitution?.wasSubstituted,
+            type: codeableConceptToString(d.substitution?.type),
+            reason: d.substitution?.reason?.map(codeableConceptToString) ?? [],
+        }
+    }
+};
+
+// #endregion
+
+// #region Imaging Study
+export const FHIRImagingStudyToDisplay = (s: ImagingStudy): DisplayImagingStudy => ({
+    status: s.status === 'registered' ? 'Registered' :
+        s.status === 'available' ? 'Available' :
+        s.status === 'cancelled' ? 'Cancelled' :
+        s.status === 'entered-in-error' ? 'Entered in Error' : 'Unknown',
+    modality: codingsToSTring(s.modality),
+    started: dateTimeToString(s.started),
+    numberOfSeries: s.numberOfSeries,
+    numberOfInstances: s.numberOfInstances,
+    procedure: codeableConceptsToString(s.procedureCode),
+    reason: codeableConceptsToString(s.reasonCode),
+    note: annotationsToString(s.note),
+    description: s.description ?? '',
+    series: (s.series ?? []).map(s => ({
+        number: s.number,
+        modality: codingToString(s.modality),
+        description: s.description ?? '',
+        numberOfInstances: s.numberOfInstances,
+        bodySite: codingToString(s.bodySite),
+        laterality: codingToString(s.laterality),
+        started: dateTimeToString(s.started),
+        instance: (s.instance??[]).map(i => ({
+            uid: i.uid,
+            sopClass: codingToString(i.sopClass),
+            number: i.number,
+            title: i.title ?? ''
+        }))
+    }))
+})
+
+export type DisplayImagingStudy = {
+    status: "Registered" | "Available" | "Cancelled" | "Entered in Error" | "Unknown",
+    modality: string[],
+    started: string,
+    numberOfSeries?: number,
+    numberOfInstances?: number,
+    procedure: string[],
+    reason: string[],
+    note: string[],
+    description: string,
+    series?: {
+        number?: number,
+        modality: string,
+        description: string,
+        numberOfInstances?: number,
+        bodySite: string,
+        laterality: string,
+        started: string,
+        instance?: {
+            uid: string,
+            sopClass: string,
+            number?: number,
+            title: string,
+        }[],
+    }[],
+};
 // #endregion

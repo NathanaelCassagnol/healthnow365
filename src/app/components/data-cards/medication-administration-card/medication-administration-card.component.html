@@ -1,0 +1,37 @@
+<!-- <div class="hn-card"> -->
+    <!-- <div class="card-watermark" [style]="'background-image: url('+allergy.categoryImage+')'"></div> -->
+    <!-- <div [class]="'card-header bg-'+allergy.criticalityColor+'-40'">
+        <h3 class="centered mt-h mb-h">{{allergy.allergenName}}</h3>
+    </div> -->
+    <div class="card-header">
+        <h3 class="centered mt-h mb-h">{{med().medication}}</h3>
+    </div>
+    <div class="card-content pt-0">
+        <div class="card-content pt-0">
+            @if (med().category) {
+                <span>Category: {{med().category}}</span>
+            }
+            @if (med().effective) {
+                <span>Effective: {{med().effective}}</span>
+            }
+            @if (med().status) {
+                <span>Status: {{med().status}}</span>
+            }
+            @if (med().reasons.length) {
+                <span>Reasons: {{med().reasons | join:', '}}</span>
+            }
+
+            @if (dosageText.length) {
+                <p>Dosage: {{dosageText()}}</p>
+            }
+
+            @if (med().notes.length) {
+                @for (note of med().notes; track i; let i = $index) {
+                    <p class="mt-q mb-q" style="font-size: 0.8rem;">Note: {{note}}</p>
+                }
+            }
+
+        </div>
+        <button mat-raised-button type="button" color="primary" class="mt-a" (click)="openDialog()">More Info</button>
+    </div>
+<!-- </div> -->

@@ -43,9 +43,10 @@ export const codeableConceptToString = (c?: CodeableConcept): string => {
 }
 export const codeableConceptsToString = (c?: CodeableConcept[]): string[] => c?.map(codeableConceptToString) ?? [];
 
-export function codingToString(c: Coding) {
-    return c.display ?? '';
+export function codingToString(c?: Coding) {
+    return c?.display ?? '';
 }
+export const codingsToSTring = (c?: Coding[]): string[] => c?.map(codingToString) ?? [];
 
 export function humanNameToString(name: HumanName) {
     if (name.text) return name.text;
@@ -81,7 +82,8 @@ export function rangeToString(r: Range) {
     return ''
 }
 
-export function ratioToString(r: Ratio) {
+export function ratioToString(r?: Ratio | undefined | null): string {
+    if (r == null) return '';
     let num = (r.numerator?.value??'Unknown')+(r.numerator?.unit??'');
     let den = (r.denominator?.value??'Unknown')+(r.denominator?.unit??'');
     return num+'/'+den;

@@ -1,0 +1,46 @@
+<div class="dialog">
+        <h2>Medication Dispensation: {{med.medication}}</h2>
+        <div class="card-content pt-0">
+
+            @if (med.category.length) {
+                <p>Category: {{med.category}}</p>
+            }
+            @if (med.status.length) {
+                <p>Status: {{med.status}}</p>
+            }
+            @if (med.type.length) {
+                <p>Type: {{med.type}}</p>
+            }
+            @if (med.quantity.length) {
+                <p>Quantity: {{med.quantity}}</p>
+            }
+            @if (med.daysSupply.length) {
+                <p>Days Supply: {{med.daysSupply}}</p>
+            }
+            @if (med.whenPrepared.length) {
+                <p>When Prepared: {{med.whenPrepared}}</p>
+            }
+            @if (med.whenHandedOver.length) {
+                <p>When Handed Over: {{med.whenHandedOver}}</p>
+            }
+
+            @if (med.substitution.wasSubstituted) {
+                <p>Substitution: {{med.substitution.type}}</p>
+                @if (med.substitution.reason.length) {
+                    <p>Reasons for substitution: {{med.substitution.reason | join:','}}</p>
+                }
+            }
+
+            @if (med.notes.length) {
+                <h3 class="mb-h">Notes</h3>
+                @for (note of med.notes; track i; let i = $index) {
+                    <p class="mt-0">{{note}}</p>
+                }
+            }
+
+        </div>
+
+    <div class="bottom-buttons">
+        <button mat-raised-button color="warn" type="button" (click)="close()">Close</button>
+    </div>
+</div>
