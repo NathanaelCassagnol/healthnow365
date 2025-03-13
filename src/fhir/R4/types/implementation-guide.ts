@@ -1,5 +1,6 @@
 import { uri, dateTime, ContactDetail, markdown, UsageContext, CodeableConcept, id, code, BackboneElement, canonical, Reference, url } from "./_basic-types";
-import { DomainResource } from "./_resource.types";
+import { DomainResource, FHIRResource } from "./_resource.types";
+import { Binary } from "./binary";
 
 export type ImplementationGuide = DomainResource & {
     resourceType: "ImplementationGuide",
@@ -34,7 +35,7 @@ export type ImplementationGuide = DomainResource & {
             description?: string,
         })[],
         resource: (BackboneElement & {
-            reference: Reference,
+            reference: Reference<FHIRResource>,
             fhirVersion?: code[],
             name?: string,
             description?: string,
@@ -56,7 +57,7 @@ export type ImplementationGuide = DomainResource & {
     manifest?: (BackboneElement & {
         rendering?: url,
         resource: (BackboneElement & {
-            reference: Reference,
+            reference: Reference<Binary>,
             exampleBoolean?: boolean,
             exampleCanonical?: canonical,
             relativePath?: url,
@@ -73,7 +74,7 @@ export type ImplementationGuide = DomainResource & {
 
 type ImplementationGuidePage = BackboneElement & {
     nameUrl?: url,
-    nameReference?: Reference,
+    nameReference?: Reference<FHIRResource>,
     title: string,
     generation: "html" | "markdown" | "xml" | "generated",
     page?: ImplementationGuidePage[],

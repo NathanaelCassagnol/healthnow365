@@ -1,5 +1,19 @@
+import { Condition } from "aws-cdk-lib/aws-iam"
 import { Identifier, CodeableConcept, Reference, dateTime, Period, BackboneElement, uri, Annotation } from "./_basic-types"
-import { DomainResource } from "./_resource.types"
+import { DomainResource, FHIRResource } from "./_resource.types"
+import { AllergyIntolerance } from "./allergy-intolerance.types"
+import { Encounter } from "./encounter"
+import { Group } from "./group"
+import { Patient } from "./patient.types"
+import { Practitioner } from "./practitioner"
+import { PractitionerRole } from "./practitioner-role"
+import { Media } from "./media"
+import { ImagingStudy } from "./imaging-study"
+import { RiskAssessment } from "./risk-assessment"
+import { DiagnosticReport } from "./diagnostic-report"
+import { FamilyMemberHistory } from "./family-member-history"
+import { QuestionnaireResponse } from "./questionnaire-response"
+import { Observation } from "./observation.types"
 
 export type ClinicalImpression = DomainResource & {
     resourceType: "ClinicalImpression",
@@ -8,27 +22,27 @@ export type ClinicalImpression = DomainResource & {
     statusReason?: CodeableConcept,
     code?: CodeableConcept,
     description?: string,
-    subject: Reference,
-    encounter?: Reference,
+    subject: Reference<Patient | Group>,
+    encounter?: Reference<Encounter>,
     effectiveDateTime?: dateTime,
     effectivePeriod?: Period,
     date?: dateTime,
-    assessor?: Reference,
-    previous?: Reference,
-    problem?: Reference[],
+    assessor?: Reference<Practitioner | PractitionerRole>,
+    previous?: Reference<ClinicalImpression>,
+    problem?: Reference<Condition | AllergyIntolerance>[],
     investigation?: (BackboneElement & {
         code: CodeableConcept,
-        item?: Reference[],
+        item?: Reference<Observation | QuestionnaireResponse | FamilyMemberHistory | DiagnosticReport | RiskAssessment | ImagingStudy | Media>[],
     })[],
     protocol?: uri[],
     summary?: string,
     finding?: (BackboneElement & {
         itemCodeableConcept?: CodeableConcept,
-        itemReference?: Reference,
+        itemReference?: Reference<Condition | Observation | Media>,
         basis?: string
     })[],
     prognosisCodeableConcept?: CodeableConcept[],
-    prognosisReference?: Reference[],
-    supportingInfo?: Reference[],
+    prognosisReference?: Reference<RiskAssessment>[],
+    supportingInfo?: Reference<FHIRResource>[],
     note?: Annotation[]
 }

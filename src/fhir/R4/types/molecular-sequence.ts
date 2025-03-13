@@ -1,22 +1,27 @@
 import { Identifier, CodeableConcept, integer, Reference, Quantity, BackboneElement, decimal, uri } from "./_basic-types"
 import { DomainResource } from "./_resource.types"
+import { Device } from "./device"
+import { Observation } from "./observation.types"
+import { Organization } from "./organization.types"
+import { Patient } from "./patient.types"
+import { Specimen } from "./specimen"
 
 export type MolecularSequence = DomainResource & {
     resourceType: "MolecularSequence",
     identifier?: Identifier[],
     type?: "aa" | "dna" | "rna",
     coordinateSystem: integer,
-    patient?: Reference,
-    specimen?: Reference,
-    device?: Reference,
-    performer?: Reference,
+    patient?: Reference<Patient>,
+    specimen?: Reference<Specimen>,
+    device?: Reference<Device>,
+    performer?: Reference<Organization>,
     quantity?: Quantity,
     referenceSeq?: BackboneElement & {
         chromosome?: CodeableConcept,
         genomeBuild?: string,
         orientation?: "sense" | "antisense",
         referenceSeqId?: CodeableConcept,
-        referenceSeqPointer?: Reference,
+        referenceSeqPointer?: Reference<MolecularSequence>,
         referenceSeqString?: string,
         strand?: "watson" | "crick",
         windowStart?: integer,
@@ -28,7 +33,7 @@ export type MolecularSequence = DomainResource & {
         observedAllele?: string,
         referenceAllele?: string,
         cigar?: string,
-        variantPointer?: Reference
+        variantPointer?: Reference<Observation>
     })[],
     observedSeq?: string,
     quality?: (BackboneElement & {
@@ -65,7 +70,7 @@ export type MolecularSequence = DomainResource & {
         variantsetId?: string,
         readsetId?: string
     })[],
-    pointer?: Reference[],
+    pointer?: Reference<MolecularSequence>[],
     structureVariant?: (BackboneElement & {
         variantType?: CodeableConcept,
         exact?: boolean,

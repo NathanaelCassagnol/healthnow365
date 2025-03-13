@@ -1,5 +1,12 @@
 import { Identifier, canonical, uri, CodeableConcept, Reference, dateTime, Period, date, Age, Annotation, BackboneElement, Range } from "./_basic-types"
 import { DomainResource } from "./_resource.types"
+import { AllergyIntolerance } from "./allergy-intolerance.types"
+import { Condition } from "./condition"
+import { DiagnosticReport } from "./diagnostic-report"
+import { DocumentReference } from "./document-reference"
+import { Observation } from "./observation.types"
+import { Patient } from "./patient.types"
+import { QuestionnaireResponse } from "./questionnaire-response"
 
 export type FamilyMemberHistory = DomainResource & {
     resourceType: "FamilyMemberHistory",
@@ -8,7 +15,7 @@ export type FamilyMemberHistory = DomainResource & {
     instantiatesUri?: uri[],
     status: "partial" | "completed" | "entered-in-error" | "health-unknown",
     dataAbsentReason?: CodeableConcept,
-    patient: Reference,
+    patient: Reference<Patient>,
     date?: dateTime,
     name?: string,
     relationship: CodeableConcept,
@@ -26,7 +33,7 @@ export type FamilyMemberHistory = DomainResource & {
     deceasedDate?: date,
     deceasedString?: string,
     reasonCode?: CodeableConcept[],
-    reasonReference?: Reference[],
+    reasonReference?: Reference<Condition | Observation | AllergyIntolerance | QuestionnaireResponse | DiagnosticReport | DocumentReference>[],
     note?: Annotation[],
     condition?: (BackboneElement & {
         code: CodeableConcept,

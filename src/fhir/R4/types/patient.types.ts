@@ -1,5 +1,9 @@
 import { Address, Attachment, BackboneElement, CodeableConcept, ContactPoint, HumanName, Identifier, Period, Reference, date, dateTime, integer } from "./_basic-types";
 import { DomainResource } from "./_resource.types";
+import { Organization } from "./organization.types";
+import { Practitioner } from "./practitioner";
+import { PractitionerRole } from "./practitioner-role";
+import { RelatedPerson } from "./related-person";
 
 export type Patient = DomainResource & {
     resourceType: "Patient";
@@ -22,17 +26,17 @@ export type Patient = DomainResource & {
         telecom?: ContactPoint[];
         address?: Address;
         gender?: 'male' | 'female' | 'other' | 'unknown';
-        organization?: Reference;
+        organization?: Reference<Organization>;
         period?: Period;
     })[];
     communication?: (BackboneElement & {
         language: CodeableConcept;
         preferred?: boolean;
     })[];
-    generalPractitioner?: Reference[];
-    managingOrganization?: Reference;
+    generalPractitioner?: Reference<Organization | Practitioner | PractitionerRole>[];
+    managingOrganization?: Reference<Organization>;
     link?: (BackboneElement & {
-        other: Reference;
+        other: Reference<Patient | RelatedPerson>;
         type: 'replaced-by' | 'replaces' | 'refer' | 'seealso';
     })[];
 }

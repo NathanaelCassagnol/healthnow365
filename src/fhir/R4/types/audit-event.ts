@@ -1,5 +1,11 @@
 import { Coding, Period, instant, CodeableConcept, BackboneElement, Reference, uri, base64Binary } from "./_basic-types";
-import { DomainResource } from "./_resource.types";
+import { DomainResource, FHIRResource } from "./_resource.types";
+import { Device } from "./device";
+import { Organization } from "./organization.types";
+import { Patient } from "./patient.types";
+import { Practitioner } from "./practitioner";
+import { PractitionerRole } from "./practitioner-role";
+import { RelatedPerson } from "./related-person";
 
 export type AuditEvent = DomainResource & {
     resourceType: "AuditEvent",
@@ -14,11 +20,11 @@ export type AuditEvent = DomainResource & {
     agent: (BackboneElement & {
         type?: CodeableConcept,
         role?: CodeableConcept[],
-        who?: Reference,
+        who?: Reference<PractitionerRole | Practitioner | Organization | Device | Patient | RelatedPerson>,
         altId?: string,
         name?: string,
         requestor: boolean,
-        location?: Reference,
+        location?: Reference<Location>,
         policy?: uri[],
         media?: Coding,
         network?: (BackboneElement & {
@@ -29,11 +35,11 @@ export type AuditEvent = DomainResource & {
     })[],
     source: (BackboneElement & {
         site?: string,
-        observer: Reference,
+        observer: Reference<PractitionerRole | Practitioner | Organization | Device | Patient | RelatedPerson>,
         type?: Coding[],
     }),
     entity?: (BackboneElement & {
-        what?: Reference,
+        what?: Reference<FHIRResource>,
         type?: Coding,
         role?: Coding,
         lifecycle?: Coding,

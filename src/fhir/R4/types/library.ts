@@ -1,5 +1,6 @@
 import { Identifier, CodeableConcept, dateTime, ContactDetail, markdown, UsageContext, date, Period, Contributor, RelatedArtifact, ParameterDefinition, DataRequirement, uri, Reference, Attachment } from "./_basic-types"
 import { DomainResource } from "./_resource.types"
+import { Group } from "./group"
 
 export type Library = DomainResource & {
     resourceType: "Library",
@@ -13,7 +14,7 @@ export type Library = DomainResource & {
     experimental?: boolean,
     type: CodeableConcept,
     subjectCodeableConcept?: CodeableConcept,
-    subjectReference?: Reference,
+    subjectReference?: Reference<Group>,
     date?: dateTime,
     publisher?: string,
     contact?: ContactDetail[],

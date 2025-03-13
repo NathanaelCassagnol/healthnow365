@@ -1,5 +1,6 @@
 import { Identifier, CodeableConcept, Attachment, Reference } from "./_basic-types";
 import { DomainResource } from "./_resource.types";
+import { Patient } from "./patient.types";
 
 export type BodyStructure = DomainResource & {
     resourceType: "BodyStructure",
@@ -10,5 +11,5 @@ export type BodyStructure = DomainResource & {
     locationQualifier?: CodeableConcept[],
     description?: string,
     image?: Attachment[],
-    patient: Reference,
+    patient: Reference<Patient>,
 }

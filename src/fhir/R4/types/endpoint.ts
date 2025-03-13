@@ -1,5 +1,6 @@
 import { Identifier, Coding, Reference, ContactPoint, Period, CodeableConcept, url, code } from "./_basic-types"
 import { DomainResource } from "./_resource.types"
+import { Organization } from "./organization.types"
 
 export type Endpoint = DomainResource & {
     resourceType: "Endpoint",
@@ -7,7 +8,7 @@ export type Endpoint = DomainResource & {
     status: "active" | "suspended" | "error" | "off" | "entered-in-error" | "test",
     connectionType: Coding,
     name?: string,
-    managingOrganization?: Reference,
+    managingOrganization?: Reference<Organization>,
     contact?: ContactPoint[],
     period?: Period,
     payloadType: CodeableConcept[],

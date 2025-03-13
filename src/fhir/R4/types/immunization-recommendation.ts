@@ -1,12 +1,16 @@
 import { Identifier, Reference, dateTime, BackboneElement, CodeableConcept, positiveInt } from "./_basic-types";
-import { DomainResource } from "./_resource.types";
+import { DomainResource, FHIRResource } from "./_resource.types";
+import { Immunization } from "./immunization";
+import { ImmunizationEvaluation } from "./immunization-evaluation";
+import { Organization } from "./organization.types";
+import { Patient } from "./patient.types";
 
 export type ImmunizationRecommendation = DomainResource & {
     resourceType: "ImmunizationRecommendation",
     identifier?: Identifier[],
-    patient: Reference,
+    patient: Reference<Patient>,
     date: dateTime,
-    authority?: Reference,
+    authority?: Reference<Organization>,
     recommendation: (BackboneElement & {
         vaccineCode?: CodeableConcept[],
         targetDisease?: CodeableConcept,
@@ -23,7 +27,7 @@ export type ImmunizationRecommendation = DomainResource & {
         doseNumberPositiveInt?: positiveInt,
         seriesDosesString?: string,
         seriesDosesPositiveInt?: positiveInt,
-        supportingImmunization?: Reference[],
-        supportingPatientInformation?: Reference[],
+        supportingImmunization?: Reference<Immunization | ImmunizationEvaluation>[],
+        supportingPatientInformation?: Reference<FHIRResource>[],
     })[]
 };

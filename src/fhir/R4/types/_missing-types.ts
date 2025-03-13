@@ -1,0 +1,14 @@
+export type PlanDefinition = {};
+export type ResearchStudy = {};
+export type InsurancePlan = {};
+export type ActivityDefinition = {};
+export type SpecimenDefinition = {};
+export type ObservationDefinition = {};
+export type Contract = {};
+export type Coverage = {};
+export type ClaimResponse = {};
+export type Claim = {};
+export type DeviceDefinition = {};
+export type Account = {};
+export type OperationsOutcome = {};
+export type Parameters = {};

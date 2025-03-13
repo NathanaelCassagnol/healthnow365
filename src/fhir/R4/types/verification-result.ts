@@ -1,9 +1,12 @@
 import { Reference, CodeableConcept, dateTime, Timing, date, BackboneElement, Signature } from "./_basic-types"
-import { DomainResource } from "./_resource.types"
+import { DomainResource, FHIRResource } from "./_resource.types"
+import { Organization } from "./organization.types"
+import { Practitioner } from "./practitioner"
+import { PractitionerRole } from "./practitioner-role"
 
 export type VerificationResult = DomainResource & {
     resourceType: "VerificationResult",
-    target?: Reference[],
+    target?: Reference<FHIRResource>[],
     targetLocation?: string[],
     need?: CodeableConcept,
     status: "attested" | "validated" | "in-process" | "req-revalid" | "val-fail" | "reval-fail",
@@ -15,7 +18,7 @@ export type VerificationResult = DomainResource & {
     nextScheduled?: date,
     failureAction?: CodeableConcept,
     primarySource?: (BackboneElement & {
-        who?: Reference,
+        who?: Reference<Organization | Practitioner | PractitionerRole>,
         type?: CodeableConcept[],
         communicationMethod?: CodeableConcept[],
         validationStatus?: CodeableConcept,
@@ -24,8 +27,8 @@ export type VerificationResult = DomainResource & {
         pushTypeAvailable?: CodeableConcept[]
     })[],
     attestation?: (BackboneElement & {
-        who?: Reference,
-        onBehalfOf?: Reference,
+        who?: Reference<Practitioner | PractitionerRole | Organization>,
+        onBehalfOf?: Reference<Organization | Practitioner | PractitionerRole>,
         communicationMethod?: CodeableConcept,
         date?: date,
         sourceIdentityCertificate?: string,
@@ -34,7 +37,7 @@ export type VerificationResult = DomainResource & {
         sourceSignature?: Signature
     }),
     validator?: (BackboneElement & {
-        organization: Reference,
+        organization: Reference<Organization>,
         identityCertificate?: string,
         attestationSignature?: Signature
     })[];

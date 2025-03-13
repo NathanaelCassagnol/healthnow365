@@ -1,5 +1,6 @@
 import { Address, BackboneElement, CodeableConcept, ContactPoint, HumanName, Identifier, Reference } from "./_basic-types";
 import { DomainResource } from "./_resource.types";
+import { Endpoint } from "./endpoint";
 
 // https://build.fhir.org/organization.html
 export type Organization = DomainResource & {
@@ -11,12 +12,12 @@ export type Organization = DomainResource & {
     alias?: string[];
     telecom?: ContactPoint[];
     address?: Address[];
-    partOf?: Reference;
+    partOf?: Reference<Organization>;
     contact?: (BackboneElement & {
         purpose?: CodeableConcept;
         name?: HumanName;
         telecom?: ContactPoint[];
         address?: Address;
     })[],
-    endpoint?: Reference[];
+    endpoint?: Reference<Endpoint>[];
 }

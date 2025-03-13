@@ -1,5 +1,6 @@
 import { BackboneElement, CodeableConcept, Coding, ContactDetail, Reference, UsageContext, base64Binary, canonical, code, dateTime, markdown, unsignedInt, uri, url } from "./_basic-types";
 import { DomainResource } from "./_resource.types";
+import { Organization } from "./organization.types";
 
 export type CapabilityStatement = DomainResource & {
     resourceType: "CapabilityStatement",
@@ -28,7 +29,7 @@ export type CapabilityStatement = DomainResource & {
     implementation?: (BackboneElement & {
         description: string,
         url?: url,
-        custodian?: Reference,
+        custodian?: Reference<Organization>,
     }),
     fhirVersion: code,
     format: code[],

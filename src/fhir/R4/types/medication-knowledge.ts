@@ -1,27 +1,34 @@
 import { CodeableConcept, Reference, BackboneElement, Ratio, Money, Dosage, Period, SimpleQuantity, markdown, Duration } from "./_basic-types";
+import { ObservationDefinition } from "./_missing-types";
 import { DomainResource } from "./_resource.types";
+import { DetectedIssue } from "./detected-issue";
+import { DocumentReference } from "./document-reference";
+import { Media } from "./media";
+import { Medication } from "./medication.types";
+import { Organization } from "./organization.types";
+import { Substance } from "./substance.types";
 
 export type MedicationKnowledge = DomainResource & {
     resourceType: "MedicationKnowledge",
     code?: CodeableConcept,
     status?: "active" | "inactive" | "entered-in-error",
-    manufacturer?: Reference,
+    manufacturer?: Reference<Organization>,
     doseForm?: CodeableConcept,
     amount?: SimpleQuantity,
     synonym?: string[],
     relatedMedicationKnowledge?: (BackboneElement & {
         type: CodeableConcept,
-        reference: Reference[],
+        reference: Reference<MedicationKnowledge>[],
     })[],
-    associatedMedication?: Reference[],
+    associatedMedication?: Reference<Medication>[],
     productType?: CodeableConcept[],
     monograph?: (BackboneElement & {
         type?: CodeableConcept,
-        source?: Reference,
+        source?: Reference<DocumentReference | Media>,
     })[],
     ingredient?: (BackboneElement & {
         itemCodeableConcept?: CodeableConcept,
-        itemReference?: Reference,
+        itemReference?: Reference<Substance>,
         isActive?: boolean,
         strength?: Ratio,
     })[],
@@ -42,7 +49,7 @@ export type MedicationKnowledge = DomainResource & {
             dosage?: Dosage[],
         })[],
         indicationCodeableConcept?: CodeableConcept,
-        indicationReference?: Reference,
+        indicationReference?: Reference<ObservationDefinition>,
         patientCharacteristics?: (BackboneElement & {
             characteristicCodeableConcept?: CodeableConcept,
             characteristicQuantity?: SimpleQuantity,
@@ -64,9 +71,9 @@ export type MedicationKnowledge = DomainResource & {
         valueQuantity?: SimpleQuantity,
         valueBase64Binary?: string,
     })[],
-    contraindication?: Reference[],
+    contraindication?: Reference<DetectedIssue>[],
     regulatory?: (BackboneElement & {
-        regulatoryAuthority: Reference,
+        regulatoryAuthority: Reference<Organization>,
         substitution?: (BackboneElement & {
             type: CodeableConcept,
             allowed: boolean,

@@ -1,5 +1,17 @@
 import { Identifier, CodeableConcept, Reference, date, BackboneElement, Quantity, integer, Ratio, Duration, Annotation, Range } from "./_basic-types";
 import { DomainResource } from "./_resource.types";
+import { Condition } from "./condition";
+import { Group } from "./group";
+import { MedicationStatement } from "./medication-statement";
+import { NutritionOrder } from "./nutrition-order";
+import { Observation } from "./observation.types";
+import { Organization } from "./organization.types";
+import { Patient } from "./patient.types";
+import { Practitioner } from "./practitioner";
+import { PractitionerRole } from "./practitioner-role";
+import { RelatedPerson } from "./related-person";
+import { RiskAssessment } from "./risk-assessment";
+import { ServiceRequest } from "./service-request";
 
 export type Goal = DomainResource & {
     resourceType: "Goal",
@@ -9,7 +21,7 @@ export type Goal = DomainResource & {
     category?: CodeableConcept[],
     priority?: CodeableConcept,
     description: CodeableConcept,
-    subject: Reference,
+    subject: Reference<Patient | Group | Organization>,
     startDate?: date,
     startCodeableConcept?: CodeableConcept,
     target?: (BackboneElement & {
@@ -26,9 +38,9 @@ export type Goal = DomainResource & {
     })[],
     statusDate?: date,
     statusReason?: string,
-    expressedBy?: Reference,
-    addresses?: Reference[],
+    expressedBy?: Reference<Patient | Practitioner | PractitionerRole | RelatedPerson>,
+    addresses?: Reference<Condition | Observation | MedicationStatement | NutritionOrder | ServiceRequest | RiskAssessment>[],
     note?: Annotation[],
     outcomeCode?: CodeableConcept[],
-    outcomeReference?: Reference[]
+    outcomeReference?: Reference<Observation>[]
 };

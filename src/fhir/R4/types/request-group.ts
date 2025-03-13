@@ -1,24 +1,35 @@
 import { Identifier, Reference, CodeableConcept, dateTime, Annotation, BackboneElement, Duration, Age, Period, Timing, canonical, uri, RelatedArtifact, Expression, id } from "./_basic-types";
-import { DomainResource } from "./_resource.types";
+import { DomainResource, FHIRResource } from "./_resource.types";
+import { Encounter } from "./encounter";
+import { Group } from "./group";
+import { Patient } from "./patient.types";
+import { Practitioner } from "./practitioner";
+import { PractitionerRole } from "./practitioner-role";
+import { Condition } from "aws-cdk-lib/aws-iam";
+import { DiagnosticReport } from "./diagnostic-report";
+import { DocumentReference } from "./document-reference";
+import { Observation } from "./observation.types";
+import { RelatedPerson } from "./related-person";
+import { Device } from "./device";
 
 export type RequestGroup = DomainResource & {
     resourceType: "RequestGroup",
     identifier?: Identifier[],
     instantiatesCanonical?: canonical[],
     instantiatesUri?: uri[],
-    basedOn?: Reference[],
-    replaces?: Reference[],
+    basedOn?: Reference<FHIRResource>[],
+    replaces?: Reference<FHIRResource>[],
     groupIdentifier?: Identifier,
     status: "draft" | "active" | "on-hold" | "revoked" | "completed" | "entered-in-error" | "unknown",
     intent: "proposal" | "plan" | "directive" | "order" | "original-order" | "reflex-order" | "filler-order" | "instance-order" | "option",
     priority?: "routine" | "urgent" | "asap" | "stat",
     code?: CodeableConcept,
-    subject?: Reference,
-    encounter?: Reference,
+    subject?: Reference<Patient | Group>,
+    encounter?: Reference<Encounter>,
     authoredOn?: dateTime,
-    author?: Reference,
+    author?: Reference<Device | Practitioner | PractitionerRole>,
     reasonCode?: CodeableConcept[],
-    reasonReference?: Reference[],
+    reasonReference?: Reference<Condition | Observation | DiagnosticReport | DocumentReference>[],
     note?: Annotation[],
     action?: RequestGroupAction[]
 };
@@ -47,13 +58,13 @@ type RequestGroupAction = BackboneElement & {
     timingDuration?: Duration,
     timingRange?: Range,
     timingTiming?: Timing,
-    participant?: Reference[],
+    participant?: Reference<Patient | Practitioner | PractitionerRole | RelatedPerson | Device>[],
     type?: CodeableConcept,
     groupingBehavior?: "visual-group" | "logical-group" | "sentence-group",
     selectionBehavior?: "any" | "all" | "all-or-none" | "exactly-one" | "at-most-one" | "one-or-more",
     requiredBehavior?: "must" | "could" | "must-unless-documented",
     precheckBehavior?: "yes" | "no",
     cardinalityBehavior?: "single" | "multiple",
-    resource?: Reference,
+    resource?: Reference<FHIRResource>,
     action?: RequestGroupAction[],
 }

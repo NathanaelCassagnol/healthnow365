@@ -1,5 +1,7 @@
 import { Identifier, Reference, CodeableConcept, markdown, Attachment, ContactPoint, time, Period, BackboneElement } from "./_basic-types"
 import { DomainResource } from "./_resource.types"
+import { Endpoint } from "./endpoint"
+import { Organization } from "./organization.types"
 
 // https://hl7.org/fhir/R4/healthcareservice.html
 
@@ -7,17 +9,17 @@ export type HealthcareService = DomainResource & {
     resourceType: "HealthcareService",
     identifier?: Identifier[],
     active?: boolean,
-    providedBy?: Reference,
+    providedBy?: Reference<Organization>,
     category?: CodeableConcept[],
     type?: CodeableConcept[],
     specialty?: CodeableConcept[],
-    location?: Reference[],
+    location?: Reference<Location>[],
     name?: string,
     comment?: string,
     extraDetails?: markdown,
     photo?: Attachment,
     telecom?: ContactPoint[],
-    coverageArea?: Reference[],
+    coverageArea?: Reference<Location>[],
     serviceProvisionCode?: CodeableConcept[],
     eligibility?: (BackboneElement & {
       code?: CodeableConcept,
@@ -39,5 +41,5 @@ export type HealthcareService = DomainResource & {
       during?: Period
     })[],
     availabilityExceptions?: string,
-    endpoint?: Reference[]
+    endpoint?: Reference<Endpoint>[]
 }

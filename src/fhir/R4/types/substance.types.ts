@@ -18,6 +18,6 @@ export type Substance = DomainResource & {
         quantity?: Ratio;
         // One of the following:
         substanceCodeableConcept?: CodeableConcept;
-        substanceReference?: Reference; // Reference(Substance)
+        substanceReference?: Reference<Substance>;
     })[];
 }

@@ -1,15 +1,19 @@
 import { Identifier, dateTime, Reference, BackboneElement, CodeableConcept, decimal, integer, Annotation, SimpleQuantity } from "./_basic-types";
 import { DomainResource } from "./_resource.types";
+import { Encounter } from "./encounter";
+import { Patient } from "./patient.types";
+import { Practitioner } from "./practitioner";
+import { PractitionerRole } from "./practitioner-role";
 
 export type VisionPrescription = DomainResource & {
     resourceType: "VisionPrescription",
     identifier?: Identifier[],
     status: "active" | "cancelled" | "draft" | "entered-in-error",
     created: dateTime,
-    patient: Reference,
-    encounter?: Reference,
+    patient: Reference<Patient>,
+    encounter?: Reference<Encounter>,
     dateWritten: dateTime,
-    prescriber: Reference,
+    prescriber: Reference<Practitioner | PractitionerRole>,
     lensSpecification: (BackboneElement & {
         product: CodeableConcept,
         eye: "right" | "left",

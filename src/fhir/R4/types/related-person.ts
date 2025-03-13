@@ -1,5 +1,6 @@
 import { Address, Attachment, BackboneElement, CodeableConcept, ContactPoint, HumanName, Identifier, Period, Reference, date } from "./_basic-types"
 import { DomainResource } from "./_resource.types"
+import { Patient } from "./patient.types"
 
 // https://hl7.org/fhir/R4/relatedperson.html
 
@@ -7,7 +8,7 @@ export type RelatedPerson = DomainResource & {
     resourceType: "RelatedPerson",
     identifier?: Identifier[],
     active?: boolean,
-    patient: Reference,
+    patient: Reference<Patient>,
     relationship?: CodeableConcept[],
     name?: HumanName[],
     telecom?: ContactPoint[],

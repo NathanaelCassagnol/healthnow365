@@ -1,5 +1,10 @@
 import { Annotation, BackboneElement, CodeableConcept, Identifier, Quantity, Ratio, Reference, SimpleQuantity, Timing, canonical, dateTime, uri } from "./_basic-types";
 import { DomainResource } from "./_resource.types";
+import { AllergyIntolerance } from "./allergy-intolerance.types";
+import { Encounter } from "./encounter";
+import { Patient } from "./patient.types";
+import { Practitioner } from "./practitioner";
+import { PractitionerRole } from "./practitioner-role";
 
 export type NutritionOrder = DomainResource & {
     resourceType: "NutritionOrder",
@@ -9,11 +14,11 @@ export type NutritionOrder = DomainResource & {
     instantiates?: uri[],
     status: "draft" | "active" | "on-hold" | "revoked" | "completed" | "entered-in-error" | "unknown",
     intent: "proposal" | "plan" | "directive" | "order" | "original-order" | "reflex-order" | "filler-order" | "instance-order" | "option",
-    patient: Reference,
-    encounter?: Reference,
+    patient: Reference<Patient>,
+    encounter?: Reference<Encounter>,
     dateTime: dateTime,
-    orderer?: Reference,
-    allergyIntolerance?: Reference[],
+    orderer?: Reference<Practitioner | PractitionerRole>,
+    allergyIntolerance?: Reference<AllergyIntolerance>[],
     foodPreferenceModifier?: CodeableConcept[],
     excludeFoodModifier?: CodeableConcept[],
     oralDiet?: (BackboneElement & {

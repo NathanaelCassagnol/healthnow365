@@ -1,5 +1,9 @@
 import { Address, Attachment, BackboneElement, ContactPoint, HumanName, Identifier, Reference, date } from "./_basic-types";
 import { DomainResource } from "./_resource.types";
+import { Organization } from "./organization.types";
+import { Patient } from "./patient.types";
+import { Practitioner } from "./practitioner";
+import { RelatedPerson } from "./related-person";
 
 export type MaritalStatusCodes = 'A'|'D'|'I'|'L'|'M'|'C'|'P'|'T'|'U'|'S'|'W'|'UNK';
 export const MaritalStatusDictionary = {
@@ -27,10 +31,10 @@ export type Person = DomainResource & {
     birthDate?: date,
     address?: Address[],
     photo?: Attachment,
-    managingOrganization?: Reference,
+    managingOrganization?: Reference<Organization>,
     active?: boolean,
     link?: (BackboneElement & {
-        target: Reference,
+        target: Reference<Patient | Practitioner | RelatedPerson | Person>,
         assurance?: "level1" | "level2" | "level3" | "level4"
     })[]
 }

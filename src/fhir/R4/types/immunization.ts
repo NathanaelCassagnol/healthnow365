@@ -1,5 +1,13 @@
 import { Identifier, CodeableConcept, Reference, dateTime, date, BackboneElement, Annotation, positiveInt, SimpleQuantity, uri } from "./_basic-types";
 import { DomainResource } from "./_resource.types";
+import { Condition } from "./condition";
+import { DiagnosticReport } from "./diagnostic-report";
+import { Encounter } from "./encounter";
+import { Observation } from "./observation.types";
+import { Organization } from "./organization.types";
+import { Patient } from "./patient.types";
+import { Practitioner } from "./practitioner";
+import { PractitionerRole } from "./practitioner-role";
 
 export type Immunization = DomainResource & {
     resourceType: "Immunization",
@@ -7,15 +15,15 @@ export type Immunization = DomainResource & {
     status: "completed" | "entered-in-error" | "not-done",
     statusReason?: CodeableConcept,
     vaccineCode: CodeableConcept,
-    patient: Reference,
-    encounter?: Reference,
+    patient: Reference<Patient>,
+    encounter?: Reference<Encounter>,
     occurrenceDateTime?: dateTime,
     occurrenceString?: string,
     recorded?: dateTime,
     primarySource?: boolean,
     reportOrigin?: CodeableConcept,
-    location?: Reference,
-    manufacturer?: Reference,
+    location?: Reference<Location>,
+    manufacturer?: Reference<Organization>,
     lotNumber?: string,
     expirationDate?: date,
     site?: CodeableConcept,
@@ -23,11 +31,11 @@ export type Immunization = DomainResource & {
     doseQuantity?: SimpleQuantity,
     performer?: (BackboneElement & {
         function?: CodeableConcept,
-        actor: Reference,
+        actor: Reference<Practitioner | PractitionerRole | Organization>,
     })[],
     note?: Annotation[],
     reasonCode?: CodeableConcept[],
-    reasonReference?: Reference[],
+    reasonReference?: Reference<Condition | Observation | DiagnosticReport>[],
     isSubpotent?: boolean,
     subpotentReason?: CodeableConcept[],
     education?: (BackboneElement & {
@@ -40,12 +48,12 @@ export type Immunization = DomainResource & {
     fundingSource?: CodeableConcept,
     reaction?: (BackboneElement & {
         date?: dateTime,
-        detail?: Reference,
+        detail?: Reference<Observation>,
         reported?: boolean,
     })[],
     protocolApplied?: (BackboneElement & {
         series?: string,
-        authority?: Reference,
+        authority?: Reference<Organization>,
         targetDisease?: CodeableConcept[],
         doseNumberString?: string,
         doseNumberPositiveInt?: positiveInt,

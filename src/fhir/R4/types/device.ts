@@ -1,10 +1,13 @@
 import { Identifier, Reference, BackboneElement, uri, base64Binary, CodeableConcept, dateTime, Quantity, ContactPoint, Annotation } from "./_basic-types"
+import { DeviceDefinition } from "./_missing-types"
 import { DomainResource } from "./_resource.types"
+import { Organization } from "./organization.types"
+import { Patient } from "./patient.types"
 
 export type Device = DomainResource & {
     resourceType: "Device",
     identifier?: Identifier[],
-    definition?: Reference,
+    definition?: Reference<DeviceDefinition>,
     udiCarrier?: (BackboneElement & {
         deviceIdentifier?: string,
         issuer?: uri,
@@ -42,12 +45,12 @@ export type Device = DomainResource & {
         valueQuantity?: Quantity[],
         valueCode?: CodeableConcept[]
     })[],
-    patient?: Reference,
-    owner?: Reference,
+    patient?: Reference<Patient>,
+    owner?: Reference<Organization>,
     contact?: ContactPoint[],
-    location?: Reference,
+    location?: Reference<Location>,
     url?: uri,
     note?: Annotation[],
     safety?: CodeableConcept[],
-    parent?: Reference
+    parent?: Reference<Device>
 }

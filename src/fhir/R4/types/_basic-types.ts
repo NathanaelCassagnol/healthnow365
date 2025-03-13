@@ -1,4 +1,15 @@
 import { Meta, extendablePrimitives } from "./_resource.types";
+import { HealthcareService } from "./healthcare-service";
+import { Organization } from "./organization.types";
+import { PlanDefinition, ResearchStudy, InsurancePlan } from "./_missing-types";
+import { Patient } from "./patient.types";
+import { Practitioner } from "./practitioner";
+import { PractitionerRole } from "./practitioner-role";
+import { RelatedPerson } from "./related-person";
+import { Schedule } from "./schedule";
+import { Device } from "./device";
+import { Group } from "./group";
+import { WritableSignal } from "@angular/core";
 
 // https://hl7.org/fhir/R4/datatypes.html
 
@@ -26,7 +37,7 @@ export type anyBasicType = base64Binary | boolean | canonical | code | date | da
 instant | integer | markdown | oid | positiveInt | string | time | unsignedInt | uri | url | uuid |
 //FHIR-specific types
 Address | Age | Annotation | Attachment | CodeableConcept | Coding | ContactPoint | Count | Distance | Duration | HumanName | 
-Identifier | Money | Period | Quantity | Range | Ratio | Reference | SampledData | Signature | Timing | ContactDetail | 
+Identifier | Money | Period | Quantity | Range | Ratio | Reference<any> | SampledData | Signature | Timing | ContactDetail | 
 Contributor | DataRequirement | Expression | ParameterDefinition | RelatedArtifact | TriggerDefinition | UsageContext | Dosage | Meta
 // #endregion
 
@@ -90,7 +101,7 @@ export type Extension = Element & {
     valueQuantity?: Quantity,
     valueRange?: Range,
     valueRatio?: Ratio,
-    valueReference?: Reference,
+    valueReference?: Reference<unknown>,
     valueSampledData?: SampledData,
     valueSignature?: Signature,
     valueTiming?: Timing,
@@ -186,7 +197,7 @@ export type Identifier = Element & {
     system?: uri,
     value?: string,
     period?: Period, 
-    assigner?: Reference // Reference(Organization)
+    assigner?: Reference<Organization>
 }
 
 export type HumanName = Element & {
@@ -249,8 +260,8 @@ export type Timing = BackboneElement & {
 export type Signature = Element & {
     type: Coding[], // required
     when: instant, // required
-    who: Reference, // required; Reference(Practitioner | PractitionerRole | RelatedPerson | Patient | Device | Organization)
-    onBehalfOf?: Reference, // ^
+    who: Reference<Practitioner | PractitionerRole | RelatedPerson | Patient | Device | Organization>
+    onBehalfOf?: Reference<Practitioner | PractitionerRole | RelatedPerson | Patient | Device | Organization>
     targetFormat?: MIMECode,
     sigFormat?: MIMECode,
     data?: base64Binary
@@ -258,7 +269,7 @@ export type Signature = Element & {
 
 export type Annotation = Element & {
     // One of these 2:
-    authorReference?: Reference, // Reference(Organization|Patient|Practitioner|RelatedPerson)
+    authorReference?: Reference<Organization|Patient|Practitioner|RelatedPerson>
     authorString?: string,
     time?: dateTime,
     text: markdown // required
@@ -281,7 +292,7 @@ export type DataRequirement = Element & {
     profile?: canonical[] // canonical(StructureDefinition)
     // One of these two:
     subjectCodeableConcept?: CodeableConcept,
-    subjectReference?: Reference, // Reference(Group)
+    subjectReference?: Reference<Group>,
     mustSupport?: string[],
     codeFilter?: (Element & {
         // + Rule: Either a path or a searchParam must be provided, but not both
@@ -332,7 +343,7 @@ export type TriggerDefinition = Element & {
     name?: string,
     //One of the following four:
     timingTiming?: Timing,
-    timingReference?: Reference, //Reference(Schedule)
+    timingReference?: Reference<Schedule>
     timingDate?: date,
     timingDateTime?: dateTime,
     data?: DataRequirement[],
@@ -351,7 +362,7 @@ export type UsageContext = Element & {
     valueCodeableConcept?: CodeableConcept,
     valueQuantity?: Quantity,
     valueRange?: Range,
-    valueReference?: Reference, // Reference(PlanDefinition | ResearchStudy | InsurancePlan | HealthcareService | Group | Location | Organization)
+    valueReference?: Reference<PlanDefinition | ResearchStudy | InsurancePlan | HealthcareService | Group | Location | Organization>
 }
 // #endregion
 
@@ -387,12 +398,13 @@ export type Dosage = BackboneElement & {
 
 // #region Reference
 // https://hl7.org/fhir/R4/references.html#Reference
-export type Reference = Element & {
-    // + Rule: SHALL have a contained resource if a local reference is provided
+export type Reference<T> = Element & {
     reference?: string,
     type?: uri,
     identifier?: Identifier,
-    display?: string
+    display?: string,
+    loadingStatus?: WritableSignal<'unloaded' | 'loading' | 'loaded' | 'error'>,
+    loadedResource?: WritableSignal<T>
 }
 // #endregion
 

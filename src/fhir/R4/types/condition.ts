@@ -1,5 +1,14 @@
 import { Identifier, Range, CodeableConcept, Reference, dateTime, Age, Period, BackboneElement, Annotation } from "./_basic-types";
-import { DomainResource } from "./_resource.types";
+import { DomainResource, FHIRResource } from "./_resource.types";
+import { ClinicalImpression } from "./clinical-impression";
+import { DiagnosticReport } from "./diagnostic-report";
+import { Encounter } from "./encounter";
+import { Group } from "./group";
+import { Observation } from "./observation.types";
+import { Patient } from "./patient.types";
+import { Practitioner } from "./practitioner";
+import { PractitionerRole } from "./practitioner-role";
+import { RelatedPerson } from "./related-person";
 
 export type Condition = DomainResource & {
     resourceType: "Condition",
@@ -10,8 +19,8 @@ export type Condition = DomainResource & {
     severity?: CodeableConcept,
     code?: CodeableConcept,
     bodySite?: CodeableConcept[],
-    subject: Reference,
-    encounter?: Reference,
+    subject: Reference<Patient | Group>,
+    encounter?: Reference<Encounter>,
     onsetDateTime?: dateTime,
     onsetAge?: Age,
     onsetPeriod?: Period,
@@ -23,16 +32,16 @@ export type Condition = DomainResource & {
     abatementRange?: Range,
     abatementString?: string,
     recordedDate?: dateTime,
-    recorder?: Reference,
-    asserter?: Reference,
+    recorder?: Reference<Practitioner | PractitionerRole | Patient | RelatedPerson>,
+    asserter?: Reference<Practitioner | PractitionerRole | Patient | RelatedPerson>,
     stage?: (BackboneElement & {
         summary?: CodeableConcept,
-        assessment?: Reference[],
+        assessment?: Reference<ClinicalImpression | DiagnosticReport | Observation>[],
         type?: CodeableConcept
     })[],
     evidence?: (BackboneElement & {
         code?: CodeableConcept[],
-        detail?: Reference[],
+        detail?: Reference<FHIRResource>[],
     })[],
     note?: Annotation[],
 }

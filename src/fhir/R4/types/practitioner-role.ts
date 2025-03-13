@@ -1,5 +1,9 @@
 import { BackboneElement, CodeableConcept, ContactPoint, Identifier, Period, Reference, time } from "./_basic-types"
 import { DomainResource } from "./_resource.types"
+import { Endpoint } from "./endpoint"
+import { HealthcareService } from "./healthcare-service"
+import { Organization } from "./organization.types"
+import { Practitioner } from "./practitioner"
 
 // https://hl7.org/fhir/R4/practitionerrole.html
 
@@ -8,12 +12,12 @@ export type PractitionerRole = DomainResource & {
     identifier?: Identifier[],
     active?: boolean,
     period?: Period,
-    practitioner?: Reference,
-    organization?: Reference,
+    practitioner?: Reference<Practitioner>,
+    organization?: Reference<Organization>,
     code?: CodeableConcept[],
     specialty?: CodeableConcept[],
-    location?: Reference[],
-    healthcareService?: Reference[],
+    location?: Reference<Location>[],
+    healthcareService?: Reference<HealthcareService>[],
     telecom?: ContactPoint[],
     availableTime?: (BackboneElement & {
       daysOfWeek?: ("mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun")[],
@@ -26,5 +30,5 @@ export type PractitionerRole = DomainResource & {
       during?: Period
     })[],
     availabilityExceptions?: string,
-    endpoint?: Reference[]
+    endpoint?: Reference<Endpoint>[]
 }

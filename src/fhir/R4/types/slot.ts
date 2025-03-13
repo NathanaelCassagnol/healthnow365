@@ -1,5 +1,6 @@
 import { Identifier, CodeableConcept, Reference, instant } from "./_basic-types"
 import { DomainResource } from "./_resource.types"
+import { Schedule } from "./schedule"
 
 export type Slot = DomainResource & {
     resourceType: "Slot",
@@ -8,7 +9,7 @@ export type Slot = DomainResource & {
     serviceType?: CodeableConcept[],
     specialty?: CodeableConcept[],
     appointmentType?: CodeableConcept,
-    schedule: Reference,
+    schedule: Reference<Schedule>,
     status: "busy" | "free" | "busy-unavailable" | "busy-tentative" | "entered-in-error",
     start: instant,
     end: instant,

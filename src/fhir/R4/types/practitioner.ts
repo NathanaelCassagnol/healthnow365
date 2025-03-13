@@ -1,5 +1,6 @@
 import { Address, Attachment, BackboneElement, CodeableConcept, ContactPoint, HumanName, Identifier, Period, Reference, date } from "./_basic-types"
 import { DomainResource } from "./_resource.types"
+import { Organization } from "./organization.types"
 
 // https://hl7.org/fhir/R4/practitioner.html
 export type Practitioner = DomainResource & {
@@ -16,7 +17,7 @@ export type Practitioner = DomainResource & {
       identifier?: Identifier[],
       code: CodeableConcept,
       period?: Period,
-      issuer?: Reference
+      issuer?: Reference<Organization>
     })[],
     communication?: CodeableConcept[]
 }

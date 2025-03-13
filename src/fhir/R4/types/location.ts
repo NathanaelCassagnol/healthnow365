@@ -1,5 +1,7 @@
 import { Identifier, Coding, CodeableConcept, ContactPoint, Address, decimal, Reference, time, BackboneElement } from "./_basic-types"
 import { DomainResource } from "./_resource.types"
+import { Endpoint } from "./endpoint"
+import { Organization } from "./organization.types"
 
 export type Location = DomainResource & {
     resourceType: "Location",
@@ -19,8 +21,8 @@ export type Location = DomainResource & {
       latitude: decimal,
       altitude?: decimal
     },
-    managingOrganization?: Reference,
-    partOf?: Reference,
+    managingOrganization?: Reference<Organization>,
+    partOf?: Reference<Location>,
     hoursOfOperation?: (BackboneElement & {
       daysOfWeek?: ("mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun")[],
       allDay?: boolean,
@@ -28,5 +30,5 @@ export type Location = DomainResource & {
       closingTime?: time
     })[],
     availabilityExceptions?: string,
-    endpoint?: Reference[]
+    endpoint?: Reference<Endpoint>[]
 }

@@ -1,5 +1,13 @@
 import { Identifier, CodeableConcept, Reference, dateTime, BackboneElement, Attachment, Coding, Period, instant } from "./_basic-types";
-import { DomainResource } from "./_resource.types";
+import { DomainResource, FHIRResource } from "./_resource.types";
+import { Device } from "./device";
+import { Encounter } from "./encounter";
+import { EpisodeOfCare } from "./episode-of-care";
+import { Group } from "./group";
+import { Organization } from "./organization.types";
+import { Patient } from "./patient.types";
+import { Practitioner } from "./practitioner";
+import { PractitionerRole } from "./practitioner-role";
 
 export type DocumentReference = DomainResource & {
     resourceType: "DocumentReference",
@@ -9,14 +17,14 @@ export type DocumentReference = DomainResource & {
     docStatus?: "preliminary" | "final" | "amended" | "entered-in-error",
     type?: CodeableConcept,
     category?: CodeableConcept[],
-    subject?: Reference,
+    subject?: Reference<Patient | Practitioner | Group | Device>,
     date?: instant,
-    author?: Reference[],
-    authenticator?: Reference,
-    custodian?: Reference,
+    author?: Reference<Patient | Practitioner | Group | Device>[],
+    authenticator?: Reference<Practitioner | PractitionerRole | Organization>,
+    custodian?: Reference<Organization>,
     relatesTo?: (BackboneElement & {
         code: "replaces" | "transforms" | "signs" | "appends",
-        target: Reference,
+        target: Reference<DocumentReference>,
     })[],
     description?: string,
     securityLabel?: CodeableConcept[],
@@ -25,12 +33,12 @@ export type DocumentReference = DomainResource & {
         format?: Coding,
     })[],
     context?: (BackboneElement & {
-        encounter?: Reference[],
+        encounter?: Reference<Encounter | EpisodeOfCare>[],
         event?: CodeableConcept[],
         period?: Period,
         facilityType?: CodeableConcept,
         practiceSetting?: CodeableConcept,
-        sourcePatientInfo?: Reference,
-        related?: Reference[],
+        sourcePatientInfo?: Reference<Patient>,
+        related?: Reference<FHIRResource>[],
     }),
 };
