@@ -5,6 +5,8 @@ import { FamilyHistoryDialog } from "app/components/data-dialogs/family-history-
 import { MedicationAdministrationDialog } from "app/components/data-dialogs/medication-administration-dialog/medication-administration.dialog";
 import { DisplayMedicationAdministration } from "app/types/display-types";
 import { JoinPipe } from "../../../shared/pipes/join.pipe";
+import { GenericDataDialog } from "app/components/data-dialogs/_generic-data-dialog/generic-data.dialog";
+import { MedicationAdministration } from "fhir/R4/types/medication-administration";
 
 @Component({
     selector: 'medication-administration-card',
@@ -14,20 +16,22 @@ import { JoinPipe } from "../../../shared/pipes/join.pipe";
     imports: [MatButtonModule, JoinPipe],
 })
 export class MedicationAdministrationCardComponent {
-    med = input.required<DisplayMedicationAdministration>();
-    dosageText = computed(() => {
-        const dosageTextParts: string[] = [];
-        if (this.med().dosage.text.length) dosageTextParts.push(this.med().dosage.text);
-        if (this.med().dosage.site.length) dosageTextParts.push('Site: '+this.med().dosage.site);
-        if (this.med().dosage.route.length) dosageTextParts.push('Route: '+this.med().dosage.route);
-        if (this.med().dosage.method.length) dosageTextParts.push('Method: '+this.med().dosage.method);
-        if (this.med().dosage.dose.length) dosageTextParts.push('Dose: '+this.med().dosage.dose);
-        if (this.med().dosage.rate.length) dosageTextParts.push('Rate: '+this.med().dosage.rate);
-        return dosageTextParts.join(' | ');
-    })
+    // med = input.required<DisplayMedicationAdministration>();
+    med = input.required<MedicationAdministration>();
+    // dosageText = computed(() => {
+    //     const dosageTextParts: string[] = [];
+    //     if (this.med().dosage.text.length) dosageTextParts.push(this.med().dosage.text);
+    //     if (this.med().dosage.site.length) dosageTextParts.push('Site: '+this.med().dosage.site);
+    //     if (this.med().dosage.route.length) dosageTextParts.push('Route: '+this.med().dosage.route);
+    //     if (this.med().dosage.method.length) dosageTextParts.push('Method: '+this.med().dosage.method);
+    //     if (this.med().dosage.dose.length) dosageTextParts.push('Dose: '+this.med().dosage.dose);
+    //     if (this.med().dosage.rate.length) dosageTextParts.push('Rate: '+this.med().dosage.rate);
+    //     return dosageTextParts.join(' | ');
+    // })
 
     private dialog = inject(MatDialog);
     openDialog() {
-        this.dialog.open(MedicationAdministrationDialog, {data: {Medication: this.med()}})
+        // this.dialog.open(MedicationAdministrationDialog, {data: {Medication: this.med()}})
+        this.dialog.open(GenericDataDialog, {data: {Resource: this.med()}})
     }
 }

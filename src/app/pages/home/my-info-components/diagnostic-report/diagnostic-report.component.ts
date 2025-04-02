@@ -6,6 +6,7 @@ import { MagicTableColumnData, MagicTableModule } from "app/shared/component-lib
 import { DiagnosticReport } from "fhir/R4/types/diagnostic-report";
 
 import { codeableConceptsToString, codeableConceptToString, dateTimeToString, periodToString } from "fhir/R4/utilities/validators-tostring.util";
+import { DiagnosticReportCardComponent } from "../../../../components/data-cards/diagnostic-report-card/diagnostic-report-card.component";
 
 // https://hl7.org/fhir/R4/diagnosticreport.html
 
@@ -13,7 +14,7 @@ import { codeableConceptsToString, codeableConceptToString, dateTimeToString, pe
     selector: 'app-diagnostic-report',
     styleUrl: './diagnostic-report.component.scss',
     templateUrl: './diagnostic-report.component.html',
-    imports: [MagicTableModule, MatButtonModule, MatTooltipModule],
+    imports: [MagicTableModule, MatButtonModule, MatTooltipModule, DiagnosticReportCardComponent],
     standalone: true,
 })
 export class DiagnosticReportComponent {

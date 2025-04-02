@@ -136,7 +136,7 @@ export function dosageToString(d: Dosage) {
 export function metaToString(m: Meta) {
     return 'Meta (TODO)';
 }
-export function referenceToString(r?: Reference) {
+export function referenceToString(r?: Reference<any>) {
     if (r == null) return '';
     if (r.display) return r.display;
     return '';

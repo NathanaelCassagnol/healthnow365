@@ -1,0 +1,41 @@
+<div class="dialog">
+    <h2>{{resource.resourceType}} {{resourceTitle.length ? ': '+resourceTitle : ''}}</h2>
+    
+    @for (elem of displayElements; track i; let i = $index) {
+        <ng-container *ngTemplateOutlet="DisplayElementTemplate; context: {data: elem}"></ng-container>
+    }
+
+    <div class="bottom-buttons">
+        <button mat-raised-button color="warn" type="button" (click)="close()">Close</button>
+    </div>
+
+</div>
+
+<ng-template #DisplayElementTemplate let-data="data">
+    @if (data.type === 'value') {
+        <p class="mt-h mb-h"><b>{{data.title}}: </b>{{data.value}}</p>
+    }
+    @else if (data.type === 'valueArray') {
+        <p class="mt-h mb-h"><b>{{data.title}}: </b>{{data.value | join:', '}}</p>
+    }
+    @else if (data.type === 'object') {
+        <h3 class="mt-1 mb-h">{{data.title}}</h3>
+        <div class="flex-col surface-color-2" style="border: 1px solid black; border-radius: 10px; padding: 8px;">
+            @for (subitem of data.value; track i; let i = $index) {
+                <ng-container *ngTemplateOutlet="DisplayElementTemplate; context: {data: subitem}"></ng-container>
+            }
+        </div>
+    }
+    @else if (data.type === 'objectArray') {
+    <h3 class="mt-0 mb-h">{{data.title}}</h3>
+    <div class="flex-row gap-1 wrap">
+        @for (subitem of data.value; track i; let i = $index) {
+            <div class="flex-col surface-color-2" style="border: 1px solid black; border-radius: 10px; padding: 8px;">
+                @for (subsubitem of subitem; track i; let i = $index) {
+                    <ng-container *ngTemplateOutlet="DisplayElementTemplate; context: {data: subsubitem}"></ng-container>
+                }
+            </div>
+        }
+    </div>
+    }
+</ng-template>

@@ -23,6 +23,7 @@ export type DisplayAllergy = {
     criticalityColor: string,
     type: "Allergy" | "Intolerance",
     reactions?: AllergyIntoleranceReaction[],
+    rawResource: AllergyIntolerance,
 }
 
 export const FHIRAllergyIntoleranceToDisplay = (a: AllergyIntolerance): DisplayAllergy => ({
@@ -35,6 +36,7 @@ export const FHIRAllergyIntoleranceToDisplay = (a: AllergyIntolerance): DisplayA
     notes: (a.note??[]).map(n => n.text).filter(n => n.length > 0),
     type: a.type == 'intolerance' ? 'Intolerance' : 'Allergy',
     reactions: a.reaction,
+    rawResource: a,
 
     categoryImage: getCategoryImage(a.category),
     criticalityColor: getCriticalityColor(a.criticality),
@@ -83,6 +85,7 @@ export type DisplayFamilyHistory = {
         notes: string[];
     }[];
     conditionText: string;
+    rawResource: FamilyMemberHistory;
 }
 
 export const FHIRFamilyHistoryToDisplay = (d: FamilyMemberHistory): DisplayFamilyHistory => ({
@@ -103,8 +106,9 @@ export const FHIRFamilyHistoryToDisplay = (d: FamilyMemberHistory): DisplayFamil
         onset: c.onsetAge ? quantityToString(c.onsetAge) : c.onsetRange ? rangeToString(c.onsetRange) : c.onsetPeriod ? periodToString(c.onsetPeriod) : c.onsetString ?? '',
         notes: c.note ? c.note.map(n => annotationToString(n)) : [],
     })) ?? [],
+    conditionText: d.condition?.map(c => codeableConceptToString(c.code)).join(", ") ?? '',
 
-    conditionText: d.condition?.map(c => codeableConceptToString(c.code)).join(", ") ?? ''
+    rawResource: d,
 });
 
 // #endregion

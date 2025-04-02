@@ -1,8 +1,9 @@
 import { Component, inject, input } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialog } from "@angular/material/dialog";
-import { immunizationDialog } from "app/components/data-dialogs/immunization-dialog/immunization.dialog";
+import { GenericDataDialog } from "app/components/data-dialogs/_generic-data-dialog/generic-data.dialog";
 import { DisplayImmunization } from "app/pages/home/my-info-components/immunizations/immunizations.component";
+import { Immunization } from "fhir/R4/types/immunization";
 
 @Component({
     selector: 'app-immunization-card',
@@ -12,10 +13,11 @@ import { DisplayImmunization } from "app/pages/home/my-info-components/immunizat
     imports: [MatButtonModule],
 })
 export class ImmunizationCardComponent {
-    immunization = input.required<DisplayImmunization>();
+    // immunization = input.required<DisplayImmunization>();
+    immunizationResource = input.required<Immunization>();
     
     private dialog = inject(MatDialog);
     openDialog() {
-        this.dialog.open(immunizationDialog, {data: {Immunization: this.immunization()}})
+        this.dialog.open(GenericDataDialog, {data: {Resource: this.immunizationResource()}})
     }
 }

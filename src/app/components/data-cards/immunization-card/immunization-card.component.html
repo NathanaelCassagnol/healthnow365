@@ -1,9 +1,9 @@
 
     <div class="card-header">
-        <h3 class="centered mt-h mb-h">{{immunization().name}}</h3>
+        <!-- <h3 class="centered mt-h mb-h">{{immunization().name}}</h3> -->
     </div>
     <div class="card-content pt-0">
-        @if (immunization().status.length) {
+        <!-- @if (immunization().status.length) {
             <span>Status: {{immunization().status}}</span>
         }
         @if (immunization().occurrence.length) {
@@ -17,6 +17,6 @@
         }
         @for (note of immunization().notes; track i; let i = $index) {
             <span class="mt-q mb-q" style="font-size: 0.8rem;">Note: {{note}}</span>
-        }
+        } -->
         <button mat-raised-button type="button" color="primary" class="mt-a" (click)="openDialog()">More Info</button>
     </div>

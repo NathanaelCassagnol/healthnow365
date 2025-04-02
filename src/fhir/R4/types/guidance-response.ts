@@ -10,7 +10,8 @@ import { Condition } from "./condition";
 import { Group } from "./group";
 import { CarePlan } from "./care-plan";
 import { RequestGroup } from "./request-group";
-import { OperationsOutcome, Parameters } from "./_missing-types";
+import { OperationOutcome } from "./operation-outcome";
+import { Parameters } from "./parameters";
 
 export type GuidanceResponse = DomainResource & {
     resourceType: "GuidanceResponse",
@@ -27,7 +28,7 @@ export type GuidanceResponse = DomainResource & {
     reasonCode?: CodeableConcept[],
     reasonReference?: Reference<Condition | Observation | DiagnosticReport | DocumentReference>[],
     note?: Annotation[],
-    evaluationMessage?: Reference<OperationsOutcome>[],
+    evaluationMessage?: Reference<OperationOutcome>[],
     outputParameters?: Reference<Parameters>,
     result?: Reference<CarePlan | RequestGroup>,
     dataRequirement?: DataRequirement[]

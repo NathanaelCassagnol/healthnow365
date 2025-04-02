@@ -16,7 +16,7 @@
 @else {
 <div class="hn-card-strip">
     @for (allergy of allergiesTransform(); track i; let i = $index) {
-        <app-allergy-intolerance-card [allergy]="allergy" />
+        <app-allergy-intolerance-card [allergy]="allergy" [allergyResource]="allergy.rawResource" />
     }
 </div>
 }

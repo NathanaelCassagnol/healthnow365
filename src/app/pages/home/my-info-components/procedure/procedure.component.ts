@@ -1,25 +1,10 @@
-import { Component, computed, input, signal } from "@angular/core";
+import { Component, computed, input } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
-import { mockProcedure1 } from "fhir/R4/mocks/procedure/mock-procedure-1";
-import { mockProcedure10 } from "fhir/R4/mocks/procedure/mock-procedure-10";
-import { mockProcedure11 } from "fhir/R4/mocks/procedure/mock-procedure-11";
-import { mockProcedure12 } from "fhir/R4/mocks/procedure/mock-procedure-12";
-import { mockProcedure13 } from "fhir/R4/mocks/procedure/mock-procedure-13";
-import { mockProcedure14 } from "fhir/R4/mocks/procedure/mock-procedure-14";
-import { mockProcedure15 } from "fhir/R4/mocks/procedure/mock-procedure-15";
-import { mockProcedure16 } from "fhir/R4/mocks/procedure/mock-procedure-16";
-import { mockProcedure2 } from "fhir/R4/mocks/procedure/mock-procedure-2";
-import { mockProcedure3 } from "fhir/R4/mocks/procedure/mock-procedure-3";
-import { mockProcedure4 } from "fhir/R4/mocks/procedure/mock-procedure-4";
-import { mockProcedure5 } from "fhir/R4/mocks/procedure/mock-procedure-5";
-import { mockProcedure6 } from "fhir/R4/mocks/procedure/mock-procedure-6";
-import { mockProcedure7 } from "fhir/R4/mocks/procedure/mock-procedure-7";
-import { mockProcedure8 } from "fhir/R4/mocks/procedure/mock-procedure-8";
-import { mockProcedure9 } from "fhir/R4/mocks/procedure/mock-procedure-9";
 import { Procedure } from "fhir/R4/types/procedure";
 import { annotationToString, codeableConceptToString, dateTimeToString, periodToString, quantityToString, rangeToString } from "fhir/R4/utilities/validators-tostring.util";
+import { ProcedureCardComponent } from "../../../../components/data-cards/procedure-card/procedure-card.component";
 
 // https://hl7.org/fhir/R4/procedure.html
 
@@ -27,7 +12,7 @@ import { annotationToString, codeableConceptToString, dateTimeToString, periodTo
     selector: 'app-procedure',
     styleUrl: './procedure.component.scss',
     templateUrl: './procedure.component.html',
-    imports: [MagicTableModule, MatButtonModule, MatTooltipModule],
+    imports: [MagicTableModule, MatButtonModule, MatTooltipModule, ProcedureCardComponent],
     standalone: true,
 })
 export class ProcedureComponent {

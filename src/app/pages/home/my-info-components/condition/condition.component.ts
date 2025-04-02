@@ -5,6 +5,7 @@ import { MagicTableColumnData, MagicTableModule } from "app/shared/component-lib
 import { Condition } from "fhir/R4/types/condition";
 
 import { annotationsToString, codeableConceptsToString, codeableConceptToString, dateTimeToString, periodToString, quantityToString, rangeToString } from "fhir/R4/utilities/validators-tostring.util";
+import { ConditionCardComponent } from "../../../../components/data-cards/condition-card/condition-card.component";
 
 // https://hl7.org/fhir/R4/condition.html
 
@@ -12,7 +13,7 @@ import { annotationsToString, codeableConceptsToString, codeableConceptToString,
     selector: 'app-condition',
     styleUrl: './condition.component.scss',
     templateUrl: './condition.component.html',
-    imports: [MatButtonModule, MatTooltipModule, MagicTableModule],
+    imports: [MatButtonModule, MatTooltipModule, MagicTableModule, ConditionCardComponent],
     standalone: true,
 })
 export class ConditionComponent {

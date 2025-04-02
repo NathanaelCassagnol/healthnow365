@@ -6,6 +6,7 @@ import { mockImagingStudy1 } from "fhir/R4/mocks/imaging-study/mock-imaging-stud
 import { mockImagingStudy2 } from "fhir/R4/mocks/imaging-study/mock-imaging-study-2";
 import { ImagingStudy } from "fhir/R4/types/imaging-study";
 import { annotationToString, codeableConceptToString, codingToString, dateTimeToString, periodToString, quantityToString, rangeToString, referenceToString } from "fhir/R4/utilities/validators-tostring.util";
+import { ImagingCardComponent } from "../../../../components/data-cards/imaging-card/imaging-card.component";
 
 // https://hl7.org/fhir/R4/imagingstudy.html
 
@@ -13,7 +14,7 @@ import { annotationToString, codeableConceptToString, codingToString, dateTimeTo
     selector: 'app-imaging-study',
     styleUrl: './imaging-study.component.scss',
     templateUrl: './imaging-study.component.html',
-    imports: [MagicTableModule, MatButtonModule, MatTooltipModule],
+    imports: [MagicTableModule, MatButtonModule, MatTooltipModule, ImagingCardComponent],
     standalone: true,
 })
 export class ImagingStudyComponent {

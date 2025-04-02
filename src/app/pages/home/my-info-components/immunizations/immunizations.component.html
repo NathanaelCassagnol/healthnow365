@@ -15,8 +15,8 @@
     </ng-template>
 </magic-table> -->
 <div class="hn-card-strip">
-@for (im of takenData(); track i; let i = $index) {
-    <app-immunization-card [immunization]="im" />
+@for (im of myImmunizations(); track i; let i = $index) {
+    <app-immunization-card [immunizationResource]="im" />
 }
 </div>
 <hr />
@@ -25,8 +25,8 @@
 <!-- <magic-table [columns]="recommendedColumns" [data]="recommendedData()" [columnData]="recommendedColData" paginate footer="row-counts"></magic-table> -->
 
 <div class="hn-card-strip">
-    @for (im of recommendedData(); track i; let i = $index) {
-        <app-immunization-rec-card [immunization]="im" />
+    @for (im of myImmunizationRecs(); track i; let i = $index) {
+        <app-immunization-rec-card [immunizationResource]="im" />
     }
 </div>
 <hr />

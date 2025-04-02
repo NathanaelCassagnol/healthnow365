@@ -3,12 +3,12 @@ import { FHIRResource, Resource } from "./_resource.types";
 
 export type Parameters = Resource & {
     resourceType: "Parameters",
-    parameter?: ParameterP[],
+    parameter?: ParameterPart[],
 };
 
-type ParameterP = BackboneElement & {
+type ParameterPart = BackboneElement & {
     name: string,
     [key: `value${string}`]: anyBasicType,
     resource?: FHIRResource,
-    part?: ParameterP[],
+    part?: ParameterPart[],
 }

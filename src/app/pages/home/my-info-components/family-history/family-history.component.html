@@ -23,8 +23,8 @@
 }
 @else {
     <div class="hn-card-strip">
-        @for (hist of data(); track i; let i = $index) {
+        @for (hist of myFamilyHistory(); track i; let i = $index) {
             <app-family-history-card [hist]="hist" />
         }
     </div>
-    }
+}

@@ -39,6 +39,7 @@ export class ImmunizationsComponent {
             subpotentReason: i.subpotentReason?.map(x => codeableConceptToString(x)).filter(x => !!x) ?? '',
             programEligibility: i.programEligibility?.map(x => codeableConceptToString(x)).filter(x => !!x) ?? '',
             fundingSource: codeableConceptToString(i.fundingSource),
+            rawResource: i
         } as DisplayImmunization));
     })
 
@@ -92,6 +93,7 @@ export class ImmunizationsComponent {
         series: i.series ?? '',
         doseNumber: i.doseNumberString ?? i.doseNumberPositiveInt?.toString() ?? '',
         seriesDoses: i.seriesDosesString ?? i.seriesDosesPositiveInt?.toString() ?? '',
+        rawResource: set as ImmunizationRecommendation
     } as DisplayImmunizationRec))).flat());
 
     recommendedColData: MagicTableColumnData = {
@@ -123,6 +125,7 @@ export type DisplayImmunization = {
     subpotentReason: string[];
     programEligibility: string[];
     fundingSource: string;
+    rawResource: Immunization;
 }
 
 // Each ImmunizationRecommendation can contain multiple recommendations
@@ -137,4 +140,5 @@ export type DisplayImmunizationRec = {
     series: string,
     doseNumber: string,
     seriesDoses: string,
+    rawResource: ImmunizationRecommendation;
 }

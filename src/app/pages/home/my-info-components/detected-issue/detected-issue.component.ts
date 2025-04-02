@@ -6,6 +6,7 @@ import { mockDetectedIssue1 } from "fhir/R4/mocks/detected-issue/mock-detected-i
 import { mockDetectedIssue2 } from "fhir/R4/mocks/detected-issue/mock-detected-issue-2";
 import { DetectedIssue } from "fhir/R4/types/detected-issue";
 import { codeableConceptToString, dateTimeToString, periodToString } from "fhir/R4/utilities/validators-tostring.util";
+import { DetectedIssueCardComponent } from "../../../../components/data-cards/detected-issue-card/detected-issue-card.component";
 
 // https://hl7.org/fhir/R4/detectedissue.html
 
@@ -13,7 +14,7 @@ import { codeableConceptToString, dateTimeToString, periodToString } from "fhir/
     selector: 'app-detected-issue',
     styleUrl: './detected-issue.component.scss',
     templateUrl: './detected-issue.component.html',
-    imports: [MagicTableModule, MatButtonModule, MatTooltipModule],
+    imports: [MagicTableModule, MatButtonModule, MatTooltipModule, DetectedIssueCardComponent],
     standalone: true,
 })
 export class DetectedIssueComponent {

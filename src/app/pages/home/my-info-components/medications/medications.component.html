@@ -10,7 +10,7 @@
     </ng-template>
 </magic-table> -->
 <div class="hn-card-strip">
-    @for (med of displayDispense(); track i; let i = $index) {
+    @for (med of myDispensations(); track i; let i = $index) {
         <medication-dispense-card [med]="med" />
     }
     </div>
@@ -21,7 +21,7 @@
 <p>This includes medications administered by a doctor</p>
 <!-- <magic-table [columns]="administerColumns" [data]="administerData()" [columnData]="administerColData" paginate footer="row-counts"></magic-table> -->
 <div class="hn-card-strip">
-    @for (med of displayAdministration(); track i; let i = $index) {
+    @for (med of myAdministrations(); track i; let i = $index) {
         <medication-administration-card [med]="med" />
     }
     </div>

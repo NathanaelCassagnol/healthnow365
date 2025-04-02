@@ -1,4 +1,4 @@
-import { Extension, Element, id, uri, code, Narrative, instant, canonical, Coding } from "./_basic-types"
+import { Extension, Element, id, uri, code, Narrative, instant, canonical, Coding, BackboneElement } from "./_basic-types"
 import { AllergyIntolerance } from "./allergy-intolerance.types";
 import { Medication } from "./medication.types";
 import { Substance } from "./substance.types";
@@ -76,7 +76,6 @@ import { Binary } from "./binary";
 import { Linkage } from "./linkage";
 import { MessageHeader } from "./message-header";
 import { OperationOutcome } from "./operation-outcome";
-import { Parameters } from "./parameters";
 import { Subscription } from "./subscription";
 import { CodeSystem } from "./CodeSystem";
 import { ValueSet } from "./value-set";
@@ -94,6 +93,10 @@ import { StructureMap } from "./structure-map";
 import { GraphDefinition } from "./graph-definition";
 import { ExampleScenario } from "./example-scenario";
 import { Location } from "./location";
+import { Parameters } from "./parameters";
+import { Coverage, CoverageEligibilityRequest, CoverageEligibilityResponse, Claim, ClaimResponse, Invoice, PaymentNotice, PaymentReconciliation, Account, ChargeItem, ChargeItemDefinition, Contract, ExplanationOfBenefit, InsurancePlan, ResearchStudy, ResearchSubject, ActivityDefinition, DeviceDefinition, EventDefinition, ObservationDefinition, PlanDefinition, Questionnaire, SpecimenDefinition, ResearchDefinition, ResearchElementDefinition, Evidence, EvidenceVariable, EffectEvidenceSynthesis, RiskEvidenceSynthesis, Measure, MeasureReport, TestScript, TestReport, MedicinalProduct, MedicinalProductUndesirableEffect, MedicinalProductAuthorization, MedicinalProductContraindication, MedicinalProductIndication, MedicinalProductIngredient, MedicinalProductInteraction, MedicinalProductManufactured, MedicinalProductPackaged, MedicinalProductPharmaceutical, SubstanceNucleicAcid, SubstancePolymer, SubstanceProtein, SubstanceReferenceInformation, SubstanceSpecification, SubstanceSourceMaterial } from "./_missing-types";
+
+// https://hl7.org/fhir/R4/resourcelist.html
 
 export type FHIRResource =
     // Foundation
@@ -114,7 +117,16 @@ export type FHIRResource =
     MedicationRequest | MedicationAdministration | MedicationDispense | MedicationStatement | Medication | MedicationKnowledge |
     Immunization | ImmunizationEvaluation | ImmunizationRecommendation |
     CarePlan | CareTeam | Goal | ServiceRequest | NutritionOrder | VisionPrescription | RiskAssessment | RequestGroup | 
-    Communication | CommunicationRequest | DeviceRequest | DeviceUseStatement | GuidanceResponse | SupplyRequest | SupplyDelivery;
+    Communication | CommunicationRequest | DeviceRequest | DeviceUseStatement | GuidanceResponse | SupplyRequest | SupplyDelivery |
+    // Financial
+    Coverage | CoverageEligibilityRequest | CoverageEligibilityResponse | Claim | ClaimResponse | Invoice | PaymentNotice | 
+    PaymentReconciliation | Account | ChargeItem | ChargeItemDefinition | Contract | ExplanationOfBenefit | InsurancePlan |
+    // Specialized
+    ResearchStudy | ResearchSubject | ActivityDefinition | DeviceDefinition | EventDefinition | ObservationDefinition | PlanDefinition | 
+    Questionnaire | SpecimenDefinition | ResearchDefinition | ResearchElementDefinition | Evidence | EvidenceVariable | EffectEvidenceSynthesis |
+    RiskEvidenceSynthesis | Measure | MeasureReport | TestScript | TestReport | MedicinalProduct | MedicinalProductAuthorization | MedicinalProductContraindication |
+    MedicinalProductIndication | MedicinalProductIngredient | MedicinalProductInteraction | MedicinalProductManufactured | MedicinalProductPackaged |
+    MedicinalProductPharmaceutical | MedicinalProductUndesirableEffect | SubstanceNucleicAcid | SubstancePolymer | SubstanceProtein | SubstanceReferenceInformation | SubstanceSpecification | SubstanceSourceMaterial;
 
 // https://hl7.org/fhir/R4/resource.html
 export type Resource = extendablePrimitives & {

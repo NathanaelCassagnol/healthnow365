@@ -1,6 +1,13 @@
 
 
 <h3>Detected Issues</h3>
-<magic-table [columns]="columns" [data]="data()" [columnData]="colData" paginate footer="row-counts">
+<!-- <magic-table [columns]="columns" [data]="data()" [columnData]="colData" paginate footer="row-counts">
 
-</magic-table>
+</magic-table> -->
+
+
+<div class="hn-card-strip">
+    @for (resource of myIssues(); track i; let i = $index) {
+        <app-detected-issue-card [IssueResource]="resource" />
+    }
+</div>

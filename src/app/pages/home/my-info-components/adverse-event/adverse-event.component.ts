@@ -1,6 +1,7 @@
 import { Component, computed, input, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { AdverseEventCardComponent } from "app/components/data-cards/adverse-event-card/adverse-event-card.component";
 import { MagicTableColumnData, MagicTableModule } from "app/shared/component-library/magic-table/magic-table.module";
 import { AdverseEvent } from "fhir/R4/types/adverse-event";
 
@@ -12,7 +13,7 @@ import { codeableConceptsToString, codeableConceptToString, dateTimeToString } f
     selector: 'app-adverse-event',
     styleUrl: './adverse-event.component.scss',
     templateUrl: './adverse-event.component.html',
-    imports: [MatButtonModule, MatTooltipModule, MagicTableModule],
+    imports: [MatButtonModule, MatTooltipModule, MagicTableModule, AdverseEventCardComponent],
     standalone: true,
 })
 export class AdverseEventComponent {

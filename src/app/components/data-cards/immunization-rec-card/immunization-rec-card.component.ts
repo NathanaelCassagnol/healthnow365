@@ -4,6 +4,8 @@ import { MatDialog } from "@angular/material/dialog";
 import { immunizationDialog } from "app/components/data-dialogs/immunization-dialog/immunization.dialog";
 import { DisplayImmunizationRec } from "app/pages/home/my-info-components/immunizations/immunizations.component";
 import { JoinPipe } from "../../../shared/pipes/join.pipe";
+import { GenericDataDialog } from "app/components/data-dialogs/_generic-data-dialog/generic-data.dialog";
+import { ImmunizationRecommendation } from "fhir/R4/types/immunization-recommendation";
 
 @Component({
     selector: 'app-immunization-rec-card',
@@ -13,10 +15,12 @@ import { JoinPipe } from "../../../shared/pipes/join.pipe";
     imports: [MatButtonModule, JoinPipe],
 })
 export class ImmunizationRecommendationCardComponent {
-    immunization = input.required<DisplayImmunizationRec>();
+    // immunization = input.required<DisplayImmunizationRec>();
+    immunizationResource = input.required<ImmunizationRecommendation>();
     
     private dialog = inject(MatDialog);
     openDialog() {
-        this.dialog.open(immunizationDialog, {data: {Immunization: this.immunization()}})
+        // this.dialog.open(immunizationDialog, {data: {Immunization: this.immunization()}})
+        this.dialog.open(GenericDataDialog, {data: {Resource: this.immunizationResource()}})
     }
 }
