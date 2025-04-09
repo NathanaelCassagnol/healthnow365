@@ -8,12 +8,14 @@
     <div class="bottom-buttons">
         <button mat-raised-button color="warn" type="button" (click)="close()">Close</button>
     </div>
-
 </div>
 
 <ng-template #DisplayElementTemplate let-data="data">
-    @if (data.type === 'value') {
+    @if (data.type === 'value' && data.url == null) {
         <p class="mt-h mb-h"><b>{{data.title}}: </b>{{data.value}}</p>
+    }
+    @else if (data.type === 'value') {
+        <p class="mt-h mb-h"><b>{{data.title}}: </b><a [href]="data.url">{{data.value}}</a></p>
     }
     @else if (data.type === 'valueArray') {
         <p class="mt-h mb-h"><b>{{data.title}}: </b>{{data.value | join:', '}}</p>

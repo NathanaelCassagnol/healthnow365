@@ -4,7 +4,7 @@
         <h3 class="centered mt-h mb-h">{{allergy.allergenName}}</h3>
     </div> -->
     <div class="card-header">
-        <!-- <h3 class="centered mt-h mb-h">{{hist().conditionText}}</h3> -->
+        <h3 class="centered mt-h mb-h">{{hist() | fhirTitle}}</h3>
     </div>
     <div class="card-content pt-0">
         <!-- @if (hist().relation.length) {

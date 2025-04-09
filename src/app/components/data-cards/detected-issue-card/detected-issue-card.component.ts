@@ -3,13 +3,14 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatDialog } from "@angular/material/dialog";
 import { GenericDataDialog } from "app/components/data-dialogs/_generic-data-dialog/generic-data.dialog";
 import { DetectedIssue } from "fhir/R4/types/detected-issue";
+import { FhirTitlePipe } from "../../../shared/pipes/fhir-title.pipe";
 
 @Component({
     selector: 'app-detected-issue-card',
     styleUrl: './detected-issue-card.component.scss',
     templateUrl: './detected-issue-card.component.html',
     standalone: true,
-    imports: [MatButtonModule],
+    imports: [MatButtonModule, FhirTitlePipe],
 })
 export class DetectedIssueCardComponent {
     IssueResource = input.required<DetectedIssue>();

@@ -1,19 +1,16 @@
-import { Component, computed, inject, input } from "@angular/core";
+import { Component, inject, input } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialog } from "@angular/material/dialog";
-import { FamilyHistoryDialog } from "app/components/data-dialogs/family-history-dialog/family-history.dialog";
-import { MedicationAdministrationDialog } from "app/components/data-dialogs/medication-administration-dialog/medication-administration.dialog";
-import { DisplayMedicationAdministration } from "app/types/display-types";
-import { JoinPipe } from "../../../shared/pipes/join.pipe";
 import { GenericDataDialog } from "app/components/data-dialogs/_generic-data-dialog/generic-data.dialog";
 import { MedicationAdministration } from "fhir/R4/types/medication-administration";
+import { FhirTitlePipe } from "../../../shared/pipes/fhir-title.pipe";
 
 @Component({
     selector: 'medication-administration-card',
     styleUrl: './medication-administration-card.component.scss',
     templateUrl: './medication-administration-card.component.html',
     standalone: true,
-    imports: [MatButtonModule, JoinPipe],
+    imports: [MatButtonModule, FhirTitlePipe],
 })
 export class MedicationAdministrationCardComponent {
     // med = input.required<DisplayMedicationAdministration>();

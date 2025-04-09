@@ -4,13 +4,14 @@ import { MatDialog } from "@angular/material/dialog";
 import { GenericDataDialog } from "app/components/data-dialogs/_generic-data-dialog/generic-data.dialog";
 import { DisplayImmunization } from "app/pages/home/my-info-components/immunizations/immunizations.component";
 import { Immunization } from "fhir/R4/types/immunization";
+import { FhirTitlePipe } from "../../../shared/pipes/fhir-title.pipe";
 
 @Component({
     selector: 'app-immunization-card',
     styleUrl: './immunization-card.component.scss',
     templateUrl: './immunization-card.component.html',
     standalone: true,
-    imports: [MatButtonModule],
+    imports: [MatButtonModule, FhirTitlePipe],
 })
 export class ImmunizationCardComponent {
     // immunization = input.required<DisplayImmunization>();
