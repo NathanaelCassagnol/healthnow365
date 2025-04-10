@@ -1,0 +1,15 @@
+<div class="auth-container">
+  <div *ngIf="loading" class="loading-indicator">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Authenticating with FHIR server...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <mat-icon class="error-icon">error_outline</mat-icon>
+    <h3>Authentication Error</h3>
+    <p>{{error}}</p>
+    <button mat-raised-button color="primary" (click)="startOAuthFlow()">
+      Try Again
+    </button>
+  </div>
+</div>
