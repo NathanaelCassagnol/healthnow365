@@ -4,27 +4,25 @@
     </div>
     <div class="card-content pt-0">
         <div class="card-content pt-0">
-            <!-- @if (med().category.length) {
-                <span>Category: {{med().category}}</span>
-            }
-            @if (med().status.length) {
-                <span>Status: {{med().status}}</span>
-            }
-            @if (med().type.length) {
-                <span>Type: {{med().type}}</span>
-            }
-            @if (med().quantity.length) {
-                <span>Quantity: {{med().quantity}}</span>
-            }
-            @if (med().daysSupply.length) {
-                <span>Days Supply: {{med().daysSupply}}</span>
-            }
-
-            @if (med().notes.length) {
-                @for (note of med().notes; track i; let i = $index) {
-                    <p class="mt-q mb-q" style="font-size: 0.8rem;">Note: {{note}}</p>
-                }
-            } -->
+            
+        @if (status().length) {
+            <span><b>Status:</b> {{status()}}</span>
+        }
+        @if (type().length) {
+            <span><b>Type:</b> {{type()}}</span>
+        }
+        @if (category().length) {
+            <span><b>Category:</b> {{category()}}</span>
+        }
+        @if (quantity().length) {
+            <span><b>Quantity:</b> {{quantity()}}</span>
+        }
+        @if (time().length) {
+            <span><b>Time:</b> {{time()}}</span>
+        }
+        @for (note of notes(); track i; let i = $index) {
+            <span><b>Note: </b>{{note}}</span>
+        }
 
         </div>
         <button mat-raised-button type="button" color="primary" class="mt-a" (click)="openDialog()">More Info</button>

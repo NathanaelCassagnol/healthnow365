@@ -3,29 +3,14 @@
         <h3 class="centered mt-h mb-h">{{immunizationResource() | fhirTitle}}</h3>
     </div>
     <div class="card-content pt-0">
-        <!-- @if (immunization().description.length) {
-            <span>{{immunization().description}}</span>
+        
+
+        @if (date().length) {
+            <span><b>Date:</b> {{date()}}</span>
         }
-        @if (immunization().vaccineCodes.length) {
-            <span>Vaccines: {{immunization().vaccineCodes | join:', '}}</span>
+        @if (description().length) {
+            <span><b>Description:</b> {{description()}}</span>
         }
-        @if (immunization().contraindicatedVaccines.length) {
-            <span>Contraindicated Vaccines: {{immunization().contraindicatedVaccines | join:', '}}</span>
-        }
-        @if (immunization().forecastStatus.length) {
-            <span>Forecast Status: {{immunization().forecastStatus}}</span>
-        }
-        @if (immunization().date.length) {
-            <span>Date: {{immunization().date}}</span>
-        }
-        @if (immunization().series) {
-            <span>Series: {{immunization().series}}</span>
-        }
-        @if (immunization().doseNumber) {
-            <span>Dose Number: {{immunization().doseNumber}}</span>
-        }
-        @if (immunization().seriesDoses) {
-            <span>Series Doses: {{immunization().seriesDoses}}</span>
-        } -->
+
         <button mat-raised-button type="button" color="primary" class="mt-a" (click)="openDialog()">More Info</button>
     </div>

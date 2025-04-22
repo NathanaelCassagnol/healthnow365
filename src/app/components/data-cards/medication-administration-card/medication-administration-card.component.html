@@ -4,28 +4,22 @@
     </div>
     <div class="card-content pt-0">
         <div class="card-content pt-0">
-            <!-- @if (med().category) {
-                <span>Category: {{med().category}}</span>
-            }
-            @if (med().effective) {
-                <span>Effective: {{med().effective}}</span>
-            }
-            @if (med().status) {
-                <span>Status: {{med().status}}</span>
-            }
-            @if (med().reasons.length) {
-                <span>Reasons: {{med().reasons | join:', '}}</span>
-            }
 
-            @if (dosageText.length) {
-                <p>Dosage: {{dosageText()}}</p>
+            @if (status().length) {
+                <span><b>Status:</b> {{status()}}</span>
             }
-
-            @if (med().notes.length) {
-                @for (note of med().notes; track i; let i = $index) {
-                    <p class="mt-q mb-q" style="font-size: 0.8rem;">Note: {{note}}</p>
-                }
-            } -->
+            @if (category().length) {
+                <span><b>Category:</b> {{category()}}</span>
+            }
+            @if (effective().length) {
+                <span><b>Effective:</b> {{effective()}}</span>
+            }
+            @if (dose()?.length) {
+                <span><b>Dose:</b> {{dose()}}</span>
+            }
+            @for (note of notes(); track i; let i = $index) {
+                <span><b>Note: </b>{{note}}</span>
+            }
 
         </div>
         <button mat-raised-button type="button" color="primary" class="mt-a" (click)="openDialog()">More Info</button>

@@ -3,20 +3,26 @@
         <h3 class="centered mt-h mb-h">{{immunizationResource() | fhirTitle}}</h3>
     </div>
     <div class="card-content pt-0">
-        <!-- @if (immunization().status.length) {
-            <span>Status: {{immunization().status}}</span>
+        
+
+        @if (status().length) {
+            <span><b>Status:</b> {{status()}}</span>
         }
-        @if (immunization().occurrence.length) {
-            <span>Occurrence: {{immunization().occurrence}}</span>
+        @if (site().length) {
+            <span><b>Site:</b> {{site()}}</span>
         }
-        @if (immunization().expiration.length) {
-            <span>Expiration: {{immunization().expiration}}</span>
+        @if (route().length) {
+            <span><b>Route:</b> {{route()}}</span>
         }
-        @if (immunization().dose) {
-            <span>Dose: {{immunization().dose}}</span>
+        @if (dose().length) {
+            <span><b>Dose:</b> {{dose()}}</span>
         }
-        @for (note of immunization().notes; track i; let i = $index) {
-            <span class="mt-q mb-q" style="font-size: 0.8rem;">Note: {{note}}</span>
-        } -->
+        @if (occurrence()?.length) {
+            <span><b>Occurrence:</b> {{occurrence()}}</span>
+        }
+        @for (note of notes(); track i; let i = $index) {
+            <span><b>Note: </b>{{note}}</span>
+        }
+
         <button mat-raised-button type="button" color="primary" class="mt-a" (click)="openDialog()">More Info</button>
     </div>

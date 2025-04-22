@@ -1,36 +1,24 @@
-<!-- <div class="hn-card"> -->
-    <!-- <div class="card-watermark" [style]="'background-image: url('+allergy.categoryImage+')'"></div> -->
-    <!-- <div [class]="'card-header bg-'+allergy.criticalityColor+'-40'">
-        <h3 class="centered mt-h mb-h">{{allergy.allergenName}}</h3>
-    </div> -->
+
     <div class="card-header">
         <h3 class="centered mt-h mb-h">{{hist() | fhirTitle}}</h3>
     </div>
     <div class="card-content pt-0">
-        <!-- @if (hist().relation.length) {
-            <p>Relationship: {{hist().relation}}</p>
+
+        @if (contributed()) {
+            <span><b>Contributed to death</b></span>
         }
-        @if (hist().status.length) {
-            <p>Status: {{hist().status}}</p>
+        @if (status().length) {
+            <span><b>Status:</b> {{status()}}</span>
         }
-        @if (hist().date.length) {
-            <p>Date: {{hist().date}}</p>
+        @if (relationship().length) {
+            <span><b>Relationship:</b> {{relationship()}}</span>
         }
-        @if (hist().name.length) {
-            <p>Name: {{hist().name}}</p>
+        @if (date().length) {
+            <span><b>Date:</b> {{date()}}</span>
         }
-        @if (hist().sex.length) {
-            <p>Sex: {{hist().sex}}</p>
+        @for (note of notes(); track i; let i = $index) {
+            <span><b>Note: </b>{{note}}</span>
         }
-        @if (hist().age.length || hist().born.length || hist().deceased.length) {
-            <p>TODO Make age text logic</p>
-        }
-        @for (reason of hist().reason; track i; let i = $index) {
-            <p>Reason: {{reason}}</p>
-        }
-        @for (note of hist().notes; track i; let i = $index) {
-            <p class="mt-q mb-q" style="font-size: 0.8rem;">Note: {{note}}</p>
-        } -->
+       
         <button mat-raised-button type="button" color="primary" class="mt-a" (click)="openDialog()">More Info</button>
     </div>
-<!-- </div> -->
