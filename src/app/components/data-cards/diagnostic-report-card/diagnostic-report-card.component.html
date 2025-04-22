@@ -4,7 +4,18 @@
     </div>
     <div class="card-content pt-0">
         
-        <!-- Data stuff -->
+        @if (status().length) {
+            <span><b>Status:</b> {{status()}}</span>
+         }
+         @if (category()?.length) {
+            <span><b>Category:</b> {{category()}}</span>
+         }
+         @if (timestamp().length) {
+            <span><b>Timestamp:</b> {{timestamp()}}</span>
+         }
+         @if (conclusion()?.length) {
+            <span><b>Conclusion:</b> {{conclusion()}}</span>
+         }
 
         <button mat-raised-button type="button" color="primary" class="mt-a" (click)="openDialog()">More Info</button>
     </div>

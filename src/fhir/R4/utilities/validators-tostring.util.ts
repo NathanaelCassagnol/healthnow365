@@ -67,14 +67,16 @@ export function moneyToString(m: Money) {
     return (m.currency??'') + (m.value??'Unknown');
 }
 
-export function periodToString(p: Period) {
+export function periodToString(p?: Period) {
+    if (p == null) return '';
     if (p.start && !p.end) return dateTimeToString(p.start)+' and later';
     if (!p.start && p.end) return dateTimeToString(p.end)+' and before';
     if (p.start && p.end) return dateTimeToString(p.start)+" - "+dateTimeToString(p.end);
     return "Unknown Time"
 }
 
-export function rangeToString(r: Range) {
+export function rangeToString(r?: Range) {
+    if (r == null) return '';
     let unit = r.low?.unit ?? r.high?.unit ?? '';
     if (r.low?.value != undefined && r.high?.value == undefined) return `${r.low.value} ${unit} and above`;
     if (r.low?.value == undefined && r.high?.value != undefined) return `${r.high.value} ${unit} and below`;
