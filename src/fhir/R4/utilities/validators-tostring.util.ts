@@ -192,7 +192,7 @@ export function dateTimeToString(dt?: date | dateTime | time) {
     return toWrittenDate(dt.slice(0, 10)) + ' ' + toWrittenTime(dt.slice(11));
 }
 
-export function ValidateBasicType(input: anyBasicType, typeName: string, verbose = false) {
+export function ValidateBasicType(input: anyBasicType, typeName: string, verbose = false): boolean {
     // TODO: Add the validation rules for each data type in FHIR documentation
     if (["Duration", "Count", "Distance", "Age"].includes(typeName)) typeName = 'Quantity';
     const rosetta = BasicTypesRosettaStone[typeName];

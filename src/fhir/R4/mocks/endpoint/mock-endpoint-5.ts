@@ -3,7 +3,7 @@ import { Endpoint } from "../../types/endpoint";
 // https://hl7.org/fhir/R4/endpoint-example-direct.json.html
 // Example of a DIRECT endpoint
 
-export const mockEndpoint1: Endpoint = {
+export const mockEndpoint5: Endpoint = {
     "resourceType": "Endpoint",
     "id": "direct-endpoint",
     "text": {

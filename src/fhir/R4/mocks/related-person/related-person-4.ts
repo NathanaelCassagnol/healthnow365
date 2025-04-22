@@ -3,7 +3,7 @@ import { RelatedPerson } from "../../types/related-person";
 // https://hl7.org/fhir/R4/relatedperson-example-f002-ariadne.json.html
 // Ariadne Bor-Jansma
 
-export const mockRelatedPerson1: RelatedPerson = {
+export const mockRelatedPerson4: RelatedPerson = {
     "resourceType": "RelatedPerson",
     "id": "f002",
     "text": {

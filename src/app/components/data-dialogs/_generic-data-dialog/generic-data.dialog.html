@@ -1,5 +1,5 @@
 <div class="dialog">
-    <h2>{{resource.resourceType}} {{resourceTitle.length ? ': '+resourceTitle : ''}}</h2>
+    <h2>{{resource.resourceType | CamelTitlePipe}} {{resourceTitle.length ? ': '+resourceTitle : ''}}</h2>
     
     @for (elem of displayElements; track i; let i = $index) {
         <ng-container *ngTemplateOutlet="DisplayElementTemplate; context: {data: elem}"></ng-container>
@@ -12,16 +12,59 @@
 
 <ng-template #DisplayElementTemplate let-data="data">
     @if (data.type === 'value' && data.url == null) {
-        <p class="mt-h mb-h"><b>{{data.title}}: </b>{{data.value}}</p>
+        <p class="mt-h mb-h">
+            <!-- <i>[value]</i> -->
+            <b>{{data.title | CamelTitlePipe}}: </b>
+            {{data.value}}
+        </p>
     }
     @else if (data.type === 'value') {
-        <p class="mt-h mb-h"><b>{{data.title}}: </b><a [href]="data.url">{{data.value}}</a></p>
+        <p class="mt-h mb-h">
+            <!-- <i>[link]</i> -->
+            <b>{{data.title | CamelTitlePipe}}: </b>
+            <a [href]="data.url">{{data.value}}</a>
+        </p>
+    }
+    @else if (data.type === 'reference') {
+        <p class="mt-h mb-h">
+            <!-- <i>[ref]</i> -->
+            <b>{{data.title | CamelTitlePipe}}: </b>
+            <button mat-raised-button color="primary" type="button" (click)="openReference(data.id)">{{data.value}}</button>
+        </p>
+    }
+    @else if (data.type === 'referenceArray') {
+        <div class="flex-row gap-h wrap align-center mt-h mb-h">
+        <span>
+            <!-- <i>[refArray]</i> -->
+            <b>{{data.title | CamelTitlePipe}}: </b>
+        </span>
+            @for (ref of data.value; track i; let i = $index) {
+                <button mat-raised-button color="primary" type="button" (click)="openReference(ref.id)">{{ref.value}}</button>
+            }
+        </div>
     }
     @else if (data.type === 'valueArray') {
-        <p class="mt-h mb-h"><b>{{data.title}}: </b>{{data.value | join:', '}}</p>
+        <p class="mt-h mb-h">
+            <!-- <i>[valueArray]</i> -->
+            <b>{{data.title | CamelTitlePipe}}: </b>
+            @for (val of data.value; track i; let i = $index; let last = $last) {
+                @if (val.url) {
+                    <a [href]="val.url">{{val.display}}</a>
+                }
+                @else {
+                    {{val}}
+                }
+                @if (!last) {
+                    ,
+                }
+            }
+        </p>
     }
     @else if (data.type === 'object') {
-        <h3 class="mt-1 mb-h">{{data.title}}</h3>
+        <h3 class="mt-1 mb-h">
+            <!-- <i>[object]</i> -->
+            {{data.title | CamelTitlePipe}}
+        </h3>
         <div class="flex-col surface-color-2" style="border: 1px solid black; border-radius: 10px; padding: 8px;">
             @for (subitem of data.value; track i; let i = $index) {
                 <ng-container *ngTemplateOutlet="DisplayElementTemplate; context: {data: subitem}"></ng-container>
@@ -29,7 +72,10 @@
         </div>
     }
     @else if (data.type === 'objectArray') {
-    <h3 class="mt-0 mb-h">{{data.title}}</h3>
+    <h3 class="mt-0 mb-h">
+        <!-- <i>[objectArray]</i> -->
+        {{data.title | CamelTitlePipe}}
+    </h3>
     <div class="flex-row gap-1 wrap">
         @for (subitem of data.value; track i; let i = $index) {
             <div class="flex-col surface-color-2" style="border: 1px solid black; border-radius: 10px; padding: 8px;">

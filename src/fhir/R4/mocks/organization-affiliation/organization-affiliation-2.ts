@@ -3,7 +3,7 @@ import { OrganizationAffiliation } from "../../types/organization-affiliation";
 // https://hl7.org/fhir/R4/orgrole-example-hie.json.html
 // Hospital member
 
-export const mockOrganizationAffiliation1: OrganizationAffiliation = {
+export const mockOrganizationAffiliation2: OrganizationAffiliation = {
     "resourceType": "OrganizationAffiliation",
     "id": "orgrole2",
     "text": {

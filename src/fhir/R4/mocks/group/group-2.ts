@@ -3,7 +3,7 @@ import { Group } from "../../types/group";
 // https://hl7.org/fhir/R4/group-example-member.json.html
 // General Group Example, Member Based
 
-export const mockGroup1: Group = {
+export const mockGroup2: Group = {
     "resourceType": "Group",
     "id": "102",
     "text": {

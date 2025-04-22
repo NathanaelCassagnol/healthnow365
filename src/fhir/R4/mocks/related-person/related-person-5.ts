@@ -3,7 +3,7 @@ import { RelatedPerson } from "../../types/related-person";
 // https://hl7.org/fhir/R4/relatedperson-example-newborn-mom.json.html
 // Mother of Newborn Example for Newborn Example
 
-export const mockRelatedPerson1: RelatedPerson = {
+export const mockRelatedPerson5: RelatedPerson = {
     "resourceType": "RelatedPerson",
     "id": "newborn-mom",
     "text": {

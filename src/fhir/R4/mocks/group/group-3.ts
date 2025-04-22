@@ -3,7 +3,7 @@ import { Group } from "../../types/group";
 // https://hl7.org/fhir/R4/group-example-herd1.json.html
 // Herd of 2500 breeding sows
 
-export const mockGroup1: Group = {
+export const mockGroup3: Group = {
     "resourceType": "Group",
     "id": "herd1",
     "text": {

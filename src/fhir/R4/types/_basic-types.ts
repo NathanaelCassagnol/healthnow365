@@ -403,8 +403,8 @@ export type Reference<T> = Element & {
     type?: uri,
     identifier?: Identifier,
     display?: string,
-    loadingStatus?: WritableSignal<'unloaded' | 'loading' | 'loaded' | 'error'>,
-    loadedResource?: WritableSignal<T>
+    // loadingStatus?: WritableSignal<'unloaded' | 'loading' | 'loaded' | 'error'>,
+    // loadedResource?: WritableSignal<T>
 }
 // #endregion
 

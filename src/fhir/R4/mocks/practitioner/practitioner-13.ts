@@ -3,7 +3,7 @@ import { Practitioner } from "../../types/practitioner";
 // https://hl7.org/fhir/R4/practitioner-example-f006-rvdb.json.html
 // Fictive Pharmacist
 
-export const mockPractitioner1: Practitioner = {
+export const mockPractitioner13: Practitioner = {
     "resourceType": "Practitioner",
     "id": "f006",
     "text": {

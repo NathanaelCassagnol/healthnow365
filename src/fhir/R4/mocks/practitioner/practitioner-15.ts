@@ -3,7 +3,7 @@ import { Practitioner } from "../../types/practitioner";
 // https://hl7.org/fhir/R4/practitioner-example-xcda1.json.html
 // 2nd CDA Example Author
 
-export const mockPractitioner1: Practitioner = {
+export const mockPractitioner15: Practitioner = {
     "resourceType": "Practitioner",
     "id": "xcda1",
     "text": {

@@ -3,7 +3,7 @@ import { Group } from "../../types/group";
 // https://hl7.org/fhir/R4/group-example-patientlist.json.html
 // Patients primarily attributed to Practitioner 123
 
-export const mockGroup1: Group = {
+export const mockGroup4: Group = {
     "resourceType": "Group",
     "id": "example-patientlist",
     "text": {
