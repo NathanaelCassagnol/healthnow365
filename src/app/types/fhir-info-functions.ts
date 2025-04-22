@@ -3,7 +3,24 @@ import { codeableConceptToString, ValidateBasicType } from "fhir/R4/utilities/va
 
 export function getTitle(resource?: FHIRResource): string {
     if (resource == null) return '';
+    // return getTitleOrEmpty(resource) || resource.resourceType;
+    return getTitleOrEmpty(resource) || 'Untitled';
+}
+function getTitleOrEmpty(resource?: FHIRResource): string {
+    if (resource == null) return '';
     switch (resource.resourceType) {
+        case 'AdverseEvent':
+            return codeableConceptToString(resource.event) || codeableConceptToString(resource.category?.[0]) || getTitle(resource.contained?.[0]);
+        case 'Condition':
+            return codeableConceptToString(resource.code) ?? ''
+        case 'DetectedIssue':
+            return codeableConceptToString(resource.code)
+        case 'DiagnosticReport':
+            return codeableConceptToString(resource.code);
+        case 'FamilyMemberHistory':
+            return resource.condition?.map(c => codeableConceptToString(c.code)).join(', ') ?? '';
+        case 'ImagingStudy':
+            return codeableConceptToString(resource.procedureCode?.[0]) || resource.series?.[0].description || '';
         case 'Immunization':
             return codeableConceptToString(resource.vaccineCode);
         case 'ImmunizationRecommendation':
@@ -14,12 +31,10 @@ export function getTitle(resource?: FHIRResource): string {
             return codeableConceptToString(resource.medicationCodeableConcept) || getTitle(resource.contained?.[0]);
         case 'Medication':
             return codeableConceptToString(resource.code) || getTitle(resource.contained?.[0]);
-        case 'FamilyMemberHistory':
-            return resource.condition?.map(c => codeableConceptToString(c.code)).join(', ') ?? '';
-        case 'DiagnosticReport':
+        case 'Observation':
             return codeableConceptToString(resource.code);
-        case 'AdverseEvent':
-            return codeableConceptToString(resource.event) || codeableConceptToString(resource.category?.[0]) || getTitle(resource.contained?.[0]);
+        case 'Procedure':
+            return codeableConceptToString(resource.code) ?? ''
         default:
             return '';
     }
@@ -162,12 +177,14 @@ function cleanupObject(inputElement: ObjectDisplayElements): ObjectDisplayElemen
     ) {
         const coding = element.value.find(v => v.title.toLowerCase() === 'coding')!;
         const text = element.value.find(v => v.title.toLowerCase() === 'text');
-        return {
-            type: 'value',
-            title: element.title,
-            value: text?.value ?? coding!.value,
-            url: (coding as any).url
-        } as ObjectDisplayElements
+        if (!Array.isArray(coding.value) || coding.value?.length === 1) {
+            return {
+                type: 'value',
+                title: element.title,
+                value: text?.value ?? coding.value,
+                url: (coding as any).url
+            } as ObjectDisplayElements
+        }
     }
 
     // Check against specific object types

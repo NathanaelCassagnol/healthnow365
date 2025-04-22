@@ -13,7 +13,7 @@ import { CamelTitlePipe } from "../../../shared/component-library/magic-table/ca
     templateUrl: './generic-data.dialog.html',
     styleUrl: './generic-data.dialog.scss',
     standalone: true,
-    imports: [JoinPipe, MatButtonModule, CommonModule, CamelTitlePipe],
+    imports: [MatButtonModule, CommonModule, CamelTitlePipe],
 })
 export class GenericDataDialog {
     private dialogRef = inject(MatDialogRef);

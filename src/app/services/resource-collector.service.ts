@@ -1,14 +1,14 @@
-import { Injectable, OnInit, signal } from "@angular/core";
+import { Injectable, signal } from "@angular/core";
 import { AllR4Mocks } from "fhir/R4/mocks/all-r4-mocks";
 import { FHIRResource } from "fhir/R4/types/_resource.types";
 
 @Injectable({
     providedIn: 'root'
 })
-export class ResourceCollectorService implements OnInit {
+export class ResourceCollectorService {
     resources = signal<FHIRResource[]>([]);
 
-    ngOnInit() {
+    constructor() {
         this.addResourceToArray(AllR4Mocks);
     }
 

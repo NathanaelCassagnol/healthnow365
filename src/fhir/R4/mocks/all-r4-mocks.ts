@@ -869,7 +869,7 @@ export const AllR4MockValueSets = [
 ];
 export const AllR4MockVerificationResults = [mockVerificationResult1];
 export const AllR4MockVisionPrescriptions = [mockVisionPrescription1, mockVisionPrescription2];
-
+export const AllR4MockAdverseEvents = [mockAdverseEvent1];
 
 
 export const AllR4Mocks: FHIRResource[] = [
@@ -966,4 +966,5 @@ export const AllR4Mocks: FHIRResource[] = [
     ...AllR4MockValueSets,
     ...AllR4MockVerificationResults,
     ...AllR4MockVisionPrescriptions,
+    ...AllR4MockAdverseEvents,
 ];
