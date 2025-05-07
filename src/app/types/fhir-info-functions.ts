@@ -1,5 +1,5 @@
 import { FHIRResource } from "fhir/R4/types/_resource.types";
-import { codeableConceptToString, ValidateBasicType } from "fhir/R4/utilities/validators-tostring.util";
+import { codeableConceptToString, dateTimeToString, isAnyDateTime, ValidateBasicType } from "fhir/R4/utilities/validators-tostring.util";
 
 export function getTitle(resource?: FHIRResource): string {
     if (resource == null) return '';
@@ -11,6 +11,8 @@ function getTitleOrEmpty(resource?: FHIRResource): string {
     switch (resource.resourceType) {
         case 'AdverseEvent':
             return codeableConceptToString(resource.event) || codeableConceptToString(resource.category?.[0]) || getTitle(resource.contained?.[0]);
+        case 'AllergyIntolerance':
+            return codeableConceptToString(resource.code);
         case 'Condition':
             return codeableConceptToString(resource.code) ?? ''
         case 'DetectedIssue':
@@ -86,11 +88,12 @@ export function getDisplayElements(resource: Object) {
             ret.push(cleaned);
         }
         else {
-            ret.push({
+            const thisValue: ObjectDisplayElements = {
                 title: key,
                 type: 'value',
                 value: value+''
-            });
+            };
+            ret.push(cleanupObject(thisValue));
         }
     });
 
@@ -102,6 +105,20 @@ function cleanupObject(inputElement: ObjectDisplayElements): ObjectDisplayElemen
 
     if (element.type === 'reference') return element;
 
+    // Cleanup element title (e.g. ...DateTime, ...CodeableConcept, etc)
+    const cleanupTitle = (titleSuffix: string) => {
+        if (element.title.toLowerCase().endsWith(titleSuffix.toLowerCase()) && element.title.length > titleSuffix.length) {
+            element.title = element.title.slice(0, element.title.length - titleSuffix.length);
+        }
+    }
+    cleanupTitle('DateTime');
+    cleanupTitle('String');
+    cleanupTitle('Period');
+    cleanupTitle('CodeableConcept');
+    cleanupTitle('Quantity');
+    cleanupTitle('Boolean');
+    cleanupTitle('PositiveInt');
+
     // Cleanup text
     if (element.type === 'object' && element.value.length === 1 && (element.value[0].title === 'text' || element.value[0].title === 'display')) {
         return ({
@@ -109,6 +126,14 @@ function cleanupObject(inputElement: ObjectDisplayElements): ObjectDisplayElemen
             title: element.title,
             value: element.value[0].value
         }) as ObjectDisplayElements;
+    }
+    // Cleanup datetime
+    if (element.type === 'value' && isAnyDateTime(element.value)) {
+        console.log('datetime')
+        return {
+            ...element,
+            value: dateTimeToString(element.value)
+        }
     }
     // Cleanup coding
     if (element.title === 'coding' && element.type === 'objectArray') {
@@ -208,6 +233,39 @@ function cleanupObject(inputElement: ObjectDisplayElements): ObjectDisplayElemen
                 title: element.title
             }
         }
+
+        // Ratio
+        if (myKeys.includes('numerator') && myKeys.includes('denominator')) {
+            const num = element.value.find(v => v.title === 'numerator')!;
+            const den = element.value.find(v => v.title === 'denominator')!;
+            if (num.type === 'value' && den.type === 'value') {
+                return {
+                    title: element.title,
+                    type: 'value',
+                    value: num.value + ' / ' + den.value
+                };
+            }
+        }
+
+        // Period
+        if (myKeys.includes('start') && myKeys.includes('end')) {
+            const start = element.value.find(v => v.title === 'start')!;
+            const end = element.value.find(v => v.title === 'end')!;
+            if (start.type === 'value' && end.type === 'value') {
+                return {
+                    title: element.title,
+                    type: 'value',
+                    value: start.value + ' - ' + end.value
+                };
+            }
+        }
+
+        // Coding
+        if (displayElementIsCoding(element)) {
+            const val = codingToValue(element);
+            if (val) return val;
+        }
+
         // Reference
         // All properies must be one of these:
         const referenceAllowedKeys = ['reference', 'type', 'identifier', 'display'];
@@ -228,17 +286,6 @@ function cleanupObject(inputElement: ObjectDisplayElements): ObjectDisplayElemen
             }
         }
     }
-    // Cleanup references (if its a value not object)
-    // if (element.type === 'value') {
-    //     if (element.title === 'reference' || element.title === 'identifier' ||  element.title === 'display') {
-    //         return {
-    //             type: 'reference',
-    //             title: element.title,
-    //             value: element.value,
-    //             id: element.value,
-    //         }
-    //     }
-    // }
     // Cleanup array of references
     if (element.type === 'objectArray') {
         const referenceAllowedKeys = ['reference', 'type', 'identifier', 'display'];
@@ -267,6 +314,34 @@ function cleanupObject(inputElement: ObjectDisplayElements): ObjectDisplayElemen
     }
     // No cleanups found
     return element;
+}
+
+function codingToValue(input: ObjectDisplayElements): ObjectDisplayElements | null {
+    if (input.type !== 'object') return null;
+
+    // TODO Integrate version and userSelected if desired
+    const system = input.value.find(d => d.title === 'system')?.value as (string | undefined);
+    const version = input.value.find(d => d.title === 'version')?.value as (string | undefined);
+    const code = input.value.find(d => d.title === 'code')?.value as (string | undefined);
+    const display = input.value.find(d => d.title === 'display')?.value as (string | undefined);
+    const userSelected = input.value.find(d => d.title === 'userSelected')?.value as (string | undefined);
+    
+    const title = display ?? code ?? 'Unknown';
+    let url = system;
+    if (code != null && code.length) url += '#'+code
+    return ({
+        type: 'value',
+        title: input.title,
+        value: title,
+        url
+    });
+}
+function displayElementIsCoding(input: ObjectDisplayElements) {
+    if (input.type !== 'object') return false;
+    const myKeys = input.value.map(v => v.title).filter(k => k != 'id' && k != 'extension');
+    const codingAllowedKeys = ['system', 'code', 'display', 'version', 'userSelected'];
+    if (myKeys.some(k => !codingAllowedKeys.includes(k))) return false;
+    return true;
 }
 
 export type ObjectDisplayElements = {
