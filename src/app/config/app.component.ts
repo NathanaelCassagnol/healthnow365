@@ -9,7 +9,7 @@ import { TopNavMenuItem, TopnavmenuComponent } from 'app/shared/component-librar
 import { AuthService } from 'app/services/auth.service';
 import { AmplifyAuthenticatorModule, AuthenticatorService } from '@aws-amplify/ui-angular';
 
-Amplify.configure(outputs);
+import FHIR from "fhirclient"
 
 @Component({
     selector: 'app-root',
@@ -36,6 +36,9 @@ export class AppComponent {
     
   constructor(public authenticator: AuthenticatorService) {
     Amplify.configure(outputs);
+
+    const client = FHIR.client("https://r3.smarthealthit.org");
+    client.request("Patient").then(console.log).catch(console.error);
   }
 
   UserMenuItems: TopNavMenuItem[] = [

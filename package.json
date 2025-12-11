@@ -23,6 +23,7 @@
     "angular-oauth2-oidc": "^19.0.0",
     "aws-amplify": "^6.8.0",
     "date-fns": "^4.1.0",
+    "fhirclient": "^2.6.0",
     "rxjs": "~7.8.1",
     "tslib": "^2.7.0",
     "zone.js": "0.15.0"
